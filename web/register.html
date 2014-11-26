@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="description" content="Xenon Boostrap Admin Panel" />
+	<meta name="author" content="" />
+	
+	<title>DISTRA-MIT</title>
+	
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Arimo:400,700,400italic">
+	<link rel="stylesheet" href="assets/css/fonts/linecons/css/linecons.css">
+	<link rel="stylesheet" href="assets/css/fonts/fontawesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="assets/css/bootstrap.css">
+	<link rel="stylesheet" href="assets/css/xenon-core.css">
+	<link rel="stylesheet" href="assets/css/xenon-forms.css">
+	<link rel="stylesheet" href="assets/css/xenon-components.css">
+	<link rel="stylesheet" href="assets/css/xenon-skins.css">
+	<link rel="stylesheet" href="assets/css/custom.css">
+
+	<script src="assets/js/jquery-1.11.1.min.js"></script>
+</head>
+<body class="page-body">
+
+	<nav class="navbar horizontal-menu navbar-fixed-top"><!-- set fixed position by adding class "navbar-fixed-top" -->
+		
+		<div class="navbar-inner">
+		
+			<!-- Navbar Brand -->
+			<div class="navbar-brand">
+				<a href="index.html" class="logo">
+					<img src="assets/images/mitforsite.png" width="80" alt="" class="hidden-xs" />
+					<img src="assets/images/mitforsitemini.png" width="80" alt="" class="visible-xs" />
+				</a>
+			</div>
+				
+			<!-- Mobile Toggles Links -->
+			<div class="nav navbar-mobile">
+			
+				<!-- This will toggle the mobile menu and will be visible only on mobile devices -->
+				<div class="mobile-menu-toggle">
+					
+					<a href="#" data-toggle="user-info-menu-horizontal">
+						<i class="fa-key"></i>
+					</a>
+					
+					<a href="#" data-toggle="mobile-menu-horizontal">
+						<i class="fa-bars"></i>
+					</a>
+				</div>
+			</div>
+			
+			<div class="navbar-mobile-clear"></div>
+			
+			<!-- main menu -->
+					
+			<ul class="navbar-nav">
+				<li>
+					<a href="index.html">
+						<i class="fa fa-home"></i>
+						<span class="title">Home</span>
+					</a>
+				</li>
+				<li>
+					<a href="offertaFormativa.html">
+						<i class="linecons-desktop"></i>
+						<span class="title">Offerta Formativa</span>
+					</a>		
+				</li>
+				<li>
+					<a href="gestioneTesi.html">
+						<i class="linecons-graduation-cap"></i>
+						<span class="title">Gestione Tesi</span>
+					</a>
+				</li>
+				<li>
+					<a href="gestioneTirocinio.html">
+						<i class="linecons-megaphone"></i>
+						<span class="title">Gestione Tirocinio</span>
+					</a>
+				</li>
+				<li>
+					<a href="dottorato.html">
+						<i class="linecons-lightbulb"></i>
+						<span class="title">Dottorato</span>
+					</a>
+				</li>
+                <li>
+				    <a href="#">
+				        <i class="linecons-globe"></i>
+						<span class="title">Links</span>
+					</a>
+					<ul>
+						<li>
+							<a href="http://www.magistralemit.unisa.it/" target="_blank">
+								<span class="title">DISTRA-MIT</span>
+							</a>
+						</li>
+						<li>
+							<a href="https://esse3web.unisa.it/unisa/Start.do" target="_blank">
+								<span class="title">Esse3</span>
+							</a>
+						</li>
+					</ul>
+                </li>
+			</ul>
+            
+					
+			
+			<!-- notifications and other links -->
+			<ul class="nav nav-userinfo navbar-right">
+                <li class="active">
+				    <a href="register.html">
+				        <i class="fa-pencil"></i>
+						<span class="title">Registrazione</span>
+					</a>
+                </li>
+				<li>
+				    <a href="login.html">
+				        <i class="fa-user"></i>
+						<span class="title">Login</span>
+					</a>
+                </li>
+			</ul>
+	
+		</div>
+		
+	</nav>
+    <!--BODY-->
+    
+    <div class="page-container">
+        <div class="main-content">
+			<script>
+				jQuery(document).ready(function($){
+					$('a[href="#layout-variants"]').on('click', function(ev)
+					{
+						ev.preventDefault();
+						
+						var win = {top: $(window).scrollTop(), toTop: $("#layout-variants").offset().top - 15};
+						
+						TweenLite.to(win, .3, {top: win.toTop, roundProps: ["top"], ease: Sine.easeInOut, onUpdate: function()
+							{
+								$(window).scrollTop(win.top);
+							}
+						});
+					});
+				});
+			</script>
+		
+			<div class="row">
+				<div class="col-sm-2"></div>
+				<div class="col-sm-8">
+					<div class="panel">
+						<div class="panel-heading">
+							<h3 class="panel-title">Registrati a MITPlatform</h3>
+						</div>
+						
+						<div class="panel-body">
+							<form role="form" class="form-horizontal">
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Nome: </label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" id="nameUser">
+										<span id="validate_nameUser" style="color:#cc3f44"></span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Cognome: </label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" id="surnameUser">
+										<span id="validate_surnameUser" style="color:#cc3f44"></span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Telefono: </label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" id="phoneUser">
+										<span id="validate_phoneUser" style="color:#cc3f44"></span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Citt&agrave;: </label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" id="cityUser">
+										<span id="validate_cityUser" style="color:#cc3f44"></span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Indirizzo: </label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" id="addressUser">
+										<span id="validate_addressUser" style="color:#cc3f44"></span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">C.A.P.: </label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" id="capUser">
+										<span id="validate_capUser" style="color:#cc3f44"></span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Sesso: </label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" id="sexUser">
+										<span id="validate_sexUser" style="color:#cc3f44"></span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Cittadinanza: </label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" id="cityzenshipUser">
+										<span id="validate_cityzenshipUser" style="color:#cc3f44"></span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Codice Fiscale: </label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" id="cfUser">
+										<span id="validate_cfUser" style="color:#cc3f44"></span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">E-mail: </label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" id="emailPersonalUser">
+										<span id="validate_emailPersonalUser" style="color:#cc3f44"></span>
+									</div>
+								</div>
+								<div class="form-group-separator"></div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">E-mail Universitaria: </label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" id="emailUniversityUser">
+										<span id="validate_emailUniversityUser" style="color:#cc3f44"></span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Password: </label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" id="passwordUniversityUser">
+										<span id="validate_passwordUniversityUser" style="color:#cc3f44"></span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Ripeti Password: </label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" id="repeatPasswordUniversityUser">
+										<span id="validate_repeatPasswordUniversityUser" style="color:#cc3f44"></span>
+									</div>
+								</div>
+								<div align="center">
+									<button type="button" id="sendCodeForCompleteRecording" class="btn btn-blue">Inviami Codice</button>
+								</div>
+								<div class="form-group-separator"></div>
+								<div> <h3> Conferma E-mail </h3> </div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Inserisci Il codice di attivazione: </label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" id="codeActivationUser" disabled>
+									</div>
+								</div>
+								<div align="center">
+									<button type="button" class="btn btn-red" id="registerCompleteForUpdateIntoDatabase" disabled>Registrazione</button>
+								</div>
+								
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-2"></div>
+			</div>
+			<footer class="main-footer sticky footer-type-1">
+				<div class="footer-inner">
+					<!-- Add your copyright text here -->
+					<div class="footer-text">
+						&copy;
+						<a href="http://www.unisa.it" target="_blank"><strong>Unisa</strong> </a>
+					</div>
+					<!-- Go to Top Link, just add rel="go-top" to any link to add this functionality -->
+					<div class="go-up">
+						<a href="#" rel="go-top">
+							<i class="fa-angle-up"></i>
+						</a>
+					</div>
+				</div>
+			</footer>
+        </div>
+    </div>
+
+	
+	<!-- Bottom Scripts -->
+	<script src="assets/js/bootstrap.min.js"></script>
+	<script src="assets/js/TweenMax.min.js"></script>
+	<script src="assets/js/resizeable.js"></script>
+	<script src="assets/js/joinable.js"></script>
+	<script src="assets/js/xenon-api.js"></script>
+	<script src="assets/js/xenon-toggles.js"></script>
+	<script src="assets/js/jquery-ui/jquery-ui.min.js"></script>
+
+	<!-- JavaScripts initializations and stuff -->
+	<script src="assets/js/xenon-custom.js"></script>
+	
+	<script>
+		// funzione che controlla se i campi sono vuoti, passando l'opportuno id
+		function emptyControl(id){
+			if($("#"+id).val() == "")
+				return false;
+			return true;
+		}
+		
+		// funzione che mi rilascia dei messaggio sotto ogni campo vuoto
+		function checkNotEmptyFields(){
+			var tmp1 = emptyControl("nameUser");
+			var tmp2 = emptyControl("surnameUser");
+			var tmp3 = emptyControl("phoneUser");
+			var tmp4 = emptyControl("cityUser");
+			var tmp5 = emptyControl("addressUser");
+			var tmp6 = emptyControl("capUser");
+			var tmp7 = emptyControl("sexUser");
+			var tmp8 = emptyControl("cityzenshipUser");
+			var tmp9 = emptyControl("cfUser");
+			var tmp10 = emptyControl("emailPersonalUser");
+			var tmp11 = emptyControl("emailUniversityUser");
+			var tmp12 = emptyControl("passwordUniversityUser");
+			var tmp13 = emptyControl("repeatPasswordUniversityUser");
+			var tmp14 = false;
+			
+			if(!tmp1) {
+				$("#validate_nameUser").html("Campo nome vuoto");
+				$("#nameUser").attr("style","border-color:#cc3f44;");
+			}
+			if(!tmp2) {
+				$("#validate_surnameUser").html("Campo cognome vuoto");
+				$("#surnameUser").attr("style","border-color:#cc3f44;");
+			}
+			if(!tmp3) {
+				$("#validate_phoneUser").html("Campo telefono vuoto");
+				$("#phoneUser").attr("style","border-color:#cc3f44;");
+			}
+			if(!tmp4) {
+				$("#validate_cityUser").html("Campo città vuoto");
+				$("#cityUser").attr("style","border-color:#cc3f44;");
+			}
+			if(!tmp5) {
+				$("#validate_addressUser").html("Campo indirizzo vuoto");
+				$("#addressUser").attr("style","border-color:#cc3f44;");
+			}
+			if(!tmp6) {
+				$("#validate_capUser").html("Campo C.A.P. vuoto");
+				$("#capUser").attr("style","border-color:#cc3f44;");
+			}
+			if(!tmp7) {
+				$("#validate_sexUser").html("Campo Sesso vuoto");
+				$("#sexUser").attr("style","border-color:#cc3f44;");
+			}
+			if(!tmp8) {
+				$("#validate_cityzenshipUser").html("Campo cittadinanza vuoto");
+				$("#cityzenshipUser").attr("style","border-color:#cc3f44;");
+			}
+			if(!tmp9) {
+				$("#validate_cfUser").html("Campo codice fiscale vuoto");
+				$("#cfUser").attr("style","border-color:#cc3f44;");
+			}
+			if(!tmp10) {
+				$("#validate_emailPersonalUser").html("Campo email vuoto");
+				$("#emailPersonalUser").attr("style","border-color:#cc3f44;");
+			}
+			if(!tmp11) {
+				$("#validate_emailUniversityUser").html("Campo email vuoto");
+				$("#emailUniversityUser").attr("style","border-color:#cc3f44;");
+			}
+			if(!tmp12) {
+				$("#validate_passwordUniversityUser").html("Campo password vuoto");
+				$("#passwordUniversityUser").attr("style","border-color:#cc3f44;");
+			}
+			if(!tmp13) {
+				$("#validate_repeatPasswordUniversityUser").html("Campo password vuoto");
+				$("#repeatPasswordUniversityUser").attr("style","border-color:#cc3f44;");
+			}
+			
+			if($("#passwordUniversityUser").val() === $("#repeatPasswordUniversityUser").val()) {
+				tmp14 = true;
+			}else{
+				$("#validate_repeatPasswordUniversityUser").html("Password non uguali");
+				$("#repeatPasswordUniversityUser").attr("style","border-color:#cc3f44;");
+			}
+			
+			var result = ((tmp1 && tmp2) && (tmp3 && tmp4) && (tmp5 && tmp6) && (tmp7 && tmp8) && (tmp9 && tmp10) && (tmp11 && tmp12) && (tmp13 && tmp14));
+			return result;
+		}
+		
+		jQuery(document).ready(function($){
+			//DA QUI
+			$("#nameUser").keyup(function(){
+				$("#nameUser").attr("style","border-color:#e4e4e4;");
+				$("#validate_nameUser").html("");
+			});
+			$("#surnameUser").keyup(function(){
+				$("#surnameUser").attr("style","border-color:#e4e4e4;");
+				$("#validate_surnameUser").html("");
+			});
+			$("#phoneUser").keyup(function(){
+				$("#phoneUser").attr("style","border-color:#e4e4e4;");
+				$("#validate_phoneUser").html("");
+			});
+			$("#cityUser").keyup(function(){
+				$("#cityUser").attr("style","border-color:#e4e4e4;");
+				$("#validate_cityUser").html("");
+			});
+			$("#addressUser").keyup(function(){
+				$("#addressUser").attr("style","border-color:#e4e4e4;");
+				$("#validate_addressUser").html("");
+			});
+			$("#capUser").keyup(function(){
+				$("#capUser").attr("style","border-color:#e4e4e4;");
+				$("#validate_capUser").html("");
+			});
+			$("#sexUser").keyup(function(){
+				$("#sexUser").attr("style","border-color:#e4e4e4;");
+				$("#validate_sexUser").html("");
+			});
+			$("#cityzenshipUser").keyup(function(){
+				$("#cityzenshipUser").attr("style","border-color:#e4e4e4;");
+				$("#validate_cityzenshipUser").html("");
+			});
+			$("#cfUser").keyup(function(){
+				$("#cfUser").attr("style","border-color:#e4e4e4;");
+				$("#validate_cfUser").html("");
+			});
+			$("#emailPersonalUser").keyup(function(){
+				$("#emailPersonalUser").attr("style","border-color:#e4e4e4;");
+				$("#validate_emailPersonalUser").html("");
+			});
+			$("#emailUniversityUser").keyup(function(){
+				$("#emailUniversityUser").attr("style","border-color:#e4e4e4;");
+				$("#validate_emailUniversityUser").html("");
+			});
+			$("#passwordUniversityUser").keyup(function(){
+				$("#passwordUniversityUser").attr("style","border-color:#e4e4e4;");
+				$("#validate_passwordUniversityUser").html("");
+			});
+			$("#repeatPasswordUniversityUser").keyup(function(){
+				$("#repeatPasswordUniversityUser").attr("style","border-color:#e4e4e4;");
+				$("#validate_repeatPasswordUniversityUser").html("");
+			});
+			// A QUI
+			// LE FUNZIONI SCRITTE FINO A QUESTO PUNTO SERVONO PER FARE IL CLEAR DEI CAMPI, SETTANDO I BORDI ROSSI, E I MESSAGGI DI ERRORE
+			
+			//funzione che controlla i campi, qualora i campi sono 'pieni', rilascia il codice identificativo sulla email
+			// Al momento è solo da simulare
+			$("#sendCodeForCompleteRecording").click(function(){
+				if(checkNotEmptyFields()){
+					var x = Math.floor((Math.random() * 999999) + 1);
+					$("#codeActivationUser").attr("disabled",false);
+					$("#registerCompleteForUpdateIntoDatabase").attr("disabled",false);
+					alert("Il tuo codice è: "+x+"\nSi prega di scriverlo nell apposito campo");
+					
+					// Immetto una localStorage per simulare il Database (verrà rimossa qualora si ultima la servlet)
+					localStorage.setItem("codice",x);
+				}
+			});
+			$("#codeActivationUser").keyup(function(){
+				$("#codeActivationUser").attr("style","border-color:#e4e4e4;");
+			});
+			
+			$("#registerCompleteForUpdateIntoDatabase").click(function(){
+				if(emptyControl("codeActivationUser")){
+					if(localStorage.getItem("codice") === $("#codeActivationUser").val()){
+						$("#codeActivationUser").attr("style","border-color:#e4e4e4;");
+						alert("Ok, il codice è giusto");
+					}else{
+						$("#codeActivationUser").attr("style","border-color:#cc3f44;");
+						alert("il codice è errato");
+					}
+				}else{
+					$("#codeActivationUser").attr("style","border-color:#cc3f44;");
+					alert("il codice è vuoto");
+				}
+			});
+		});
+	</script>
+
+	
+	
+</body>
+</html>
