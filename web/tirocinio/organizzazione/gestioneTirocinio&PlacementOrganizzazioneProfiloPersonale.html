@@ -36,7 +36,7 @@
 					localStorage.removeItem("gestioneTirocinio");
 					localStorage.removeItem("dottorato");
 					localStorage.removeItem("superAmministratore");
-					window.location.href="index.html";
+					window.location.href="../../index.html";
 				}
 			});
 			
@@ -48,7 +48,7 @@
 			$("#funzionalita3Permission_"+localStorage.getItem("gestioneTirocinio")).empty();	
 			
 			/*if(localStorage.getItem("username")==null){
-				window.location.replace("pageError.html");
+				window.location.replace("../../pageError.html");
 			}*/
 			
 			$("#spaceForUsername").html(localStorage.getItem("username")+' <i class="fa-angle-down"></i>');
@@ -57,7 +57,7 @@
 				localStorage.removeItem("username");
 				localStorage.removeItem("typology");
 				localStorage.removeItem("primaryKey");
-				window.location.href="index.html";
+				window.location.href="../../index.html";
 				
 				localStorage.removeItem("offertaFormativa");
 				localStorage.removeItem("gestioneTesi");
@@ -86,7 +86,7 @@
 		
 			<!-- Navbar Brand -->
 			<div class="navbar-brand">
-				<a href="gestioneTirocinio&PlacementOrganizzazione.html" class="logo">
+				<a href="../../offertaFormativa/organizzazione/gestioneTirocinio&PlacementOrganizzazione.html" class="logo">
 					<img src="../../assets/images/mitforsite.png" width="80" alt="" class="hidden-xs" />
 					<img src="../../assets/images/mitforsitemini.png" width="80" alt="" class="visible-xs" />
 				</a>
@@ -114,7 +114,7 @@
 					
 			<ul class="navbar-nav">
 				<li>
-					<a href="offertaFormativaOrganizzazione.html">
+					<a href="../../offertaFormativa/organizzazione/offertaFormativaOrganizzazione.html">
 						<i class="linecons-desktop"></i>
 						<span class="title">Offerta Formativa</span>
 					</a>
@@ -126,7 +126,7 @@
 					</a>
 				</li>
 				<li class="opened active">
-					<a href="gestioneTirocinio&PlacementOrganizzazione.html">
+					<a href="../../tirocinio/organizzazione/gestioneTirocinio&PlacementOrganizzazione.html">
 						<i class="linecons-megaphone"></i>
 						<span class="title">Gestione Tirocinio</span>
 					</a>
@@ -167,7 +167,7 @@
 					
 					<ul class="dropdown-menu user-profile-menu list-unstyled">
 						<li>
-							<a href="gestioneTirocinio&PlacementOrganizzazioneProfiloPersonale.html">
+							<a href="../../tirocinio/organizzazione/gestioneTirocinio&PlacementOrganizzazioneProfiloPersonale.html">
 								<i class="fa-edit"></i>
 								Profilo
 							</a>
@@ -196,7 +196,7 @@
 					<!-- add class "multiple-expanded" to allow multiple submenus to open -->
 					<!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
 					<li id="offertaTirocini" class="opened active">
-						<a href="gestioneTirocinio&PlacementStudente.html">
+						<a href="../../tirocinio/organizzazione/gestioneTirocinio&PlacementOrganizzazione.html">
 							<i class="linecons-cog"></i>
 							<span class="title">Offerta Tirocinio</span>
 						</a>

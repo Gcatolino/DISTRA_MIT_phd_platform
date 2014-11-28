@@ -2,14 +2,18 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- */  
-package it.unisa.integrazione.servlet;
-   
+ */
+package it.unisa.tirocinio.servlet;
+
+
 import it.unisa.integrazione.database.*;
 import it.unisa.integrazione.manager.concrete.*;
+import it.unisa.tirocinio.database.*;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -17,14 +21,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.*;
+import org.json.JSONArray;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
  * @author carlosborges
  */
-@WebServlet(name = "AuthenticateUserServlet", urlPatterns = {"/AuthenticateUserServlet"})
-public class AuthenticateUserServlet extends HttpServlet {
+@WebServlet(name = "StudenteAttDetailsServlet", urlPatterns = {"/StudenteAttDetailsServlet"})
+public class StudenteAttDetailsServlet extends HttpServlet {
 
     private final JSONObject message = new JSONObject();
 
@@ -36,38 +43,47 @@ public class AuthenticateUserServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     * @throws java.lang.ClassNotFoundException
-     * @throws java.sql.SQLException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ClassNotFoundException, SQLException {
-
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        response.setHeader("Access-Control-Allow-Origin","*");
-        String userName = request.getParameter("username");
-        String password = request.getParameter("password");
+            throws ServletException, IOException {
         
-        ConcreteAccount anAccount;
-        AuthenticateUser handleUser = new AuthenticateUser();
+        JSONArray studentList = new JSONArray();
+        response.setContentType("text/html;charset=UTF-8");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        PrintWriter out = response.getWriter();
         try {
-            anAccount = handleUser.authenticate(userName, password);
-            if (anAccount != null) {
-                message.put("status", 1);
-                message.put("primaryKey", anAccount.getPrimaryKey());
-                message.put("userType", anAccount.getTypeOfAccount());
-                message.put("userName", anAccount.getUserName());
-                message.put("classPermission", ((ConcretePermissions) anAccount.getFKPermission()).getClassPermission());
-                response.getWriter().write(message.toString());
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet NewServlet</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet NewServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+            StudentAttendanceDetails details = new StudentAttendanceDetails();
+            ArrayList<StudentTrainingInformation> dataToReturn = details.getStudentDetails();
+            for (StudentTrainingInformation aStundetInfo : dataToReturn) {
+                JSONObject studentInfo = new JSONObject();
+                studentInfo.put("serialNumber", aStundetInfo.getStudent().getPrimaryKey());
+                studentInfo.put("name", aStundetInfo.getFisicPerson().getName());
+                studentInfo.put("surname", aStundetInfo.getFisicPerson().getLastName());
+                studentInfo.put("cvPath", aStundetInfo.getStudentInformation().getCurriculumVitaePATH());
+                studentInfo.put("atPath", aStundetInfo.getStudentInformation().getAccademicTranscriptPATH());
+                studentInfo.put("email", aStundetInfo.getStudent().getUniversityEmail());
+                studentList.put(studentInfo);
             }
-            if (anAccount == null) {
-                message.put("status", 0);
-                response.getWriter().write(message.toString());
-            }
-        } catch (JSONException ex) {
-            Logger.getLogger(AuthenticateUserServlet.class.getName()).log(Level.SEVERE, null, ex);
+            out.println(studentList);
+            message.put("StudentList", studentList);
+            response.getWriter().write(message.toString());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(StudenteAttDetailsServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(AuthenticateUserServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StudenteAttDetailsServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(StudenteAttDetailsServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            //out.close();
         }
     }
 
@@ -83,13 +99,7 @@ public class AuthenticateUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(AuthenticateUserServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(AuthenticateUserServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -103,13 +113,7 @@ public class AuthenticateUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(AuthenticateUserServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(AuthenticateUserServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

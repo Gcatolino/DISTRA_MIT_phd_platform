@@ -18,12 +18,13 @@
 	<link rel="stylesheet" href="../../assets/css/xenon-forms.css">
 	<link rel="stylesheet" href="../../assets/css/xenon-components.css">
 	<link rel="stylesheet" href="../../assets/css/xenon-skins.css">
+    <link rel="stylesheet" href="../../assets/css/jquery.fileupload.css">
 	<link rel="stylesheet" href="../../assets/css/custom.css">
 
+
 	<script src="../../assets/js/jquery-1.11.1.min.js"></script>
-	<script>		
+	<script>
 		jQuery(document).ready(function($){
-			
 			/*bisogna metterla in ogni pagina*/
 			$(window).on('beforeunload',function(e) {
 				if(localStorage.getItem("rememberMeForLogin")=="no"){
@@ -38,6 +39,7 @@
 					localStorage.removeItem("superAmministratore");
 					window.location.href="../../index.html";
 				}
+                
 			});
 			
 			//quì ci vanno gli ID delle funzionalità che verranno messe all interno del menù laterale...basta copiare una riga e incollarla,
@@ -66,7 +68,6 @@
 				localStorage.removeItem("superAmministratore");
 				
 			});
-					
 		});
 	</script>
 
@@ -86,7 +87,7 @@
 		
 			<!-- Navbar Brand -->
 			<div class="navbar-brand">
-				<a href="../../offertaFormativa/professore/offertaFormativaProfessore.html" class="logo">
+				<a href="../../offertaFormativa/amministratore/offertaFormativaAmministratore.html" class="logo">
 					<img src="../../assets/images/mitforsite.png" width="80" alt="" class="hidden-xs" />
 					<img src="../../assets/images/mitforsitemini.png" width="80" alt="" class="visible-xs" />
 				</a>
@@ -114,7 +115,7 @@
 					
 			<ul class="navbar-nav">
 				<li>
-					<a href="../../offertaFormativa/professore/offertaFormativaProfessore.html">
+					<a href="../../offertaFormativa/amministratore/offertaFormativaAmministratore.html">
 						<i class="linecons-desktop"></i>
 						<span class="title">Offerta Formativa</span>
 					</a>
@@ -126,7 +127,7 @@
 					</a>
 				</li>
 				<li class="opened active">
-					<a href="../../tirocinio/professore/gestioneTirocinio&PlacementProfessore.html">
+					<a href="../../tirocinio/amministratore/gestioneTirocinio&PlacementAmministratore.html">
 						<i class="linecons-megaphone"></i>
 						<span class="title">Gestione Tirocinio</span>
 					</a>
@@ -167,7 +168,7 @@
 					
 					<ul class="dropdown-menu user-profile-menu list-unstyled">
 						<li>
-							<a href="../../tirocinio/professore/gestioneTirocinio&PlacementProfessoreProfiloPersonale.html">
+							<a href="../../tirocinio/amministratore/gestioneTirocinio&PlacementAmministratoreProfiloPersonale.html">
 								<i class="fa-edit"></i>
 								Profilo
 							</a>
@@ -195,10 +196,22 @@
 				<ul id="main-menu" class="main-menu">
 					<!-- add class "multiple-expanded" to allow multiple submenus to open -->
 					<!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
-					<li id="offertaTirocini" class="opened active">
-						<a href="../../tirocinio/professore/gestioneTirocinio&PlacementProfessore.html">
+					<li>
+						<a href="../../tirocinio/amministratore/gestioneTirocinio&PlacementAmministratore.html">
 							<i class="linecons-cog"></i>
 							<span class="title">Offerta Tirocinio</span>
+						</a>
+					</li>
+					<li id="inserimentoModuli" class="opened active">
+						<a href="../../tirocinio/amministratore/gestioneTirocinio&PlacementAmministratoreInserimentoFile.html">
+							<i class="linecons-cog"></i>
+							<span class="title">Inserimento Moduli</span>
+						</a>
+					</li>
+					<li id="correlazioneTirocinio">
+						<a href="../../tirocinio/amministratore/gestioneTirocinio&PlacementAmministratoreAssociazioneTirocinioProfessore.html">
+							<i class="linecons-cog"></i>
+							<span class="title">Correlazione Tirocinio</span>
 						</a>
 					</li>
 				</ul>
@@ -222,115 +235,113 @@
 							}
 						});
 					});
+                    
+                    $("#sendModules").on('click', function(e){
+                       if($('#trainingPlan').val() == '' || $('#examsCarriedOut').val() == ''){
+                            $("#moduleControl").attr("class","alert alert-danger");
+				            $("#moduleControl").html("<strong>Attenzione! </strong>Entrambi i files devono essere presenti prima di inviare la richiesta.");
+                           return;
+                       }
+                        $("#moduleControl").empty();
+                        $("#moduleControl").html('<center><i class="fa fa-spin fa-2x fa-circle-o-notch" style="font-size:2em;color:#38548f;"></i></center>');
+                        //$("sendFilesForm").attr('action', 'localhost:8080/ServerWeb/UploadInformationFilesServlet');
+                        //$("sendFilesForm").attr('enctype', "multipart/form-data");
+                        //$("sendFilesForm").attr("target", "postiframe");
+                        //$("sendFilesForm").attr("file", $('#file').val());
+
+                        var cvFile = document.getElementById("trainingPlan").files[0];
+                        var examsFile = document.getElementById("examsCarriedOut").files[0];
+                        var formdata = new FormData();
+						
+                        formdata.append("id", localStorage.getItem('primaryKey'));
+                        formdata.append("modulefile", cvFile);
+                        formdata.append("registerfile", examsFile);
+                        $.ajax({
+                          url: 'http://localhost:8080/ServerWebPlacement/UploadInformationForModuleFilesServlet',
+                          data: formdata,
+                          processData: false,
+                          contentType: false,
+                          type: 'POST',
+                          success: function(data){
+                            if(data.indexOf("Exception") > -1){
+								$("#moduleControl").empty();								
+								$("#moduleControl").attr("class","alert alert-danger");
+								$("#moduleControl").html("<strong>Errore! </strong>C'è stato un errore nell'elaborazione dei dati. Per favore, riprova a breve.");
+								return;
+							}
+							var parsed = JSON.parse(data);
+							if(parsed.status==0){
+								$("#moduleControl").empty();								
+								$("#moduleControl").attr("class","alert alert-danger");
+								$("#moduleControl").html("<strong>Errore! </strong>C'è stato un errore nell'elaborazione dei dati. Per favore, riprova a breve.");
+							}else{
+								$("#moduleControl").empty();							
+								$("#moduleControl").attr("class","alert alert-success");
+								$("#moduleControl").html("<strong>Caricamento effettuato! </strong> Verrai ora reindirizzato sulla pagina di visualizzazione dello stato.");
+								setTimeout(function(){
+									location.reload();
+								},5000);
+							}
+                          },
+                          error:function(e){
+                              	$("#moduleControl").empty();								
+								$("#moduleControl").attr("class","alert alert-danger");
+								$("#moduleControl").html("<strong>Errore! </strong>C'è stato un errore nell'elaborazione dei dati. Per favore, riprova a breve.");
+                          }
+                        });
+                    });
 				});
 			</script>
-			
-			<div class="row">
+            
+            <div class="row">
+               
 				<div class="col-md-12">
 					
-					<!-- Tabbed panel -->
-					<div class="panel"><!-- Add class "collapsed" to minimize the panel -->
+					<!-- Default panel -->
+					<div class="panel panel-default">
 						<div class="panel-heading">
-							<h3 class="panel-title">Tabbed panel</h3>
-							
-							<div class="panel-options">
-								
-								<ul class="nav nav-tabs">
-									<li class="active">
-										<a href="#tab-1" data-toggle="tab">Dati Personali</a>
-									</li>
-									<li>
-										<a href="#tab-2" data-toggle="tab">Dati Universitari</a>
-									</li>
-								</ul>
-								
-							</div>
+							Inserimento Modulistica
 						</div>
 						
 						<div class="panel-body">
 							
-							<div class="tab-content">
-								
-								<div class="tab-pane active" id="tab-1">
-									<form role="form" class="form-horizontal">
-										<div class="form-group">
-											<label class="col-sm-3 control-label"><strong>Nome del Professore: </strong></label>
-											<span class="col-sm-9" id="nameProfessorForPanelOfThePersonalProfile"></span>
-										</div>
-										<div class="form-group">
-											<label class="col-sm-3 control-label"><strong>Cognome del Professore: </strong></label>
-											<span class="col-sm-9" id="surnameProfessorForPanelOfThePersonalProfile"></span>
-										</div>
-										<div class="form-group">
-											<label class="col-sm-3 control-label"><strong>Recapito Telefonico del Professore: </strong></label>
-											<span class="col-sm-9" id="phoneProfessorForPanelOfThePersonalProfile"></span>
-										</div>
-										<div class="form-group">
-											<label class="col-sm-3 control-label"><strong>Città di residenza del Professore: </strong></label>
-											<span class="col-sm-9" id="cityProfessorForPanelOfThePersonalProfile"></span>
-										</div>
-										<div class="form-group">
-											<label class="col-sm-3 control-label"><strong>Vià/Piazza di Residenza del Professore: </strong></label>
-											<span class="col-sm-9" id="addressProfessorForPanelOfThePersonalProfile"></span>
-										</div>
-										<div class="form-group">
-											<label class="col-sm-3 control-label"><strong>C.A.P.: </strong></label>
-											<span class="col-sm-9" id="capProfessorForPanelOfThePersonalProfile"></span>
-										</div>
-										<div class="form-group">
-											<label class="col-sm-3 control-label"><strong>Sesso del Professore: </strong></label>
-											<span class="col-sm-9" id="sexProfessorForPanelOfThePersonalProfile"></span>
-										</div>
-										<div class="form-group">
-											<label class="col-sm-3 control-label"><strong>Cittadinanza del Professore: </strong></label>
-											<span class="col-sm-9" id="cityzenshipProfessorForPanelOfThePersonalProfile"></span>
-										</div>
-										<div class="form-group">
-											<label class="col-sm-3 control-label"><strong>Codice Fiscale del Professore: </strong></label>
-											<span class="col-sm-9" id="cfProfessorForPanelOfThePersonalProfile"></span>
-										</div>
-										<div class="form-group">
-											<label class="col-sm-3 control-label"><strong>E-mail del Professore: </strong></label>
-											<span class="col-sm-9" id="emailProfessorForPanelOfThePersonalProfile"></span>
-										</div>
-									</form>
-								</div>
-								
-								<div class="tab-pane" id="tab-2">
-									<form role="form" class="form-horizontal">
-										<div class="form-group">
-											<label class="col-sm-3 control-label"><strong>ID Professore: </strong></label>
-											<span class="col-sm-9" id="serialNumberProfessorForPanelOfThePersonalProfile"></span>
-										</div>
-										<div class="form-group">
-											<label class="col-sm-3 control-label"><strong>Fascia: </strong></label>
-											<span class="col-sm-9" id="positionProfessorForPanelOfThePersonalProfile"></span>
-										</div>
-										<div class="form-group">
-											<label class="col-sm-3 control-label"><strong>Ore d'ufficio: </strong></label>
-											<span class="col-sm-9" id="officeHoursProfessorForPanelOfThePersonalProfile"></span>
-										</div>
-										<div class="form-group">
-											<label class="col-sm-3 control-label"><strong>E-mail universitaria: </strong></label>
-											<span class="col-sm-9" id="emailOfTheUniversityStudentForPanelOfThePersonalProfile"></span>
-										</div>
-										<div class="form-group">
-											<label class="col-sm-3 control-label"><strong>E-mail Universitaria: </strong></label>
-											<span class="col-sm-9" id="emailAccademicProfessorForPanelOfThePersonalProfile"></span>
-										</div>
-										<div class="form-group">
-											<label class="col-sm-3 control-label"><strong>Dipartimento Afferente: </strong></label>
-											<span class="col-sm-9" id="dipartimentProfessorForPanelOfThePersonalProfile"></span>
-										</div>
-										<div class="form-group-separator"></div>
-									</form>
-								</div>
-							</div>
+							<p>Questa sezione del sito ti permetterà di inoltrare i moduli inerenti al tirocinio. Per inviare la tua richiesta, è necessario tu possieda i moduli "Piano Formativo" e "Registro Ore" sul quale riportate le informazioni relative.</p>
+							<p>Entrambi i files devono essere in formato PDF. Gli Studenti, in seguito, potranno scaricare i suddetti moduli mediante accesso alle proprie aree dedicate e compilarli.</p>
+                            <br><br>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <form role="form" class="form-horizontal" id="sendModulesForm" enctype="multipart/form-data">
+                                            <label class="col-sm-2 control-label" for="trainingPlan" >Piano Formativo</label>
+
+                                            <div class="col-sm-10">
+                                                <input type="file" class="form-control" id="trainingPlan" name="tp" accept="application/pdf">
+                                            </div>
+                                            <label class="col-sm-2 control-label" for="examsCarriedOut">Esami svolti</label>
+                                            <br><br>
+                                            <div class="col-sm-10">
+                                                <input type="file" class="form-control" id="examsCarriedOut" name="eco" accept="application/pdf">
+                                            </div>
+                                            <br><br><br>
+                                            <div id="moduleControl" align="center"></div>
+                                            <div class="row">
+                                                <center><span class="btn btn-success fileinput-button" id="sendModules">
+                                                    <i class="fa-arrow-up"></i>
+                                                    <span>Invia Modulo</span>
+                                                    <!-- The file input field used as target for the file upload widget -->
+                                                </span>    
+                                                </center>
+                                            </div>
+                                        </form>
+									</div>
+                                </div>
+                            </div>
 						</div>
 					</div>
+					
 				</div>
+                
 			</div>
-			
 			<!-- Main Footer -->
 			<!-- Choose between footer styles: "footer-type-1" or "footer-type-2" -->
 			<!-- Add class "sticky" to  always stick the footer to the end of page (if page contents is small) -->
@@ -363,38 +374,11 @@
 		
 	</div>
 	
-	<div class="modal fade" id="modalGestioneTirocinioANDPlacementOrganizzazione">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<center><h4 class="modal-title">Modifica il Tirocinio.</h4></center>
-				</div>
-				<div class="modal-body">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="form-group">
-								<label for="descriptionTrainingForModify" class="col-sm-3 control-label">Descrizione del Tirocinio</label>
-								<div class="col-sm-9">
-									<textarea id="descriptionTrainingForModify" class="form-control" placeholder="" rows="5" cols="5" maxlength="250"></textarea>
-								</div>
-							</div>	
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<center>
-						<button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-						<button type="button" id="mandalo" class="btn btn-info">Save changes</button>
-					</center>
-				</div>
-			</div>
-		</div>
-	</div>
-	
 	<div class="page-loading-overlay">
 		<div class="loader-2"></div>
 	</div>
-	
+
+
 	<!-- Bottom Scripts -->
 	<script src="../../assets/js/bootstrap.min.js"></script>
 	<script src="../../assets/js/TweenMax.min.js"></script>
@@ -402,46 +386,10 @@
 	<script src="../../assets/js/joinable.js"></script>
 	<script src="../../assets/js/xenon-api.js"></script>
 	<script src="../../assets/js/xenon-toggles.js"></script>
-
+    <script src="../../assets/js/rwd-table/js/rwd-table.min.js"></script>
 
 	<!-- JavaScripts initializations and stuff -->
 	<script src="../../assets/js/xenon-custom.js"></script>
-	<script>		
-		function emptyControl(id){
-			if($("#"+id).val() == "")
-				return false;
-			return true;
-		}
-		
-		function checkNotEmptyFields(){
-			var tmp2 = emptyControl("descriptionTrainingOrganizzazione");
-			if(!tmp2) {
-				$("#validate_descriptionTrainingOrganizzazione").html("Campo descrizione vuoto");
-				$("#descriptionTrainingOrganizzazione").attr("style","border-color:#cc3f44;");
-			}
-			
-			return tmp2;
-		}
-		
-		jQuery(document).ready(function($){
-		
-			$("#descriptionTrainingOrganizzazione").keyup(function(){
-				$("#descriptionTrainingOrganizzazione").attr("style","border-color:#e4e4e4;");
-				$("#validate_descriptionTrainingOrganizzazione").html("");
-			});
-			
-			$("#addTrainingOrganizzazione").click(function(){
-				$("#messageTrainingControl").removeAttr("class");
-				$("#messageTrainingControl").empty();
-				$("#addTrainingOrganizzazione").text("Attendi...");
-				if(checkNotEmptyFields()){
-					$("#messageTrainingControl").html('<center><i class="fa fa-spin fa-2x fa-circle-o-notch" style="font-size:2em;color:#38548f;"></i></center>');
-					alert($("#titleTrainingOrganizzazione").val()+" - "+$("#descriptionTrainingOrganizzazione").val());
-				}
-				$("#addTrainingOrganizzazione").text("Aggiungi Tirocinio");
-			});
-		});
-	</script>
-	
+
 </body>
 </html>

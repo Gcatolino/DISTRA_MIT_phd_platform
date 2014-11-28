@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.unisa.tp.control;
+package it.unisa.integrazione.database;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import it.unisa.tp.model.concrete.ConcreteAccount;
-import it.unisa.tp.model.concrete.ConcretePermissions;
+import it.unisa.integrazione.manager.concrete.*;
 import java.io.IOException;
 
 /**

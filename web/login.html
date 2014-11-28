@@ -23,22 +23,19 @@
 	<script src="assets/js/jquery-1.11.1.min.js"></script>
 	<script>
 		jQuery(document).ready(function($){
-			if(localStorage.getItem("username")!== null){
-                
-                switch( localStorage.getItem("typology") ){
-					case 'Professore':
-						window.location.replace("offertaFormativaProfessore.html");
-					break;
-					case 'Studente':
-						window.location.replace("offertaFormativaStudente.html");
-					break;
-					case 'Organizzazione':
-						window.location.replace("gestioneTirocinio&PlacementOrganizzazione.html");
-					break;
-					case 'Amministratore':
-						window.location.replace("offertaFormativaAmministratore.html");
-					break;
-                }
+			if(localStorage.getItem("username")!=null){
+				if(localStorage.getItem("typology")=="Professore"){
+					window.location.href="offertaFormativa/professore/offertaFormativaProfessore.html";
+				}
+				if(localStorage.getItem("typology")=="Studente"){
+					window.location.href="offertaFormativa/studente/offertaFormativaStudente.html";
+				}
+				if(localStorage.getItem("typology")=="Organizzazione"){
+					window.location.href="tirocinio/organizzazione/gestioneTirocinio&PlacementOrganizzazione.html";
+				}
+				if(localStorage.getItem("typology")=="Amministratore"){
+					window.location.href="offertaFormativa/amministratore/offertaFormativaAmministratore.html";
+				}
 			}
 		});
 	</script>
@@ -288,7 +285,7 @@
 				$("#signin").text("Attendi...");
 				if(checkNotEmptyFields()){
 					$("#messageControl").html('<center><i class="fa fa-spin fa-2x fa-circle-o-notch" style="font-size:2em;color:#38548f;"></i></center>');
-					$.get("http://localhost:8080/ServerWeb/AuthenticateUserServlet",{username:$("#username").val(),password:$("#password").val()}).done(function(e){
+					$.get("http://localhost:8080/ServerWebPlacement/AuthenticateUserServlet",{username:$("#username").val(),password:$("#password").val()}).done(function(e){
 						var parsed = jQuery.parseJSON(e);
 						if(parsed.status==0){
 							$("#messageControl").attr("class","alert alert-danger");
@@ -315,19 +312,19 @@
 							localStorage.setItem("superAmministratore",myArray[4]);
 							
 							if(localStorage.getItem("typology")==="Studente"){
-								var url = 'offertaFormativaStudente.html';
+								var url = 'offertaFormativa/studente/offertaFormativaStudente.html';
                                 window.location.href= url;
 							}
 							if(localStorage.getItem("typology")==="Professore"){
-								var url = 'offertaFormativaProfessore.html';
+								var url = 'offertaFormativa/professore/offertaFormativaProfessore.html';
                                 window.location.href= url;
 							}
 							if(localStorage.getItem("typology")==="Organizzazione"){
-								var url = 'gestioneTirocio&PlacementOrganizzazione.html';
+								var url = 'tirocinio/organizzazione/gestioneTirocinio&PlacementOrganizzazione.html';
                                 window.location.href= url;
 							}
 							if(localStorage.getItem("typology")==="Amministratore"){
-								var url = 'offertaFormativaAmministratore.html';
+								var url = 'offertaFormativa/amministratore/offertaFormativaAmministratore.html';
                                 window.location.href= url;
 							}
 						}

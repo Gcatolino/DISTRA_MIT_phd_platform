@@ -2,22 +2,46 @@
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <servlet>
         <servlet-name>AuthenticateUserServlet</servlet-name>
-        <servlet-class>it.unisa.control.servlet.AuthenticateUserServlet</servlet-class>
+        <servlet-class>it.unisa.integrazione.servlet.AuthenticateUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadInformationForModuleFilesServlet</servlet-name>
+        <servlet-class>it.unisa.tirocinio.servlet.UploadInformationForModuleFilesServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadInformationFilesServlet</servlet-name>
+        <servlet-class>it.unisa.tirocinio.servlet.UploadInformationFilesServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InsertTrainingByProfessor</servlet-name>
+        <servlet-class>it.unisa.tirocinio.servlet.InsertTrainingByProfessor</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AuthenticateUserServlet</servlet-name>
         <url-pattern>/AuthenticateUserServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadInformationForModuleFilesServlet</servlet-name>
+        <url-pattern>/UploadInformationForModuleFilesServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadInformationFilesServlet</servlet-name>
+        <url-pattern>/UploadInformationFilesServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertTrainingByProfessor</servlet-name>
+        <url-pattern>/InsertTrainingByProfessor</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
-            30
+            100
         </session-timeout>
     </session-config>
-    <context-param> 
-    <description>Location to store uploaded file</description> 
-    <param-name>file-upload</param-name> 
-    <param-value>
+    <context-param>
+        <description>Location to store uploaded file</description>
+        <param-name>file-upload</param-name>
+        <param-value>
          c:\apache-tomcat-5.5.29\webapps\data\
-     </param-value> 
+     </param-value>
     </context-param>
 </web-app>

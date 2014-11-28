@@ -4,10 +4,9 @@
  * and open the template in the editor.
  */
 
-package it.unisa.tp.model.concrete;
+package it.unisa.integrazione.manager.concrete;
 
-import it.unisa.tp.model.interfaces.Student;
-import it.unisa.tp.model.interfaces.StudentStatus;
+import it.unisa.integrazione.manager.interfaces.*;
 
 /**
  *

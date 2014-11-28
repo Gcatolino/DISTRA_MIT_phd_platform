@@ -1,4 +1,4 @@
-package it.unisa.tp.model.interfaces;
+package it.unisa.integrazione.manager.interfaces;
 
 
 public interface ClaimStatus {

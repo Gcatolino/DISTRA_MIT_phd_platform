@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.unisa.tp.model.concrete;
+package it.unisa.integrazione.manager.concrete;
 
-import it.unisa.tp.model.interfaces.StudentAttendence;
+import it.unisa.integrazione.manager.interfaces.*;
 import java.sql.Date;
 import java.util.GregorianCalendar;
 

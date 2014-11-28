@@ -51,13 +51,13 @@
 		
 		jQuery(document).ready(function($){
 			$("#tableNotifications tbody").empty();
-			/*$.get("http://localhost:8080/ServerWeb/StudenteAttDetailsServlet",{}).done(function(e){
+			$.get("http://localhost:8080/ServerWebPlacement/StudenteAttDetailsServlet",{}).done(function(e){
 				alert("bho "+JSON.stringify(e));
 				var parsed = jQuery.parseJSON(e);
 				alert(parsed.StudentList);
 			}).fail(function(e){
 				alert(JSON.stringify(e));
-			});*/
+			});
 			
 			for(var i = 0; i < 10; i++){
 				myArrayForModalMenu[i] = i;
@@ -247,10 +247,22 @@
 				<ul id="main-menu" class="main-menu">
 					<!-- add class "multiple-expanded" to allow multiple submenus to open -->
 					<!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
-					<li class="opened active">
+					<li id="offertaTirocini" class="opened active">
 						<a href="../../tirocinio/amministratore/gestioneTirocinio&PlacementAmministratore.html">
 							<i class="linecons-cog"></i>
-							<span class="title">Home</span>
+							<span class="title">Offerta Tirocinio</span>
+						</a>
+					</li>
+					<li id="inserimentoModuli">
+						<a href="../../tirocinio/amministratore/gestioneTirocinio&PlacementAmministratoreInserimentoFile.html">
+							<i class="linecons-cog"></i>
+							<span class="title">Inserimento Moduli</span>
+						</a>
+					</li>
+					<li id="correlazioneTirocinio">
+						<a href="../../tirocinio/amministratore/gestioneTirocinio&PlacementAmministratoreAssociazioneTirocinioProfessore.html">
+							<i class="linecons-cog"></i>
+							<span class="title">Correlazione Tirocinio</span>
 						</a>
 					</li>
 				</ul>

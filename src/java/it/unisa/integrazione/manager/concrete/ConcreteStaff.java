@@ -1,15 +1,12 @@
+package it.unisa.integrazione.manager.concrete;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
-package it.unisa.tp.model.concrete;
-
-import it.unisa.tp.model.interfaces.Account;
-import it.unisa.tp.model.interfaces.Department;
-import it.unisa.tp.model.interfaces.FisicPerson;
-import it.unisa.tp.model.interfaces.Staff;
+import it.unisa.integrazione.manager.interfaces.*;
 
 /**
  *

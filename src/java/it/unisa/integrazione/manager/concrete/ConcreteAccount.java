@@ -1,12 +1,7 @@
-package it.unisa.tp.model.concrete;
+package it.unisa.integrazione.manager.concrete;
 
 
-import it.unisa.tp.model.interfaces.Account;
-import it.unisa.tp.model.interfaces.Permissions;
-
-
-
-
+import it.unisa.integrazione.manager.interfaces.*;
 
 public class ConcreteAccount implements Account{
 
@@ -17,9 +12,9 @@ public class ConcreteAccount implements Account{
     private String typeOfAccount;
     private ConcretePermissions FKPermission;
     
-    public ConcreteAccount(int idAccount, String unserName, String password, String typeOfAccount, ConcretePermissions FKPermission) {
+    public ConcreteAccount(int idAccount, String userName, String password, String typeOfAccount, ConcretePermissions FKPermission) {
         this.idAccount = idAccount;
-        this.userName = unserName;
+        this.userName = userName;
         this.password = password;
         this.typeOfAccount = typeOfAccount;
         this.FKPermission = FKPermission;
