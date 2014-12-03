@@ -32,9 +32,9 @@
     .add-on {
         cursor: pointer;
         i {
-           display: inline-block;
-           width: 16px;
-           height: 16px;
+            display: inline-block;
+            width: 16px;
+            height: 16px;
         }
     }
 }
@@ -63,23 +63,23 @@
     }
     &.timepicker-orient-left {
         &:before {
-           left: 6px;
+            left: 6px;
         }
         &:after {
-           left: 7px;
+            left: 7px;
         }
     }
     &.timepicker-orient-right {
         &:before {
-           right: 6px;
+            right: 6px;
         }
         &:after {
-           right: 7px;
+            right: 7px;
         }
     }
     &.timepicker-orient-top {
         &:before {
-           top: -7px;
+            top: -7px;
         }
         &:after {
             top: -6px;
@@ -127,25 +127,25 @@
                 padding: 0;
                 outline: 0;
                 color: @main-text-color;
-                
+
                 .icon-chevron-up {
-	                
-	                &:before {
-	                	font-family: 'fontawesome';
-		                content: '\f0d8';
-		                font-style: normal;
-		                color: darken(@main-text-color, 25%);
-	                }
+
+                    &:before {
+                        font-family: 'fontawesome';
+                        content: '\f0d8';
+                        font-style: normal;
+                        color: darken(@main-text-color, 25%);
+                    }
                 }
-                
+
                 .icon-chevron-down {
-	                
-	                &:before {
-	                	font-family: 'fontawesome';
-		                content: '\f0d7';
-		                font-style: normal;
-		                color: darken(@main-text-color, 25%);
-	                }
+
+                    &:before {
+                        font-family: 'fontawesome';
+                        content: '\f0d7';
+                        font-style: normal;
+                        color: darken(@main-text-color, 25%);
+                    }
                 }
 
                 &:hover {
@@ -196,22 +196,22 @@
 
 
 .date-and-time {
-	
-	.form-control {
-		@dp-width: 65%;
-		
-		float: left;
-		
-		+ .form-control {
-			border-left: 0;
-		}
-		
-		&.datepicker {
-			width: @dp-width;
-		}
-		
-		&.timepicker {
-			width: 100% - @dp-width;
-		}
-	}
+
+    .form-control {
+        @dp-width: 65%;
+
+        float: left;
+
+        + .form-control {
+            border-left: 0;
+        }
+
+        &.datepicker {
+            width: @dp-width;
+        }
+
+        &.timepicker {
+            width: 100% - @dp-width;
+        }
+    }
 }

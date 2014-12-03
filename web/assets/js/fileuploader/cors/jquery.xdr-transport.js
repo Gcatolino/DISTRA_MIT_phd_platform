@@ -56,11 +56,11 @@
                         xdr.open(s.type, s.url);
                         xdr.onload = function () {
                             callback(
-                                200,
-                                'OK',
-                                {text: xdr.responseText},
-                                'Content-Type: ' + xdr.contentType
-                            );
+                                    200,
+                                    'OK',
+                                    {text: xdr.responseText},
+                            'Content-Type: ' + xdr.contentType
+                                    );
                         };
                         xdr.onerror = function () {
                             callback(404, 'Not Found');

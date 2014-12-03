@@ -24,44 +24,40 @@
     } else {
         // Browser globals:
         factory(
-            window.jQuery,
-            window.loadImage
-        );
+                window.jQuery,
+                window.loadImage
+                );
     }
 }(function ($, loadImage) {
     'use strict';
 
     // Prepend to the default processQueue:
     $.blueimp.fileupload.prototype.options.processQueue.unshift(
-        {
-            action: 'loadVideo',
-            // Use the action as prefix for the "@" options:
-            prefix: true,
-            fileTypes: '@',
-            maxFileSize: '@',
-            disabled: '@disableVideoPreview'
-        },
-        {
-            action: 'setVideo',
-            name: '@videoPreviewName',
-            disabled: '@disableVideoPreview'
-        }
+            {
+                action: 'loadVideo',
+                // Use the action as prefix for the "@" options:
+                prefix: true,
+                fileTypes: '@',
+                maxFileSize: '@',
+                disabled: '@disableVideoPreview'
+            },
+    {
+        action: 'setVideo',
+        name: '@videoPreviewName',
+        disabled: '@disableVideoPreview'
+    }
     );
 
     // The File Upload Video Preview plugin extends the fileupload widget
     // with video preview functionality:
     $.widget('blueimp.fileupload', $.blueimp.fileupload, {
-
         options: {
             // The regular expression for the types of video files to load,
             // matched against the file type:
             loadVideoFileTypes: /^video\/.*$/
         },
-
         _videoElement: document.createElement('video'),
-
         processActions: {
-
             // Loads the video file given via data.files and data.index
             // as video element if the browser supports playing it.
             // Accepts the options fileTypes (regular expression)
@@ -71,14 +67,14 @@
                     return data;
                 }
                 var file = data.files[data.index],
-                    url,
-                    video;
+                        url,
+                        video;
                 if (this._videoElement.canPlayType &&
                         this._videoElement.canPlayType(file.type) &&
                         ($.type(options.maxFileSize) !== 'number' ||
-                            file.size <= options.maxFileSize) &&
+                                file.size <= options.maxFileSize) &&
                         (!options.fileTypes ||
-                            options.fileTypes.test(file.type))) {
+                                options.fileTypes.test(file.type))) {
                     url = loadImage.createObjectURL(file);
                     if (url) {
                         video = this._videoElement.cloneNode(false);
@@ -90,7 +86,6 @@
                 }
                 return data;
             },
-
             // Sets the video element as a property of the file object:
             setVideo: function (data, options) {
                 if (data.video && !options.disabled) {

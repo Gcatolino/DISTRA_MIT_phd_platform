@@ -9,7 +9,8 @@
  * ARIA Support: Greta Krafsig
  * Project: https://github.com/CodeSeven/toastr
  */
-; (function (define) {
+        ;
+(function (define) {
     define(['jquery'], function ($) {
         return (function () {
             var $container;
@@ -51,12 +52,14 @@
             }
 
             function getContainer(options, create) {
-                if (!options) { options = getOptions(); }
+                if (!options) {
+                    options = getOptions();
+                }
                 $container = $('#' + options.containerId);
                 if ($container.length) {
                     return $container;
                 }
-                if(create) {
+                if (create) {
                     $container = createContainer(options);
                 }
                 return $container;
@@ -98,7 +101,9 @@
 
             function clear($toastElement) {
                 var options = getOptions();
-                if (!$container) { getContainer(options); }
+                if (!$container) {
+                    getContainer(options);
+                }
                 if (!clearToast($toastElement, options)) {
                     clearContainer(options);
                 }
@@ -106,7 +111,9 @@
 
             function remove($toastElement) {
                 var options = getOptions();
-                if (!$container) { getContainer(options); }
+                if (!$container) {
+                    getContainer(options);
+                }
                 if ($toastElement && $(':focus', $toastElement).length === 0) {
                     removeToast($toastElement);
                     return;
@@ -119,19 +126,22 @@
 
             //#region Internal Methods
 
-            function clearContainer(options){
+            function clearContainer(options) {
                 var toastsToClear = $container.children();
                 for (var i = toastsToClear.length - 1; i >= 0; i--) {
                     clearToast($(toastsToClear[i]), options);
-                };
+                }
+                ;
             }
 
-            function clearToast($toastElement, options){
+            function clearToast($toastElement, options) {
                 if ($toastElement && $(':focus', $toastElement).length === 0) {
                     $toastElement[options.hideMethod]({
                         duration: options.hideDuration,
                         easing: options.hideEasing,
-                        complete: function () { removeToast($toastElement); }
+                        complete: function () {
+                            removeToast($toastElement);
+                        }
                     });
                     return true;
                 }
@@ -140,10 +150,10 @@
 
             function createContainer(options) {
                 $container = $('<div/>')
-                    .attr('id', options.containerId)
-                    .addClass(options.positionClass)
-                    .attr('aria-live', 'polite')
-                    .attr('role', 'alert');
+                        .attr('id', options.containerId)
+                        .addClass(options.positionClass)
+                        .attr('aria-live', 'polite')
+                        .attr('role', 'alert');
 
                 $container.appendTo($(options.target));
                 return $container;
@@ -155,7 +165,6 @@
                     toastClass: 'toast',
                     containerId: 'toast-container',
                     debug: false,
-
                     showMethod: 'fadeIn', //fadeIn, slideDown, and show are built into jQuery
                     showDuration: 300,
                     showEasing: 'swing', //swing and linear are built into jQuery
@@ -164,7 +173,6 @@
                     hideDuration: 1000,
                     hideEasing: 'swing',
                     onHidden: undefined,
-
                     extendedTimeOut: 1000,
                     iconClasses: {
                         error: 'toast-error',
@@ -185,19 +193,21 @@
             }
 
             function publish(args) {
-                if (!listener) { return; }
+                if (!listener) {
+                    return;
+                }
                 listener(args);
             }
 
             function notify(map) {
                 var options = getOptions(),
-                    iconClass = map.iconClass || options.iconClass;
+                        iconClass = map.iconClass || options.iconClass;
 
-                if(options.preventDuplicates){
-                    if(map.message === previousToast){
+                if (options.preventDuplicates) {
+                    if (map.message === previousToast) {
                         return;
                     }
-                    else{
+                    else {
                         previousToast = map.message;
                     }
                 }
@@ -211,17 +221,17 @@
 
                 $container = getContainer(options, true);
                 var intervalId = null,
-                    $toastElement = $('<div/>'),
-                    $titleElement = $('<div/>'),
-                    $messageElement = $('<div/>'),
-                    $closeElement = $(options.closeHtml),
-                    response = {
-                        toastId: toastId,
-                        state: 'visible',
-                        startTime: new Date(),
-                        options: options,
-                        map: map
-                    };
+                        $toastElement = $('<div/>'),
+                        $titleElement = $('<div/>'),
+                        $messageElement = $('<div/>'),
+                        $closeElement = $(options.closeHtml),
+                        response = {
+                            toastId: toastId,
+                            state: 'visible',
+                            startTime: new Date(),
+                            options: options,
+                            map: map
+                        };
 
                 if (map.iconClass) {
                     $toastElement.addClass(options.toastClass).addClass(iconClass);
@@ -251,7 +261,7 @@
 
 
                 $toastElement[options.showMethod](
-                    { duration: options.showDuration, easing: options.showEasing, complete: options.onShown }
+                        {duration: options.showDuration, easing: options.showEasing, complete: options.onShown}
                 );
 
                 if (options.timeOut > 0) {
@@ -265,9 +275,9 @@
 
                 if (options.closeButton && $closeElement) {
                     $closeElement.click(function (event) {
-                        if( event.stopPropagation ) {
+                        if (event.stopPropagation) {
                             event.stopPropagation();
-                        } else if( event.cancelBubble !== undefined && event.cancelBubble !== true ) {
+                        } else if (event.cancelBubble !== undefined && event.cancelBubble !== true) {
                             event.cancelBubble = true;
                         }
                         hideToast(true);
@@ -317,7 +327,7 @@
                 function stickAround() {
                     clearTimeout(intervalId);
                     $toastElement.stop(true, true)[options.showMethod](
-                        { duration: options.showDuration, easing: options.showEasing }
+                            {duration: options.showDuration, easing: options.showEasing}
                     );
                 }
             }
@@ -327,7 +337,9 @@
             }
 
             function removeToast($toastElement) {
-                if (!$container) { $container = getContainer(); }
+                if (!$container) {
+                    $container = getContainer();
+                }
                 if ($toastElement.is(':visible')) {
                     return;
                 }

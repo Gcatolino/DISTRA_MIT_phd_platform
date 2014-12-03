@@ -1,22 +1,22 @@
-(function($) {
+(function ($) {
 
-    var Customizer = function($element, $options) {
+    var Customizer = function ($element, $options) {
 
-        var $select   = $($options.select, $element),
-            $sidebar  = $($options.sidebar, $element),
-            $advanced = $($options.advanced, $element),
-            $style, memory = window.sessionStorage || {};
+        var $select = $($options.select, $element),
+                $sidebar = $($options.sidebar, $element),
+                $advanced = $($options.advanced, $element),
+                $style, memory = window.sessionStorage || {};
 
         this.$options = $options;
-        this.$select  = $select;
+        this.$select = $select;
 
         $element.on({
-            "update": function(e, value, force) {
+            "update": function (e, value, force) {
 
                 if ($("option", $select).length != $options.styles.length) {
                     $select.html($.mustache($options.template.select, $options));
 
-                    if(memory["uikit-customizer-last-theme"]) {
+                    if (memory["uikit-customizer-last-theme"]) {
                         $select.val(memory["uikit-customizer-last-theme"]);
                     }
                 }
@@ -27,7 +27,7 @@
 
                 var name = $select.val(), current = $style;
 
-                $.each($options.styles, function(i, style) {
+                $.each($options.styles, function (i, style) {
                     if (name == style.name) {
                         $style = style;
                     }
@@ -37,7 +37,7 @@
 
                     $element.trigger("updating", $style);
 
-                    loadStyle($style).done(function() {
+                    loadStyle($style).done(function () {
                         renderSidebar($style);
                         $element.trigger("updated", $style);
                     });
@@ -47,26 +47,26 @@
             "updated": $options.updated
         });
 
-        $select.on("change", function(e) {
+        $select.on("change", function (e) {
 
             memory["uikit-customizer-last-theme"] = $select.val();
 
-            setTimeout(function() {
+            setTimeout(function () {
                 $element.trigger("update");
             }, 1);
         });
 
-        $advanced.on("change", function(e) {
+        $advanced.on("change", function (e) {
             $sidebar[$(this).prop("checked") ? "addClass" : "removeClass"]("cm-show-advanced");
         }).trigger("change");
 
-        $element.on("click", "a.cm-more-link", function(e) {
+        $element.on("click", "a.cm-more-link", function (e) {
             e.preventDefault();
 
             $(this).parents("fieldset:first").toggleClass("cm-show-more");
         });
 
-        $element.on("change", "input[name=vars], select[name=vars]", function(e) {
+        $element.on("change", "input[name=vars], select[name=vars]", function (e) {
             e.preventDefault();
 
             var name = $(this).attr('data-name'), value = $(this).val();
@@ -83,22 +83,22 @@
         function loadStyle(style) {
 
             var deferred = $.Deferred(),
-                imports  = "";
+                    imports = "";
 
             if (style.less) {
                 return deferred.resolve();
             }
 
-            if($.isArray(style.url)) {
+            if ($.isArray(style.url)) {
                 for (var i = 0; i < style.url.length; i++) {
                     imports += "@import url(" + style.url[i] + ");";
                 }
             } else {
-                imports  = "@import url(" + style.url + ");";
+                imports = "@import url(" + style.url + ");";
             }
 
-            $.less.resolveImports(imports).done(function(less) {
-                $.ajax({"url": style.config, "cache": false, "dataType": "json"}).done(function(config) {
+            $.less.resolveImports(imports).done(function (less) {
+                $.ajax({"url": style.config, "cache": false, "dataType": "json"}).done(function (config) {
 
                     var vars = $.less.getVars(less);
 
@@ -108,12 +108,12 @@
                     style.variables = style.variables || {};
                     style.matchName = matchName;
 
-                    $.each(style.config.groups, function(i, grp) {
+                    $.each(style.config.groups, function (i, grp) {
 
                         var variable, group = {label: grp.label, variables: [], advanced: grp.advanced || false, more: false};
 
-                        $.each(grp.vars, function(i, opt) {
-                            $.each(vars, function(name, value) {
+                        $.each(grp.vars, function (i, opt) {
+                            $.each(vars, function (name, value) {
                                 if (matchName(opt, name)) {
                                     delete vars[name];
 
@@ -123,7 +123,7 @@
                                         "placeholder": value,
                                         "label": name.replace(/^@/, "").replace(/^\w+\-/, "").replace(/\-/g, " "),
                                         "more": value.indexOf("@") !== -1,
-                                        "value": function() {
+                                        "value": function () {
                                             return style.variables[name] ? style.variables[name] : "";
                                         }
                                     };
@@ -154,7 +154,7 @@
 
             $sidebar.html($.mustache($options.template.sidebar, style));
 
-            $sidebar.find("input[data-name]").each(function() {
+            $sidebar.find("input[data-name]").each(function () {
 
                 var input = $(this), value = input.val() || input.data("default"), select, groups;
 
@@ -162,74 +162,74 @@
                     return;
                 }
 
-                $.each(style.config.controls, function(i, control) {
-                    $.each(control.vars, function(i, pattern) {
+                $.each(style.config.controls, function (i, control) {
+                    $.each(control.vars, function (i, pattern) {
                         if (matchName(pattern, input.attr("data-name"))) {
                             switch (control.type) {
-                              case "color":
+                                case "color":
 
-                                var placeholder = $('<div class="sp-placeholder"><div class="sp-placeholder-color"></div></div>').find("div").css("background-color", value).end().on("click", function() {
+                                    var placeholder = $('<div class="sp-placeholder"><div class="sp-placeholder-color"></div></div>').find("div").css("background-color", value).end().on("click", function () {
 
-                                    var spectrum;
+                                        var spectrum;
 
-                                    input.spectrum({
-                                        "showInput": true,
-                                        "showAlpha": true,
-                                        "preferredFormat": "hex6",
-                                        "color": (value=='inherit' ? '':value),
-                                        "change": function(color) {
-                                            if (color.toRgb().a < 1) {
-                                                input.val(color.toRgbString()).trigger("change");
+                                        input.spectrum({
+                                            "showInput": true,
+                                            "showAlpha": true,
+                                            "preferredFormat": "hex6",
+                                            "color": (value == 'inherit' ? '' : value),
+                                            "change": function (color) {
+                                                if (color.toRgb().a < 1) {
+                                                    input.val(color.toRgbString()).trigger("change");
+                                                }
+                                            },
+                                            "show": function () {
+                                                if (!spectrum) {
+                                                    spectrum = $.fn.spectrum.get(input.data("spectrum.id"));
+                                                    spectrum.container.find('.sp-cancel').after($('<a href="#" class="sp-reset">reset</a>').on("click", function (e) {
+                                                        e.preventDefault();
+                                                        spectrum.set(input.data("default") == "inherit" ? "rgba(0,0,0,0)" : input.data("default"));
+                                                        spectrum.hide();
+                                                        input.val("");
+                                                    }));
+                                                }
                                             }
-                                        },
-                                        "show": function(){
-                                            if (!spectrum) {
-                                                spectrum = $.fn.spectrum.get(input.data("spectrum.id"));
-                                                spectrum.container.find('.sp-cancel').after($('<a href="#" class="sp-reset">reset</a>').on("click", function(e) {
-                                                    e.preventDefault();
-                                                    spectrum.set(input.data("default")=="inherit" ? "rgba(0,0,0,0)":input.data("default"));
-                                                    spectrum.hide();
-                                                    input.val("");
-                                                }));
-                                            }
-                                        }
+                                        });
+
+                                        placeholder.remove();
+
+                                        setTimeout(function () {
+                                            input.spectrum("show");
+                                        }, 50);
+
                                     });
 
-                                    placeholder.remove();
+                                    input.hide().after(placeholder);
 
-                                    setTimeout(function(){
-                                        input.spectrum("show");
-                                    }, 50);
+                                    break;
+                                case "font":
 
-                                });
+                                    groups = [];
 
-                                input.hide().after(placeholder);
+                                    if ($.isArray(control.options)) {
+                                        groups.push({"group": "", "options": control.options});
+                                    } else {
+                                        $.each(control.options, function (group, options) {
+                                            groups.push({"group": group, "options": options});
+                                        });
+                                    }
 
-                                break;
-                              case "font":
+                                    select = $($.mustache('<select>{{#groups}}{{#group}}<optgroup label="{{group}}">{{/group}}{{#options}}<option value="{{value}}"{{#url}} data-url="{{url}}"{{/url}}>{{name}}</option>{{/options}}{{#group}}</optgroup>{{/group}}{{/groups}}</select>', {groups: groups}));
 
-                                groups = [];
+                                    input.replaceWith(select.val(value).attr("class", input.attr("class")).attr("name", input.attr("name")).attr("data-name", input.attr("data-name")));
 
-                                if ($.isArray(control.options)) {
-                                    groups.push({"group": "", "options": control.options});
-                                } else {
-                                    $.each(control.options, function(group, options) {
-                                        groups.push({"group": group, "options": options});
-                                    });
-                                }
+                                    break;
+                                case "select":
 
-                                select = $($.mustache('<select>{{#groups}}{{#group}}<optgroup label="{{group}}">{{/group}}{{#options}}<option value="{{value}}"{{#url}} data-url="{{url}}"{{/url}}>{{name}}</option>{{/options}}{{#group}}</optgroup>{{/group}}{{/groups}}</select>', {groups: groups}));
+                                    select = $($.mustache('<select>{{#options}}<option value="{{value}}">{{name}}</option>{{/options}}</select>', {options: control.options}));
 
-                                input.replaceWith(select.val(value).attr("class", input.attr("class")).attr("name", input.attr("name")).attr("data-name", input.attr("data-name")));
+                                    input.replaceWith(select.val(value).attr("class", input.attr("class")).attr("name", input.attr("name")).attr("data-name", input.attr("data-name")));
 
-                                break;
-                              case "select":
-
-                                select = $($.mustache('<select>{{#options}}<option value="{{value}}">{{name}}</option>{{/options}}</select>', {options: control.options}));
-
-                                input.replaceWith(select.val(value).attr("class", input.attr("class")).attr("name", input.attr("name")).attr("data-name", input.attr("data-name")));
-
-                                break;
+                                    break;
                             }
                         }
                     });
@@ -240,9 +240,9 @@
         function matchName(pattern, path) {
 
             var parsedPattern = '^' + pattern.replace(/\//g, '\\/').
-                replace(/\*\*/g, '(\\/[^\\/]+)*').
-                replace(/\*/g, '[^\\/]+').
-                replace(/((?!\\))\?/g, '$1.') + '$';
+                    replace(/\*\*/g, '(\\/[^\\/]+)*').
+                    replace(/\*/g, '[^\\/]+').
+                    replace(/((?!\\))\?/g, '$1.') + '$';
 
             parsedPattern = '^' + parsedPattern + '$';
 
@@ -251,8 +251,8 @@
 
     };
 
-    $.fn.customizer = function(options) {
-        return this.each(function() {
+    $.fn.customizer = function (options) {
+        return this.each(function () {
 
             var defaults = {
                 "updating": $.noop(),
@@ -262,9 +262,9 @@
                 "sidebar": "section.cm-sidebar-content",
                 "template": {
                     "select":
-                        '{{#styles}}<option value="{{name}}">{{name}}</option>{{/styles}}',
+                            '{{#styles}}<option value="{{name}}">{{name}}</option>{{/styles}}',
                     "sidebar":
-                        '<div class="cm-vars cm-form uk-form"> \
+                            '<div class="cm-vars cm-form uk-form"> \
                             {{#groups}} \
                             <fieldset{{#advanced}} class="cm-advanced"{{/advanced}}> \
                                 <h2 class="cm-form-title">{{label}}{{#more}} <a href="#" class="cm-more-link"></a>{{/more}}</h2> \
