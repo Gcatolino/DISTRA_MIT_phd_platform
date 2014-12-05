@@ -118,7 +118,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="dottorato.html">
+                        <a href="dottorato/home.jsp">
                             <i class="linecons-lightbulb"></i>
                             <span class="title">Dottorato</span>
                         </a>

@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "ServletUpdatePhdCycle", urlPatterns = {"/ServletUpdatePhdCycle"})
-public class ServletUpdatePhdCycle extends HttpServlet {
+public class UpdatePhdCycleServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,13 +47,13 @@ public class ServletUpdatePhdCycle extends HttpServlet {
             try {
                 ManagerPhdCycle.getInstance().update(aPhdCycle);
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(ServletUpdatePhdCycle.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(UpdatePhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
-                Logger.getLogger(ServletUpdatePhdCycle.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(UpdatePhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
             } catch (EntityNotFoundException ex) {
-                Logger.getLogger(ServletUpdatePhdCycle.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(UpdatePhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ConnectionException ex) {
-                Logger.getLogger(ServletUpdatePhdCycle.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(UpdatePhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
             
         } finally {

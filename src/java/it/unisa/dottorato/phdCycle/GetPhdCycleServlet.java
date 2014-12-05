@@ -20,7 +20,7 @@ import org.json.JSONObject;
  * @author sesa
  */
 @WebServlet(name = "GetPhdCycleInfo", urlPatterns = {"/dottorato/GetPhdCycleInfo"})
-public class GetPhdCycleInfo extends HttpServlet {
+public class GetPhdCycleServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,7 +45,7 @@ public class GetPhdCycleInfo extends HttpServlet {
                 result.put("phdYear", cycle.getYear());
                 out.write(result.toString());
             } catch (ClassNotFoundException | SQLException | EntityNotFoundException | ConnectionException | JSONException ex) {
-                Logger.getLogger(GetPhdCycleInfo.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GetPhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

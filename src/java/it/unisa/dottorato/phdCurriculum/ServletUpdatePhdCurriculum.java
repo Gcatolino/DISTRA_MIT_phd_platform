@@ -2,7 +2,7 @@ package it.unisa.dottorato.phdCurriculum;
 
 import it.unisa.dottorato.exception.ConnectionException;
 import it.unisa.dottorato.exception.EntityNotFoundException;
-import it.unisa.dottorato.phdCycle.ServletUpdatePhdCycle;
+import it.unisa.dottorato.phdCycle.UpdatePhdCycleServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unisa.dottorato.phdCycle;
 
 import it.unisa.dottorato.exception.ConnectionException;
@@ -18,9 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "ServletDeletePhdCycle", urlPatterns = {"/ServletDeletePhdCycle"})
-public class ServletDeletePhdCycle extends HttpServlet {
-
+@WebServlet(name = "ServletInsertPhdCycle", urlPatterns = {"/ServletInsertPhdCycle"})
+public class InsertPhdCycleServlet extends HttpServlet {
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,26 +32,33 @@ public class ServletDeletePhdCycle extends HttpServlet {
         try {
 
             String idPhdCycle = request.getParameter("idPhdCycle");
+            String description = request.getParameter("description");
+            String year = request.getParameter("year");
+            String professor = request.getParameter("professor");
             
             PhdCycle aPhdCycle = new PhdCycle();
             aPhdCycle.setIdPhdCycle(Integer.parseInt(idPhdCycle));
+            aPhdCycle.setDescription(description);
+            aPhdCycle.setYear(Integer.parseInt(year));
+            aPhdCycle.setFK_Professor(Integer.parseInt(professor));
 
             try {
-                ManagerPhdCycle.getInstance().delete(aPhdCycle);
+                ManagerPhdCycle.getInstance().insert(aPhdCycle);
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(ServletDeletePhdCycle.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(InsertPhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
-                Logger.getLogger(ServletDeletePhdCycle.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(InsertPhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
             } catch (EntityNotFoundException ex) {
-                Logger.getLogger(ServletDeletePhdCycle.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(InsertPhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ConnectionException ex) {
-                Logger.getLogger(ServletDeletePhdCycle.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(InsertPhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
             
         } finally {
             out.close();
         }
     }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
