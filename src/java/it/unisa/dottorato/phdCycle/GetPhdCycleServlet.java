@@ -15,11 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- *
- * @author sesa
- */
-@WebServlet(name = "GetPhdCycleInfo", urlPatterns = {"/dottorato/GetPhdCycleInfo"})
+@WebServlet(name = "GetPhdCycle", urlPatterns = {"/dottorato/GetPhdCycle"})
 public class GetPhdCycleServlet extends HttpServlet {
 
     /**
@@ -38,11 +34,11 @@ public class GetPhdCycleServlet extends HttpServlet {
             int phdCycleId = Integer.parseInt(request.getParameter("phdCycleId"));
             JSONObject result = new JSONObject();
             try {
-                PhdCycle cycle = ManagerPhdCycle.getInstance().getPhdCycleById(phdCycleId);
-                request.setAttribute("cycle", cycle);
+                PhdCycle cycle = PhdCycleManager.getInstance().getPhdCycleById(phdCycleId);
                 result.put("phdCycle", cycle.getIdPhdCycle());
                 result.put("phdDescription", cycle.getDescription());
                 result.put("phdYear", cycle.getYear());
+                result.put("FK_Professor", cycle.getFK_Professor());
                 out.write(result.toString());
             } catch (ClassNotFoundException | SQLException | EntityNotFoundException | ConnectionException | JSONException ex) {
                 Logger.getLogger(GetPhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);

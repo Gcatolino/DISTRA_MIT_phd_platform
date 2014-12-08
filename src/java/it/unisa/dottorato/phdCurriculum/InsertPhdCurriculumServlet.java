@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unisa.dottorato.phdCurriculum;
 
 import it.unisa.dottorato.exception.ConnectionException;
 import it.unisa.dottorato.exception.EntityNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,12 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author sesa
- */
-@WebServlet(name = "ServletInsertPhdCurriculum", urlPatterns = {"/ServletInsertPhdCurriculum"})
-public class ServletInsertPhdCurriculum extends HttpServlet {
+@WebServlet(name = "InsertPhdCurriculum", urlPatterns = {"/dottorato/InsertPhdCurriculum"})
+public class InsertPhdCurriculumServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,33 +27,22 @@ public class ServletInsertPhdCurriculum extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+
+        String name = request.getParameter("name");
+        String description = request.getParameter("description");
+        String professor = request.getParameter("professor");
+
+        PhdCurriculum aPhdCurriculum = new PhdCurriculum();
+        aPhdCurriculum.setName(name);
+        aPhdCurriculum.setDescription(description);
+        aPhdCurriculum.setFK_Professor(professor);
+
         try {
-
-            String name = request.getParameter("name");
-            String description = request.getParameter("description");
-            String professor = request.getParameter("professor");
-            
-            PhdCurriculum aPhdCurriculum = new PhdCurriculum();
-            aPhdCurriculum.setName(name);
-            aPhdCurriculum.setDescription(description);
-            aPhdCurriculum.setFK_Professor(Integer.parseInt(professor));
-
-            try {
-                ManagerPhdCurriculum.getInstance().insert(aPhdCurriculum);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(ServletInsertPhdCurriculum.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(ServletInsertPhdCurriculum.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (EntityNotFoundException ex) {
-                Logger.getLogger(ServletInsertPhdCurriculum.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ConnectionException ex) {
-                Logger.getLogger(ServletInsertPhdCurriculum.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        } finally {
-            out.close();
+            PhdCurriculumManager.getInstance().insert(aPhdCurriculum);
+        } catch (ClassNotFoundException | SQLException | EntityNotFoundException | ConnectionException ex) {
+            Logger.getLogger(InsertPhdCurriculumServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

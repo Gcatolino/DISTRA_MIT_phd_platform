@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "ServletInsertPhdCycle", urlPatterns = {"/ServletInsertPhdCycle"})
+@WebServlet(name = "InsertPhdCycle", urlPatterns = {"/dottorato/InsertPhdCycle"})
 public class InsertPhdCycleServlet extends HttpServlet {
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -28,37 +28,29 @@ public class InsertPhdCycleServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
+        try (PrintWriter out = response.getWriter()) {
 
             String idPhdCycle = request.getParameter("idPhdCycle");
             String description = request.getParameter("description");
             String year = request.getParameter("year");
             String professor = request.getParameter("professor");
-            
+
             PhdCycle aPhdCycle = new PhdCycle();
             aPhdCycle.setIdPhdCycle(Integer.parseInt(idPhdCycle));
             aPhdCycle.setDescription(description);
             aPhdCycle.setYear(Integer.parseInt(year));
-            aPhdCycle.setFK_Professor(Integer.parseInt(professor));
+            aPhdCycle.setFK_Professor(professor);
 
             try {
-                ManagerPhdCycle.getInstance().insert(aPhdCycle);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(InsertPhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(InsertPhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (EntityNotFoundException ex) {
-                Logger.getLogger(InsertPhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ConnectionException ex) {
+                PhdCycleManager.getInstance().insert(aPhdCycle);
+            } catch (ClassNotFoundException | SQLException | EntityNotFoundException | ConnectionException ex) {
                 Logger.getLogger(InsertPhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-        } finally {
-            out.close();
+
+            response.sendRedirect("amministrazione.jsp");
+
         }
     }
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

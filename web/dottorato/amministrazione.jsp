@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -10,7 +11,7 @@
         <meta name="description" content="Xenon Boostrap Admin Panel" />
         <meta name="author" content="" />
 
-        <title>DISTRA-MIT</title>
+        <title>DISTRA-MIT Dottorato</title>
 
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Arimo:400,700,400italic">
         <link rel="stylesheet" href="../assets/css/fonts/linecons/css/linecons.css">
@@ -20,68 +21,11 @@
         <link rel="stylesheet" href="../assets/css/xenon-forms.css">
         <link rel="stylesheet" href="../assets/css/xenon-components.css">
         <link rel="stylesheet" href="../assets/css/xenon-skins.css">
-        <link rel="stylesheet" href="../assets/css/custom.css">     
+        <link rel="stylesheet" href="../assets/css/custom.css">  
+        <link rel="stylesheet" href="dottorato.css">
 
         <script src="../assets/js/jquery-1.11.1.min.js"></script>
-        <script type="text/javascript">
-            $.get("GetPhdCycleInfo?phdCycleId=15", function (data) {
-                parsedData = $.parseJSON(data);
-                $("#phdCycle").html(parsedData.phdCycle);
-                $("#phdYear").html(parsedData.phdYear);
-                $("#phdDescription").html(parsedData.phdDescription);
-            });
-
-            $(document).ready(function () {
-                $("#admin_cycle").click(function () {
-                    $("#admin_menu_cycle").slideToggle()();
-                });
-
-                $("#admin_curriculum").click(function () {
-                    $("#admin_menu_curriculum").slideToggle()();
-                });
-                
-                $("#menu_add_cycle").click(function () {
-                    $("#admin_add_cycle").toggle();
-                });
-                
-                $("#menu_modify_cycle").click(function () {
-                    $("#admin_modify_cycle").toggle();
-                });
-                
-                $("#menu_delete_cycle").click(function () {
-                    $("#admin_delete_curriculum").toggle();
-                });
-                
-                $("#menu_add_curriculum").click(function () {
-                    $("#admin_add_curriculum").toggle();
-                });
-                
-                $("#menu_modify_curriculum").click(function () {
-                    $("#admin_modify_cycle").toggle();
-                });
-                
-                $("#menu_delete_curriculum").click(function () {
-                    $("#admin_delete_curriculum").toggle();
-                });
-            });
-
-        </script>
-
-        <style>
-            .admin_submenu:hover{
-                background-color: #e8eaf6;  
-            }
-
-            .admin_submenu{
-                padding: 10px;
-                margin-top: -18px;
-            }
-
-            .hidden_menu{
-                display: none;
-            }
-        </style>
-
+        <script type="text/javascript" src="amministrazione.js"></script>
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -89,125 +33,118 @@
                 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-
     </head>
     <body class="page-body">
 
+        <!-- Inclusione della pagina contenente il menù superiore --> 
         <jsp:include page="topMenu.jsp" flush="true"/> 
         <div class="page-container">
+
+            <!-- Inclusione della pagina contenente il menù laterale --> 
             <jsp:include page="lateralMenu.jsp"/> 
 
-            <!--BODY-->
-
-
+            <!-- Contenuto della pagina --> 
             <div class="main-content" id="content">
+
                 <div class="row">
 
                     <div class="col-sm-4">
+
+                        <!-- Menu per la gestione dei cicli di dottorato --> 
                         <div class="panel panel-default">
-                            <div class="panel-heading" id="admin_cycle">
-                                <h2> Gestione cicli </h2>
+                            <div class="panel-heading pointer" id="admin_cycle">
+                                Gestione cicli
                             </div>
                             <div class="panel-body hidden_menu" id="admin_menu_cycle">
-                                <p class="text-justify admin_submenu" id="menu_add_cycle"> Aggiungi ciclo </p> <br>
-                                <p class="text-justify admin_submenu" id="menu_modify_cycle"> Modifica ciclo </p> <br>
-                                <p class="text-justify admin_submenu" id="menu_delete_cycle"> Elimina ciclo </p> <br>
+                                <p class="admin_phdCycle_submenu" id="admin_menu_add_cycle"> Nuovo ciclo </p>
                             </div>
                         </div>
 
+                        <!-- Menu per la gestione dei curriculum di dottorato --> 
                         <div class="panel panel-default">
-                            <div class="panel-heading" id="admin_curriculum">
-                                <h2> Gestione curriculum </h2>
+                            <div class="panel-heading pointer" id="admin_curriculum">
+                                Gestione curriculum  
                             </div>
                             <div class="panel-body hidden_menu" id="admin_menu_curriculum">
-                                <p class="text-justify admin_submenu" id="menu_add_curriculum"> Economia e Direzione delle Aziende Pubbliche  <br>
-                                    <span style="padding: 0px 30px"> <img src=""> modifica </img> </span> 
-                                <span style="padding: 0px 30px" class="linecons-eye"> elimina </span> </p>  <br>
-                                <p class="text-justify admin_submenu" id="menu_add_curriculum"> Marketing e Comunicazione </p> <br>
-                                <p class="text-justify admin_submenu" id="menu_add_curriculum"> Informatica, Sistemi Informativi e Tecnologie del Software </p> <br>
+                                <p class="admin_phdCurriculum_submenu"> Nuovo curriculum </p>  
                             </div>
                         </div>
                     </div>
 
                     <div class="col-sm-8 hidden_menu" id="admin_add_cycle">
+
+                        <!-- Pannello per creazione di un nuovo ciclo o la modifica di un ciclo selezionato --> 
                         <div class="panel panel-default">
-                            <div class="panel-heading" id="admin_cycle">
-                                <h2> Aggiungi ciclo </h2>
+                            <div class="panel-heading">
+                                <h2 id="phdCycleTitle"></h2>
                             </div>
-                            <div class="panel-body" id="admin_menu_cycle">
-                                <h3> Inserisci un nuovo ciclo di dottorato </h3> <br>
-                                <label for="idCycle"> Identificativo numerico </label> <br>
-                                <input type="text" id="idCycle" size="50" required /> <br>
-                                Anno <br>
-                                <input type="text" size="50" required /> <br>
-                                Descrizione <br>
-                                <textarea cols="50" rows="10"> </textarea> <br>
+                            <div class="panel-body">
+
+                                <!-- Form contenenti i campi dei cicli di dottorato -->
+                                <form id="cycle_form" method="POST">
+
+                                    <!-- Campo di testo relativo all'identificativo numerico di un ciclo -->
+                                    <div class="form-group">
+                                        <label>Identificativo numerico:</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"></span>
+                                            <input type="text" id="phdCycleId" class="form-control" name="idPhdCycle" placeholder="Inserisci il numero del ciclo" required/>
+                                        </div>
+                                    </div>
+
+                                    <!-- Campo di testo relativo all'anno di attivazione di un ciclo -->
+                                    <div class="form-group">
+                                        <label>Anno:</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"></span>
+                                            <input type="text" id="phdCycleYear" class="form-control" name="year" placeholder="Inserisci l'anno di attivazione del ciclo" required/>
+                                        </div>
+                                    </div>
+
+                                    <!-- Campo di testo relativo alla descrizione di un ciclo -->
+                                    <div class="form-group">
+                                        <label>Descrizione:</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"></span>
+                                            <textarea id="phdCycleDescription" rows="10" class="form-control" name="description" placeholder="Inserisci la descrizione del ciclo"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <!-- Campo di testo relativo al coordinatore di un ciclo -->
+                                    <div class="form-group">
+                                        <label>Coordinatore:</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"></span>
+                                            <input list="browsers" id="phdCycleProfessor" class="form-control" name="professor" placeholder="Inserisci il coordinatore del ciclo">
+                                            <datalist id="browsers">
+                                                <option value="Andrea De Lucia">
+                                                <option value="Anna Forte">
+                                                <option value="Amelia Nobile">
+                                                <option value="Angelo Cassari">
+                                            </datalist>
+
+                                        </div>
+                                    </div>
+
+                                    <!-- Pannello di feedback dell'operazione -->
+                                    <div class="col-sm-12">
+                                        <div id="messageControl" align="center">
+                                        </div>
+                                    </div>
+
+                                    <!-- Pulsanti di invio e reset del form -->
+                                    <div class="form-group">
+                                        <input type="submit" id="submitPhdCycle" class="btn btn-blue" value="Invia"> 
+                                        <button type="reset"  id="resetPhdCycle"  class="btn btn-white">Reset</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="col-sm-8 hidden_menu" id="admin_modify_cycle">
-                        <div class="panel panel-default">
-                            <div class="panel-heading" id="modify_cycle">
-                                <h2> Aggiungi ciclo </h2>
-                            </div>
-                            <div class="panel-body" id="admin_menu_cycle">
-                                <p class="text-justify" id=""> bla bla bla bla </p> <br>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-sm-8 hidden_menu" id="admin_delete_cycle">
-                        <div class="panel panel-default">
-                            <div class="panel-heading" id="delete_cycle">
-                                <h2> Aggiungi ciclo </h2>
-                            </div>
-                            <div class="panel-body" id="admin_menu_cycle">
-                                <p class="text-justify" id=""> bla bla bla bla </p> <br>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-sm-8 hidden_menu" id="admin_add_curriculum">
-                        <div class="panel panel-default">
-                            <div class="panel-heading" id="add_curriculum">
-                                <h2> Aggiungi ciclo </h2>
-                            </div>
-                            <div class="panel-body" id="admin_menu_curriculum">
-                                <p class="text-justify" id=""> bla bla bla bla </p> <br>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-sm-8 hidden_menu" id="admin_modify_curriculum">
-                        <div class="panel panel-default">
-                            <div class="panel-heading" id="modify_curriculum">
-                                <h2> Aggiungi ciclo </h2>
-                            </div>
-                            <div class="panel-body" id="admin_menu_curriculum">
-                                <p class="text-justify" id=""> bla bla bla bla </p> <br>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-sm-8 hidden_menu" id="admin_delete_curriculum">
-                        <div class="panel panel-default">
-                            <div class="panel-heading" id="delete_curriculum">
-                                <h2> Aggiungi ciclo </h2>
-                            </div>
-                            <div class="panel-body" id="admin_menu_curriculum">
-                                <p class="text-justify" id=""> bla bla bla bla </p> <br>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
 
-
-
             </div>
-
-
-
 
             <!-- Bottom Scripts -->
             <script src="../assets/js/bootstrap.min.js"></script>
@@ -216,8 +153,6 @@
             <script src="../assets/js/joinable.js"></script>
             <script src="../assets/js/xenon-api.js"></script>
             <script src="../assets/js/xenon-toggles.js"></script>
-
-
 
             <!-- JavaScripts initializations and stuff -->
             <script src="../assets/js/xenon-custom.js"></script>

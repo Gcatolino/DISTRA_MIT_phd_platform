@@ -8,8 +8,9 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
-public class ManagerPhdCycle {
+public class PhdCycleManager {
 
     /**
      * Il nome della tabella
@@ -17,13 +18,13 @@ public class ManagerPhdCycle {
     private static final String TABLE_PHDCYCLE = "phdcycle";
 
     //	 istanza della classe
-    private static ManagerPhdCycle instance;
+    private static PhdCycleManager instance;
 
     /**
      * Il costruttore della classe e' dichiarato privato, per evitare
      * l'istanziazione di oggetti della classe .
      */
-    private ManagerPhdCycle() {
+    private PhdCycleManager() {
         super();
     }
 
@@ -36,9 +37,9 @@ public class ManagerPhdCycle {
      *
      * @return L'istanza della classe
      */
-    public static synchronized ManagerPhdCycle getInstance() {
+    public static synchronized PhdCycleManager getInstance() {
         if (instance == null) {
-            instance = new ManagerPhdCycle();
+            instance = new PhdCycleManager();
         }
         return instance;
     }
@@ -62,7 +63,7 @@ public class ManagerPhdCycle {
              * nella tabella phdCycle
              */
             String tSql = "INSERT INTO "
-                    + ManagerPhdCycle.TABLE_PHDCYCLE
+                    + PhdCycleManager.TABLE_PHDCYCLE
                     + " (idPhdCycle, description, year, FK_professor)"
                     + " VALUES ('"
                     + pCycle.getIdPhdCycle()
@@ -80,10 +81,10 @@ public class ManagerPhdCycle {
             connect.commit();
         }
     }
-    
+
     /**
-     * Metodo della classe incaricato della modifica di una nuova entita'
-     * nella tabella phdCycle del database.
+     * Metodo della classe incaricato della modifica di un'entita' nella
+     * tabella phdCycle del database.
      *
      * @param pCycle
      * @throws java.lang.ClassNotFoundException
@@ -100,7 +101,7 @@ public class ManagerPhdCycle {
              * nella tabella phdCycle
              */
             String tSql = "UPDATE "
-                    + ManagerPhdCycle.TABLE_PHDCYCLE
+                    + PhdCycleManager.TABLE_PHDCYCLE
                     + " set description = '"
                     + pCycle.getDescription()
                     + "', year = '"
@@ -108,7 +109,7 @@ public class ManagerPhdCycle {
                     + "', FK_Professor = '"
                     + pCycle.getFK_Professor()
                     + "' WHERE idPhdCycle = '"
-                    + pCycle.getIdPhdCycle()+"'";
+                    + pCycle.getIdPhdCycle() + "'";
 
             //Inviamo la Query al DataBase
             Utility.executeOperation(connect, tSql);
@@ -116,9 +117,9 @@ public class ManagerPhdCycle {
             connect.commit();
         }
     }
-    
+
     /**
-     * Metodo della classe incaricato della cancellazopme di una nuova entita'
+     * Metodo della classe incaricato della cancellazopme di un'entita'
      * nella tabella phdCycle del database.
      *
      * @param pCycle
@@ -139,9 +140,9 @@ public class ManagerPhdCycle {
              * nella tabella phdCycle
              */
             String tSql = "DELETE FROM "
-                    + ManagerPhdCycle.TABLE_PHDCYCLE
+                    + PhdCycleManager.TABLE_PHDCYCLE
                     + " WHERE idPhdCycle = '"
-                    + pCycle.getIdPhdCycle()+"'";
+                    + pCycle.getIdPhdCycle() + "'";
 
             //Inviamo la Query al DataBase
             Utility.executeOperation(connect, tSql);
@@ -151,13 +152,13 @@ public class ManagerPhdCycle {
             DBConnection.releaseConnection(connect);
         }
     }
-    
+
     /**
-     * Metodo della classe incaricato della ricerca
-     * di un ciclo contenuto nella tabella.
+     * Metodo della classe incaricato della ricerca delle informazioni di un 
+     * ciclo contenuto nella tabella phdCycle.
      *
      * @param idPhdCycle
-     * @return 
+     * @return
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
      * @throws it.unisa.dottorato.exception.EntityNotFoundException
@@ -167,7 +168,7 @@ public class ManagerPhdCycle {
     public synchronized PhdCycle getPhdCycleById(int idPhdCycle) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException, ConnectionException {
         Connection connect = null;
         try {
-           PhdCycle cycle = new PhdCycle();
+            PhdCycle cycle = new PhdCycle();
             // Otteniamo una Connessione al DataBase
             connect = DBConnection.getConnection();
 
@@ -176,43 +177,41 @@ public class ManagerPhdCycle {
              * nella tabella phdCycle
              */
             String tSql = "SELECT * FROM "
-                    + ManagerPhdCycle.TABLE_PHDCYCLE
+                    + PhdCycleManager.TABLE_PHDCYCLE
                     + " WHERE idPhdCycle = '"
-                    + idPhdCycle+"'";
+                    + idPhdCycle + "'";
 
             //Inviamo la Query al DataBase
             ResultSet result = Utility.queryOperation(connect, tSql);
-            
-            if(result.next())
-            {
+
+            if (result.next()) {
                 cycle.setIdPhdCycle(result.getInt("idPhdCycle"));
                 cycle.setDescription(result.getString("description"));
                 cycle.setYear(result.getInt("year"));
+                cycle.setFK_Professor(result.getString("FK_Professor"));
             }
-            
+
             return cycle;
-            
+
         } finally {
             DBConnection.releaseConnection(connect);
         }
     }
-    
-    
-        /**
-     * Metodo della classe incaricato della ricerca
-     * dell'ultimo ciclo contenuto nella tabella.
+
+    /**
+     * Metodo della classe incaricato della ricerca dei cicli esistenti.
      *
-     * @return 
+     * @return
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
      * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      * @throws it.unisa.dottorato.exception.ConnectionException
      */
-    public synchronized int getLastCycle() throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException, ConnectionException {
+    public synchronized ArrayList<String> getPhdCyclesIds() throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException, ConnectionException {
         Connection connect = null;
         try {
-           int idCycle = 0;
+            ArrayList<String> cycles = new ArrayList<>();
             // Otteniamo una Connessione al DataBase
             connect = DBConnection.getConnection();
 
@@ -220,24 +219,21 @@ public class ManagerPhdCycle {
              * Prepariamo la stringa SQL per modificare un record 
              * nella tabella phdCycle
              */
-                    
-            String tSql = "SELECT min(idPhdCycle) as Minimo FROM "
-                    + ManagerPhdCycle.TABLE_PHDCYCLE
-                    + "'";
+            String tSql = "SELECT IdPhdCycle FROM "
+                    + PhdCycleManager.TABLE_PHDCYCLE;
 
             //Inviamo la Query al DataBase
             ResultSet result = Utility.queryOperation(connect, tSql);
-            
-            if(result.next())
-            {
-                idCycle = result.getInt("Minimo");
+
+            while (result.next()) {
+                cycles.add(result.getString("IdPhdCycle"));
             }
-            
-            return idCycle;
-            
+
+            return cycles;
+
         } finally {
             DBConnection.releaseConnection(connect);
         }
     }
-    
+
 }

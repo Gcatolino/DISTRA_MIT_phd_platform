@@ -1,15 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package it.unisa.dottorato.phdCurriculum;
+package it.unisa.dottorato.phdCycle;
 
 import it.unisa.dottorato.exception.ConnectionException;
 import it.unisa.dottorato.exception.EntityNotFoundException;
+import it.unisa.dottorato.phdCurriculum.GetPhdCurriculumsNamesByPhdCycleServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -17,13 +14,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-/**
- *
- * @author sesa
- */
-@WebServlet(name = "ServletDeletePhdCurriculum", urlPatterns = {"/ServletDeletePhdCurriculum"})
-public class ServletDeletePhdCurriculum extends HttpServlet {
+@WebServlet(name = "GetPhdCyclesIds", urlPatterns = {"/dottorato/GetPhdCyclesIds"})
+public class GetPhdCyclesIdsServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,28 +33,16 @@ public class ServletDeletePhdCurriculum extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-
-            String idPhdCurriculum = request.getParameter("idPhdCurriculum");
-            
-            PhdCurriculum aPhdCurriculum = new PhdCurriculum();
-            aPhdCurriculum.setIdPhdCurriculum(Integer.parseInt(idPhdCurriculum));
-
+        try (PrintWriter out = response.getWriter()) {
+            JSONObject result = new JSONObject();
             try {
-                ManagerPhdCurriculum.getInstance().delete(aPhdCurriculum);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(ServletDeletePhdCurriculum.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(ServletDeletePhdCurriculum.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (EntityNotFoundException ex) {
-                Logger.getLogger(ServletDeletePhdCurriculum.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ConnectionException ex) {
-                Logger.getLogger(ServletDeletePhdCurriculum.class.getName()).log(Level.SEVERE, null, ex);
+                ArrayList<String> cyclesIds = PhdCycleManager.getInstance().getPhdCyclesIds();
+                JSONArray resultArray = new JSONArray(cyclesIds);
+                result.put("cyclesIds", resultArray);
+                out.write(result.toString());
+            } catch (ClassNotFoundException | SQLException | EntityNotFoundException | ConnectionException | JSONException ex) {
+                Logger.getLogger(GetPhdCurriculumsNamesByPhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-        } finally {
-            out.close();
         }
     }
 

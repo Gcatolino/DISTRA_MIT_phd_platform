@@ -1,10 +1,11 @@
-package it.unisa.dottorato.phdCycle;
+package it.unisa.dottorato.phdCurriculum;
 
 import it.unisa.dottorato.exception.ConnectionException;
 import it.unisa.dottorato.exception.EntityNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -12,9 +13,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-@WebServlet(name = "UpdatePhdCycle", urlPatterns = {"/dottorato/UpdatePhdCycle"})
-public class UpdatePhdCycleServlet extends HttpServlet {
+@WebServlet(name = "GetPhdCurriculumsNamesByPhdCycle", urlPatterns = {"/dottorato/GetPhdCurriculumsNamesByPhdCycle"})
+public class GetPhdCurriculumsNamesByPhdCycleServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -28,34 +32,17 @@ public class UpdatePhdCycleServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-
-            String idPhdCycle = request.getParameter("idPhdCycle");
-            String description = request.getParameter("description");
-            String year = request.getParameter("year");
-            String professor = request.getParameter("professor");
-
-            PhdCycle aPhdCycle = new PhdCycle();
-            aPhdCycle.setIdPhdCycle(Integer.parseInt(idPhdCycle));
-            aPhdCycle.setYear(Integer.parseInt(year));
-            aPhdCycle.setDescription(description);
-            aPhdCycle.setFK_Professor(professor);
-
+        try (PrintWriter out = response.getWriter()) {
+            int phdCycleId = Integer.parseInt(request.getParameter("phdCycleId"));
+            JSONObject result = new JSONObject();
             try {
-                PhdCycleManager.getInstance().update(aPhdCycle);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(UpdatePhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(UpdatePhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (EntityNotFoundException ex) {
-                Logger.getLogger(UpdatePhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ConnectionException ex) {
-                Logger.getLogger(UpdatePhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
+                ArrayList<String> curriculum = PhdCurriculumManager.getInstance().getPhdCurriculumNameByCycle(phdCycleId);
+                JSONArray resultArray = new JSONArray(curriculum);
+                result.put("curriculumNames", resultArray);
+                out.write(result.toString());
+            } catch (ClassNotFoundException | SQLException | EntityNotFoundException | ConnectionException | JSONException ex) {
+                Logger.getLogger(GetPhdCurriculumsNamesByPhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-        } finally {
-            out.close();
         }
     }
 

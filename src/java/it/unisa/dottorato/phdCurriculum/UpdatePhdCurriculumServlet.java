@@ -1,9 +1,8 @@
-package it.unisa.dottorato.phdCycle;
+package it.unisa.dottorato.phdCurriculum;
 
 import it.unisa.dottorato.exception.ConnectionException;
 import it.unisa.dottorato.exception.EntityNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,8 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "UpdatePhdCycle", urlPatterns = {"/dottorato/UpdatePhdCycle"})
-public class UpdatePhdCycleServlet extends HttpServlet {
+@WebServlet(name = "UpdatePhdCurriculum", urlPatterns = {"/dottorato/UpdatePhdCurriculum"})
+public class UpdatePhdCurriculumServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -28,35 +27,23 @@ public class UpdatePhdCycleServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+
+        String idPhdCurriculum = request.getParameter("idPhdCurriculum");
+        String name = request.getParameter("name");
+        String description = request.getParameter("description");
+        String professor = request.getParameter("professor");
+
+        PhdCurriculum aPhdCurriculum = new PhdCurriculum();
+        aPhdCurriculum.setName(name);
+        aPhdCurriculum.setDescription(description);
+        aPhdCurriculum.setFK_Professor(professor);
+
         try {
-
-            String idPhdCycle = request.getParameter("idPhdCycle");
-            String description = request.getParameter("description");
-            String year = request.getParameter("year");
-            String professor = request.getParameter("professor");
-
-            PhdCycle aPhdCycle = new PhdCycle();
-            aPhdCycle.setIdPhdCycle(Integer.parseInt(idPhdCycle));
-            aPhdCycle.setYear(Integer.parseInt(year));
-            aPhdCycle.setDescription(description);
-            aPhdCycle.setFK_Professor(professor);
-
-            try {
-                PhdCycleManager.getInstance().update(aPhdCycle);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(UpdatePhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(UpdatePhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (EntityNotFoundException ex) {
-                Logger.getLogger(UpdatePhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ConnectionException ex) {
-                Logger.getLogger(UpdatePhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        } finally {
-            out.close();
+            PhdCurriculumManager.getInstance().update(aPhdCurriculum);
+        } catch (ClassNotFoundException | SQLException | EntityNotFoundException | ConnectionException ex) {
+            Logger.getLogger(UpdatePhdCurriculumServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

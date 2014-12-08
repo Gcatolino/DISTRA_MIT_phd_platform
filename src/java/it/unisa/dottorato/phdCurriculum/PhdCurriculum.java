@@ -2,20 +2,11 @@ package it.unisa.dottorato.phdCurriculum;
 
 import java.io.Serializable;
 
-public class PhdCurriculum implements Serializable{
-    
-    private int idPhdCurriculum;
+public class PhdCurriculum implements Serializable {
+
     private String name;
     private String description;
-    private int FK_Professor;
-
-    public int getIdPhdCurriculum() {
-        return idPhdCurriculum;
-    }
-
-    public void setIdPhdCurriculum(int idPhdCurriculum) {
-        this.idPhdCurriculum = idPhdCurriculum;
-    }
+    private String FK_Professor;
 
     public String getName() {
         return name;
@@ -33,12 +24,12 @@ public class PhdCurriculum implements Serializable{
         this.description = description;
     }
 
-    public int getFK_Professor() {
+    public String getFK_Professor() {
         return FK_Professor;
     }
 
-    public void setFK_Professor(int FK_Professor) {
+    public void setFK_Professor(String FK_Professor) {
         this.FK_Professor = FK_Professor;
-    }   
-    
+    }
+
 }

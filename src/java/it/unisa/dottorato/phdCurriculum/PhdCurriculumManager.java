@@ -6,23 +6,26 @@ import it.unisa.dottorato.utility.Utility;
 import it.unisa.integrazione.database.DBConnection;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
-public class ManagerPhdCurriculum {
+public class PhdCurriculumManager {
 
     /**
-     * Il nome della tabella
+     * I nomi delle tabelle
      */
     private static final String TABLE_PHDCURRICULUM = "phdcurriculum";
+    private static final String TABLE_PHDCLASS = "phdclass";
 
     //	 istanza della classe
-    private static ManagerPhdCurriculum instance;
+    private static PhdCurriculumManager instance;
 
     /**
      * Il costruttore della classe e' dichiarato privato, per evitare
      * l'istanziazione di oggetti della classe .
      */
-    private ManagerPhdCurriculum() {
+    private PhdCurriculumManager() {
         super();
     }
 
@@ -35,9 +38,9 @@ public class ManagerPhdCurriculum {
      *
      * @return L'istanza della classe
      */
-    public static synchronized ManagerPhdCurriculum getInstance() {
+    public static synchronized PhdCurriculumManager getInstance() {
         if (instance == null) {
-            instance = new ManagerPhdCurriculum();
+            instance = new PhdCurriculumManager();
         }
         return instance;
     }
@@ -64,7 +67,7 @@ public class ManagerPhdCurriculum {
              * nella tabella phdCurriculum
              */
             String tSql = "INSERT INTO "
-                    + ManagerPhdCurriculum.TABLE_PHDCURRICULUM
+                    + PhdCurriculumManager.TABLE_PHDCURRICULUM
                     + " (name, description, FK_professor)"
                     + " VALUES ('"
                     + pCurriculum.getName()
@@ -105,7 +108,7 @@ public class ManagerPhdCurriculum {
              * nella tabella phdCycle
              */
             String tSql = "UPDATE "
-                    + ManagerPhdCurriculum.TABLE_PHDCURRICULUM
+                    + PhdCurriculumManager.TABLE_PHDCURRICULUM
                     + " set name = '"
                     + pCurriculum.getName()
                     + "', description = '"
@@ -113,7 +116,7 @@ public class ManagerPhdCurriculum {
                     + "', FK_Professor = '"
                     + pCurriculum.getFK_Professor()
                     + "' WHERE idPhdCurriculum = '"
-                    + pCurriculum.getIdPhdCurriculum() + "'";
+                    + pCurriculum.getName() + "'";
 
             //Inviamo la Query al DataBase
             Utility.executeOperation(connect, tSql);
@@ -125,7 +128,7 @@ public class ManagerPhdCurriculum {
     }
 
     /**
-     * Metodo della classe incaricato della cancellazopme di una nuova entita'
+     * Metodo della classe incaricato della cancellazopme di un'entita'
      * nella tabella phdCurriculum del database.
      *
      * @param pCurriculum
@@ -146,14 +149,94 @@ public class ManagerPhdCurriculum {
              * nella tabella phdCycle
              */
             String tSql = "DELETE FROM "
-                    + ManagerPhdCurriculum.TABLE_PHDCURRICULUM
-                    + " WHERE idPhdCurriculum = '"
-                    + pCurriculum.getIdPhdCurriculum() + "'";
+                    + PhdCurriculumManager.TABLE_PHDCURRICULUM
+                    + " WHERE name = '"
+                    + pCurriculum.getName() + "'";
 
             //Inviamo la Query al DataBase
             Utility.executeOperation(connect, tSql);
 
             connect.commit();
+        } finally {
+            DBConnection.releaseConnection(connect);
+        }
+    }
+
+    /**
+     * Metodo della classe incaricato della ricerca delle informazioni di un
+     * curriculum relativo ad un ciclo.
+     *
+     * @param idPhdCycle
+     * @return
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.sql.SQLException
+     * @throws it.unisa.dottorato.exception.EntityNotFoundException
+     * @throws java.io.IOException
+     * @throws it.unisa.dottorato.exception.ConnectionException
+     */
+    public synchronized ArrayList<String> getPhdCurriculumNameByCycle(int idPhdCycle) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException, ConnectionException {
+        Connection connect = null;
+        try {
+            ArrayList<String> curriculum = new ArrayList<>();
+            // Otteniamo una Connessione al DataBase
+            connect = DBConnection.getConnection();
+
+            /*
+             * Prepariamo la stringa SQL per modificare un record 
+             * nella tabella phdCycle
+             */
+            String tSql = "SELECT FK_PhdCurriculum FROM "
+                    + PhdCurriculumManager.TABLE_PHDCLASS
+                    + " WHERE FK_PhdCycle = '"
+                    + idPhdCycle + "'";
+
+            //Inviamo la Query al DataBase
+            ResultSet result = Utility.queryOperation(connect, tSql);
+
+            while (result.next()) {
+                curriculum.add(result.getString("FK_PhdCurriculum"));
+            }
+
+            return curriculum;
+
+        } finally {
+            DBConnection.releaseConnection(connect);
+        }
+    }
+
+    /**
+     * Metodo della classe incaricato della ricerca dei curriculum esistenti.
+     *
+     * @return
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.sql.SQLException
+     * @throws it.unisa.dottorato.exception.EntityNotFoundException
+     * @throws java.io.IOException
+     * @throws it.unisa.dottorato.exception.ConnectionException
+     */
+    public synchronized ArrayList<String> getPhdCurriculumNames() throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException, ConnectionException {
+        Connection connect = null;
+        try {
+            ArrayList<String> curriculum = new ArrayList<>();
+            // Otteniamo una Connessione al DataBase
+            connect = DBConnection.getConnection();
+
+            /*
+             * Prepariamo la stringa SQL per modificare un record 
+             * nella tabella phdCycle
+             */
+            String tSql = "SELECT name FROM "
+                    + PhdCurriculumManager.TABLE_PHDCURRICULUM;
+
+            //Inviamo la Query al DataBase
+            ResultSet result = Utility.queryOperation(connect, tSql);
+
+            while (result.next()) {
+                curriculum.add(result.getString("name"));
+            }
+
+            return curriculum;
+
         } finally {
             DBConnection.releaseConnection(connect);
         }

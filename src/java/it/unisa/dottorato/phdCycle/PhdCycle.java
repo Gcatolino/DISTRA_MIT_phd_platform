@@ -3,11 +3,11 @@ package it.unisa.dottorato.phdCycle;
 import java.io.Serializable;
 
 public class PhdCycle implements Serializable {
-    
+
     private int idPhdCycle;
     private String description;
     private int year;
-    private int FK_Professor;
+    private String FK_Professor;
 
     public int getIdPhdCycle() {
         return idPhdCycle;
@@ -33,12 +33,12 @@ public class PhdCycle implements Serializable {
         this.year = year;
     }
 
-    public int getFK_Professor() {
+    public String getFK_Professor() {
         return FK_Professor;
     }
 
-    public void setFK_Professor(int FK_Professor) {
+    public void setFK_Professor(String FK_Professor) {
         this.FK_Professor = FK_Professor;
     }
-  
+
 }

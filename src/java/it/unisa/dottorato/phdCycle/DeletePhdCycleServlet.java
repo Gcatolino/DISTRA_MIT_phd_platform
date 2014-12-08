@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unisa.dottorato.phdCycle;
 
 import it.unisa.dottorato.exception.ConnectionException;
@@ -18,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "ServletDeletePhdCycle", urlPatterns = {"/ServletDeletePhdCycle"})
+@WebServlet(name = "DeletePhdCycle", urlPatterns = {"/dottorato/DeletePhdCycle"})
 public class DeletePhdCycleServlet extends HttpServlet {
 
     /**
@@ -37,22 +32,16 @@ public class DeletePhdCycleServlet extends HttpServlet {
         try {
 
             String idPhdCycle = request.getParameter("idPhdCycle");
-            
+
             PhdCycle aPhdCycle = new PhdCycle();
             aPhdCycle.setIdPhdCycle(Integer.parseInt(idPhdCycle));
 
             try {
-                ManagerPhdCycle.getInstance().delete(aPhdCycle);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(DeletePhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(DeletePhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (EntityNotFoundException ex) {
-                Logger.getLogger(DeletePhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ConnectionException ex) {
+                PhdCycleManager.getInstance().delete(aPhdCycle);
+            } catch (ClassNotFoundException | SQLException | EntityNotFoundException | ConnectionException ex) {
                 Logger.getLogger(DeletePhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         } finally {
             out.close();
         }
