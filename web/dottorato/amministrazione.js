@@ -260,7 +260,7 @@ var initCurriculum = function () {
             }
 
             $("#admin_add_curriculum").show();
-            $("#buttonCloseCycleDialog").click(function () {
+            $("#buttonCloseCurriculumDialog").click(function () {
                 $("#admin_add_curriculum").hide();
             });
         });

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dic 08, 2014 alle 11:09
+-- Generation Time: Dic 09, 2014 alle 22:05
 -- Versione del server: 10.0.14-MariaDB
 -- PHP Version: 5.6.3
 
@@ -391,7 +391,6 @@ CREATE TABLE IF NOT EXISTS `phdclass` (
 --
 
 INSERT INTO `phdclass` (`idClass`, `FK_PhdCycle`, `FK_PhdCurriculum`) VALUES
-(1, 15, 'Economia e Direzione delle Aziende Pubbliche'),
 (2, 15, 'Informatica, Sistemi Informativi e Tecnologie'),
 (3, 15, 'Marketing e Comunicazione');
 
@@ -403,8 +402,8 @@ INSERT INTO `phdclass` (`idClass`, `FK_PhdCycle`, `FK_PhdCurriculum`) VALUES
 
 CREATE TABLE IF NOT EXISTS `phdcurriculum` (
   `name` varchar(45) NOT NULL,
-  `description` text NOT NULL,
-  `FK_Professor` varchar(16) NOT NULL
+  `description` text,
+  `FK_Professor` varchar(16) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -412,9 +411,9 @@ CREATE TABLE IF NOT EXISTS `phdcurriculum` (
 --
 
 INSERT INTO `phdcurriculum` (`name`, `description`, `FK_Professor`) VALUES
-('Economia e Direzione delle Aziende Pubbliche', 'Il curriculum “Economia e Direzione delle Aziende Pubbliche” ha l’obiettivo di trasferire conoscenze relative a principi, teorie e modelli di gestione, elaborati con riferimento all''economia e alla gestione delle aziende pubbliche, fornire gli strumenti e le metodologie di analisi più innovative, nonché, sviluppare competenze professionali specializzate per il management di enti, istituzioni ed aziende afferenti al settore pubblico. Settore che negli ultimi decenni la Pubblica Amministrazione (P.A.) ha sperimentato un profondo processo di riforma che si è concretizzato, da un lato, in un riposizionamento dei confini tra stato, mercato e società civile e, dall''altro, nell''affermarsi di nuovi modelli di funzionamento che vanno sotto il nome di New Public Management. Recependo tali mutamenti la PA, pur conservando la propria missione, si è trovata nella necessità di innovare le proprie logiche di funzionamento ed i correlati strumenti di analisi e valutazione.Cambiando le logiche organizzative ed i fabbisogni professionali, diviene strategica l''acquisizione, da parte dei livelli dirigenziali, di competenze specifiche e di capacità di problem solving attraverso il costante confronto con casi ed esperienze concrete anche di origine internazionale.Il curriculum in Economia e Direzione delle Aziende Pubbliche rappresenta, quindi, un percorso elettivamente individuato dal mondo universitario per la preparazione di giovani studiosi e potenziali dirigenti attenti all''esigenza di una moderna ed efficiente pubblica amministrazione. Esso ha lo scopo di presentare le più affermate e consolidate teorie e impostazioni dottrinarie elaborate in riferimento all''economia e al governo dell''azienda pubblica (anche nella sua espressione più allargata di pubblici servizi).Il curriculum, pertanto, offre una specifica formazione sui principali temi del public management e della governance pubblica:Dottrine economico-aziendali;Economia e contabilità dell''azienda pubblica;Gestione e management delle amministrazioni pubbliche;Organizzazione e gestione delle risorse umane;Governance degli enti locali;I controlli interni nella P.A.;Strategie e politiche innovative nella P.A.;Valutazione e controllo dei dirigenti;Marketing territoriale;Relazioni con il cittadino e CRM.In definitiva, il Dottore di Ricerca con curriculum in Economia e Direzione delle Aziende Pubbliche si può inquadrare in almeno 3 figure professionali (di dirigente pubblico) emerse nel corso di una recente indagine svolta dal Dipartimento della Funzione Pubblica ovvero la figura di "in-and-outer", l''altrettanto recente "high flier" e il "libero professionista riconvertito".Il dottorato, inoltre, rappresenta una valida premessa per la formazione di figure professionali destinate a ricoprire il ruolo di city-manager (figura del direttore generale negli Enti locali voluta dalla legge 127/1997) e di consulente per gli Enti locali.', 'ertghyuijhtredfg'),
 ('Informatica, Sistemi Informativi e Tecnologie', 'Il curriculum, Informatica, Sistemi Informativi e Tecnologie del Software, ha l’obiettivo di formare figure professionali dotate di una preparazione scientifica teorica e pratica idonea ad operare con piena professionalità e competenza, sia in ambito accademico che industriale, nelle varie fasi che caratterizzano la ricerca, lo sviluppo, il controllo di qualità e la produzione nel settore dei sistemi informativi e delle tecnologie del software. In particolare, il corso di dottorato di ricerca mira alla formazione di ricercatori con elevata conoscenza degli aspetti teorici, metodologici, sperimentali e applicativi di settore quali quelli dei sistemi informativi e delle basi di dati, dell’ingegneria del software, dell''ingegneria della conoscenza, del web engineering e dell''interazione uomo-macchina, con una elevata capacità di trasferire i risultati della ricerca in ambito industriale e di applicarli ai settori dell’economia e del management aziendale, del marketing e della comunicazione.\r\n\r\n  Le tematiche scientifiche del curriculum includono:\r\n\r\nProject management\r\nSoftware quality assurance\r\nMetodi per la stima dei costi\r\nSistemi a supporto delle decisioni e business intelligence\r\nData warehousing\r\nBig data\r\nOpen data\r\nDocument and content management\r\nWorkflow and process management\r\nModellazione e analisi delle prestazioni dei processi\r\nBusiness process reengineering\r\nWeb engineering\r\nSistemi cloud-based\r\nIngegneria dei requisiti e progettazione di sistemi software\r\nManutenzione ed evoluzione di sistemi software\r\nAnalisi e testing del software\r\nIngegneria del software empirica\r\nMetodi e strumenti per il lavoro collaborativo\r\nLinguaggi visuali e interazione uomo-macchina\r\nComputer graphics e realtà virtuale\r\nInterfacce web avanzate, immersive, 3D e aptiche\r\nDomotica e sistemi di videosorveglianza intelligenti.\r\nInterfacce per sistemi domotici\r\nRiconoscimento di immagini e sistemi biometrici\r\nComputational intelligence\r\nInformation retrieval\r\nTecniche di clustering e data mining, machine learning e classificazione\r\nSistemi informativi geografici e territoriali\r\nE-learning e tecnologie per la didattica a distanza\r\nModelli matematici e ottimizzazione\r\nModellazione ed analisi di prestazioni e affidabilità dei sistemi\r\nIl Dottore di Ricerca con curriculum in Informatica, Sistemi Informativi e Tecnologie del Software potrà avere diversi sbocchi professionali, che non si fermano a quello di ricercatore accademico o nei centri di ricerca di organizzazioni ed aziende. Infatti, grazie anche alle competenze acquisite con la formazione di tipo manageriale acquisita durante il corso di dottorato, il Dottore di Ricerca potrà ricoprire ruoli di consulente ed esperto di innovazione e trasferimento tecnologico per le aziende del comparto ICT, nonché ruoli di direzione di progetti di ricerca e funzioni direzionali in aziende del comparto ICT.', 'ertghyuijhtredfg'),
-('Marketing e Comunicazione', '\r\nIl curriculum “Marketing e Comunicazione” mira a trasferire conoscenze e approcci metodologici relativi a principi, teorie e modelli di ideazione e governo delle strategie e delle politiche di marketing e della comunicazione. Il principale obiettivo è formare figure professionali dotate di una solida preparazione scientifica, teorica e pratica idonea ad operare nelle università, nei centri di ricerca, negli enti pubblici e nelle imprese private e pubbliche svolgendo attività di ricerca qualificata nelle seguenti aree disciplinari e professionali: marketing strategico e operativo, analisi di mercato e del consumo, comunicazione istituzionale e d''impresa.\r\n\r\nIl programma formativo si riferisce all’ambito disciplinare dell''Economia d''Impresa e prevede che i frequentanti, al termine del percorso di apprendimento, acquisiscano un uso agevole delle più avanzate ed affidabili metodologie di ricerca scientifica in campo economico-sociale, oltre ad un’approfondita conoscenza delle teorie e delle più recenti ed innovative impostazioni riguardo al marketing ed alla comunicazione.\r\n\r\nParticolare attenzione di studio viene rivolta all’area dei social media e della rete per supportare le scelte strategiche di marketing e di comunicazione delle organizzazioni imprenditoriali e delle istituzioni.\r\n\r\nLe tematiche scientifiche del curriculum includono:\r\n\r\nMarketing Strategy;\r\nCompetition dynamics;\r\nChannel management;\r\nSalesforce management;\r\nMarketing e performance aziendali;\r\nBehavioral Constructs;\r\nDecision making;\r\nConsumer judgment;\r\nCorporate Communication;\r\nCorporate identity;\r\nOrganizational culture;\r\nReputation management;\r\nIntegrated Marketing Communication;\r\nDigital communication;\r\nValue creation and innovation;\r\nOn-line reputation;\r\nWeb customer experience.\r\nIn definitiva, il Dottore di Ricerca con curriculum in Marketing e Comunicazione si potrà orientare professionalmente verso le seguenti figure: studioso ed esperto di marketing e comunicazione per lo sviluppo della ricerca scientifica, sia nel mondo accademico che più in generale nelle organizzazioni di ricerca; consulente professionale per le imprese pubbliche, private e per le istituzioni nel supportare i processi di marketing e di comunicazione; ricoprire funzioni direzionali all’interno delle organizzazioni imprenditoriali e delle istituzioni nel ruolo di sviluppo delle strategie di marketing e della comunicazione.', 'ertghyuijhtredfg');
+('Marketing e Comunicazione', '\r\nIl curriculum “Marketing e Comunicazione” mira a trasferire conoscenze e approcci metodologici relativi a principi, teorie e modelli di ideazione e governo delle strategie e delle politiche di marketing e della comunicazione. Il principale obiettivo è formare figure professionali dotate di una solida preparazione scientifica, teorica e pratica idonea ad operare nelle università, nei centri di ricerca, negli enti pubblici e nelle imprese private e pubbliche svolgendo attività di ricerca qualificata nelle seguenti aree disciplinari e professionali: marketing strategico e operativo, analisi di mercato e del consumo, comunicazione istituzionale e d''impresa.\r\n\r\nIl programma formativo si riferisce all’ambito disciplinare dell''Economia d''Impresa e prevede che i frequentanti, al termine del percorso di apprendimento, acquisiscano un uso agevole delle più avanzate ed affidabili metodologie di ricerca scientifica in campo economico-sociale, oltre ad un’approfondita conoscenza delle teorie e delle più recenti ed innovative impostazioni riguardo al marketing ed alla comunicazione.\r\n\r\nParticolare attenzione di studio viene rivolta all’area dei social media e della rete per supportare le scelte strategiche di marketing e di comunicazione delle organizzazioni imprenditoriali e delle istituzioni.\r\n\r\nLe tematiche scientifiche del curriculum includono:\r\n\r\nMarketing Strategy;\r\nCompetition dynamics;\r\nChannel management;\r\nSalesforce management;\r\nMarketing e performance aziendali;\r\nBehavioral Constructs;\r\nDecision making;\r\nConsumer judgment;\r\nCorporate Communication;\r\nCorporate identity;\r\nOrganizational culture;\r\nReputation management;\r\nIntegrated Marketing Communication;\r\nDigital communication;\r\nValue creation and innovation;\r\nOn-line reputation;\r\nWeb customer experience.\r\nIn definitiva, il Dottore di Ricerca con curriculum in Marketing e Comunicazione si potrà orientare professionalmente verso le seguenti figure: studioso ed esperto di marketing e comunicazione per lo sviluppo della ricerca scientifica, sia nel mondo accademico che più in generale nelle organizzazioni di ricerca; consulente professionale per le imprese pubbliche, private e per le istituzioni nel supportare i processi di marketing e di comunicazione; ricoprire funzioni direzionali all’interno delle organizzazioni imprenditoriali e delle istituzioni nel ruolo di sviluppo delle strategie di marketing e della comunicazione.', 'ertghyuijhtredfg'),
+('test', 'test', NULL);
 
 -- --------------------------------------------------------
 
@@ -424,9 +423,9 @@ INSERT INTO `phdcurriculum` (`name`, `description`, `FK_Professor`) VALUES
 
 CREATE TABLE IF NOT EXISTS `phdcycle` (
   `idPhdCycle` int(11) NOT NULL,
-  `description` text NOT NULL,
+  `description` text,
   `year` year(4) NOT NULL,
-  `FK_Professor` varchar(16) NOT NULL
+  `FK_Professor` varchar(16) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1093,13 +1092,13 @@ ADD CONSTRAINT `phdclass_ibfk_2` FOREIGN KEY (`FK_PhdCurriculum`) REFERENCES `ph
 -- Limiti per la tabella `phdcurriculum`
 --
 ALTER TABLE `phdcurriculum`
-ADD CONSTRAINT `phdcurriculum_ibfk_1` FOREIGN KEY (`FK_Professor`) REFERENCES `person` (`SSN`) ON DELETE CASCADE ON UPDATE CASCADE;
+ADD CONSTRAINT `phdcurriculum_ibfk_1` FOREIGN KEY (`FK_Professor`) REFERENCES `person` (`SSN`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Limiti per la tabella `phdcycle`
 --
 ALTER TABLE `phdcycle`
-ADD CONSTRAINT `phdcycle_ibfk_1` FOREIGN KEY (`FK_Professor`) REFERENCES `person` (`SSN`) ON DELETE CASCADE ON UPDATE CASCADE;
+ADD CONSTRAINT `phdcycle_ibfk_1` FOREIGN KEY (`FK_Professor`) REFERENCES `person` (`SSN`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Limiti per la tabella `professor_phdcycle`
