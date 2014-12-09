@@ -12,6 +12,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 @WebServlet(name = "DeletePhdCycle", urlPatterns = {"/dottorato/DeletePhdCycle"})
 public class DeletePhdCycleServlet extends HttpServlet {
@@ -31,18 +33,23 @@ public class DeletePhdCycleServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
 
+            JSONObject result = new JSONObject();
             String idPhdCycle = request.getParameter("idPhdCycle");
-
-            PhdCycle aPhdCycle = new PhdCycle();
-            aPhdCycle.setIdPhdCycle(Integer.parseInt(idPhdCycle));
+            
+            result.put("result", true);
 
             try {
-                PhdCycleManager.getInstance().delete(aPhdCycle);
+                PhdCycleManager.getInstance().delete(idPhdCycle);
             } catch (ClassNotFoundException | SQLException | EntityNotFoundException | ConnectionException ex) {
+                result.put("result", false);
                 Logger.getLogger(DeletePhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+            out.write(result.toString());
 
-        } finally {
+        } catch (JSONException ex) {
+            Logger.getLogger(UpdatePhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }finally {
             out.close();
         }
     }

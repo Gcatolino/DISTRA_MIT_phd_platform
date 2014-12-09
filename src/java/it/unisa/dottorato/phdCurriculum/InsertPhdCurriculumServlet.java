@@ -3,6 +3,7 @@ package it.unisa.dottorato.phdCurriculum;
 import it.unisa.dottorato.exception.ConnectionException;
 import it.unisa.dottorato.exception.EntityNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,6 +12,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 @WebServlet(name = "InsertPhdCurriculum", urlPatterns = {"/dottorato/InsertPhdCurriculum"})
 public class InsertPhdCurriculumServlet extends HttpServlet {
@@ -28,6 +31,10 @@ public class InsertPhdCurriculumServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
+        PrintWriter out = response.getWriter();
+        try {
+
+            JSONObject result = new JSONObject();
         String name = request.getParameter("name");
         String description = request.getParameter("description");
         String professor = request.getParameter("professor");
@@ -36,11 +43,22 @@ public class InsertPhdCurriculumServlet extends HttpServlet {
         aPhdCurriculum.setName(name);
         aPhdCurriculum.setDescription(description);
         aPhdCurriculum.setFK_Professor(professor);
+        
+        result.put("result", true);
 
         try {
             PhdCurriculumManager.getInstance().insert(aPhdCurriculum);
         } catch (ClassNotFoundException | SQLException | EntityNotFoundException | ConnectionException ex) {
+            result.put("result", false);
             Logger.getLogger(InsertPhdCurriculumServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        out.write(result.toString());
+
+        } catch (JSONException ex) {
+            Logger.getLogger(UpdatePhdCurriculumServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            out.close();
         }
 
     }

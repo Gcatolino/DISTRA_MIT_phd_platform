@@ -34,6 +34,21 @@
         <![endif]-->
 
     </head>
+
+    <!-- Finestra di dialogo per il feedback --> 
+    <div id="InfoDialog" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="InfoTitle"></h4>
+                </div>
+                <div class="modal-body" id="InfoMessage">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <body class="page-body">
 
         <!-- Inclusione della pagina contenente il menù superiore --> 
@@ -41,7 +56,7 @@
         <div class="page-container">
 
             <!-- Inclusione della pagina contenente il menù laterale --> 
-            <jsp:include page="lateralMenu.jsp"/> 
+            <jsp:include page="lateralMenu.jsp"/>
 
             <!-- Contenuto della pagina --> 
             <div class="main-content" id="content">
@@ -56,7 +71,7 @@
                                 Gestione cicli
                             </div>
                             <div class="panel-body hidden_menu" id="admin_menu_cycle">
-                                <p class="admin_phdCycle_submenu" id="admin_menu_add_cycle"> Nuovo ciclo </p>
+                                
                             </div>
                         </div>
 
@@ -66,7 +81,7 @@
                                 Gestione curriculum  
                             </div>
                             <div class="panel-body hidden_menu" id="admin_menu_curriculum">
-                                <p class="admin_phdCurriculum_submenu"> Nuovo curriculum </p>  
+                                <p class="admin_phdCurriculum_submenu" id="admin_menu_add_curriculum"> Nuovo curriculum </p>  
                             </div>
                         </div>
                     </div>
@@ -76,19 +91,20 @@
                         <!-- Pannello per creazione di un nuovo ciclo o la modifica di un ciclo selezionato --> 
                         <div class="panel panel-default">
                             <div class="panel-heading">
+                                <button type="button" class="close" id="buttonCloseCycleDialog">&times;</button>
                                 <h2 id="phdCycleTitle"></h2>
                             </div>
                             <div class="panel-body">
 
                                 <!-- Form contenenti i campi dei cicli di dottorato -->
-                                <form id="cycle_form" method="POST">
+                                <form id="cycle_form">
 
                                     <!-- Campo di testo relativo all'identificativo numerico di un ciclo -->
                                     <div class="form-group">
                                         <label>Identificativo numerico:</label>
                                         <div class="input-group">
                                             <span class="input-group-addon"></span>
-                                            <input type="text" id="phdCycleId" class="form-control" name="idPhdCycle" placeholder="Inserisci il numero del ciclo" required/>
+                                            <input type="text" id="phdCycleId" class="form-control" name="idPhdCycle" placeholder="Inserisci il numero del ciclo" pattern="[0-9]{2}" required/>
                                         </div>
                                     </div>
 
@@ -97,7 +113,7 @@
                                         <label>Anno:</label>
                                         <div class="input-group">
                                             <span class="input-group-addon"></span>
-                                            <input type="text" id="phdCycleYear" class="form-control" name="year" placeholder="Inserisci l'anno di attivazione del ciclo" required/>
+                                            <input type="text" id="phdCycleYear" class="form-control" name="year" placeholder="Inserisci l'anno di attivazione del ciclo" pattern="[0-9]{4}" required/>
                                         </div>
                                     </div>
 
@@ -126,16 +142,70 @@
                                         </div>
                                     </div>
 
-                                    <!-- Pannello di feedback dell'operazione -->
-                                    <div class="col-sm-12">
-                                        <div id="messageControl" align="center">
+                                    <!-- Pulsanti di invio e reset del form -->
+                                    <div class="form-group">
+                                        <input type="button" id="submitPhdCycle" class="btn btn-blue" value="Invia"> 
+                                        <input type="button" id="deleteCycleButton" class="btn btn-red" value="Elimina ciclo">
+                                        <input type="reset" id="resetCycleButton" class="btn btn-white" value="Reset">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-8 hidden_menu" id="admin_add_curriculum">
+
+                        <!-- Pannello per creazione di un nuovo curriculum o la modifica di un curriculum selezionato --> 
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <button type="button" class="close" id="buttonCloseCurriculumDialog">&times;</button>
+                                <h2 id="phdCurriculumTitle"></h2>
+                            </div>
+                            <div class="panel-body">
+
+                                <!-- Form contenenti i campi dei curriculum di dottorato -->
+                                <form id="curriculum_form">
+
+                                    <!-- Campo di testo relativo al nome di un curriculum -->
+                                    <div class="form-group">
+                                        <label>Nome:</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"></span>
+                                            <input type="text" id="phdCurriculumName" class="form-control" name="name" placeholder="Inserisci il nome del curriculum" pattern="[a-z]+" required/>
+                                        </div>
+                                    </div>
+
+                                    <!-- Campo di testo relativo alla descrizione di un curriculum -->
+                                    <div class="form-group">
+                                        <label>Descrizione:</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"></span>
+                                            <textarea id="phdCurriculumDescription" rows="10" class="form-control" name="description" placeholder="Inserisci la descrizione del curriculum"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <!-- Campo di testo relativo al coordinatore di un curriculum -->
+                                    <div class="form-group">
+                                        <label>Coordinatore:</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"></span>
+                                            <input list="browsers" id="phdCurriculumProfessor" class="form-control" name="professor" placeholder="Inserisci il coordinatore del curriculum">
+                                            <datalist id="browsers">
+                                                <option value="Andrea De Lucia">
+                                                <option value="Anna Forte">
+                                                <option value="Amelia Nobile">
+                                                <option value="Angelo Cassari">
+                                            </datalist>
+
                                         </div>
                                     </div>
 
                                     <!-- Pulsanti di invio e reset del form -->
                                     <div class="form-group">
-                                        <input type="submit" id="submitPhdCycle" class="btn btn-blue" value="Invia"> 
-                                        <button type="reset"  id="resetPhdCycle"  class="btn btn-white">Reset</button>
+                                        <input type="button" id="submitPhdCurriculum" class="btn btn-blue" value="Invia"> 
+                                        <input type="button" id="deleteCurriculumButton" class="btn btn-red" value="Elimina curriculum">
+                                        <input type="reset" id="resetCurriculumButton" class="btn btn-white" value="Reset">
                                     </div>
                                 </form>
                             </div>

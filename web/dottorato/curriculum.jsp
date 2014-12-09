@@ -64,15 +64,13 @@
                     <div class="col-sm-10">
 
                     <!-- Descrizione del ciclo di dottorato --> 
-                    <div class="panel panel-default">
+                    <div class="panel panel-default hidden_menu" id="curriculumPanel">
                         <div class="panel-heading">
-                            <h1> Informatica, Sistemi Informativi e Tecnologie </h1>   
-                            <h3> <span id="phdCycle"> </span>Coordinatore: Andrea De Lucia <span id="phdYear"> </span> </h3>
+                            <h1 id="phdCurriculumName"> </h1>   
+                            <h3 id="phdCurriculumProfessor"> </h3>
                         </div>
                         <div class="panel-body">
-                            <p class="text-justify" id="phdDescription"> Il curriculum, Informatica, Sistemi Informativi e Tecnologie del Software, ha l’obiettivo di formare figure professionali dotate di una preparazione scientifica teorica e pratica idonea ad operare con piena professionalità e competenza, sia in ambito accademico che industriale, nelle varie fasi che caratterizzano la ricerca, lo sviluppo, il controllo di qualità e la produzione nel settore dei sistemi informativi e delle tecnologie del software. In particolare, il corso di dottorato di ricerca mira alla formazione di ricercatori con elevata conoscenza degli aspetti teorici, metodologici, sperimentali e applicativi di settore quali quelli dei sistemi informativi e delle basi di dati, dell’ingegneria del software, dell'ingegneria della conoscenza, del web engineering e dell'interazione uomo-macchina, con una elevata capacità di trasferire i risultati della ricerca in ambito industriale e di applicarli ai settori dell’economia e del management aziendale, del marketing e della comunicazione.
- </p>
-                            <p class="text-justify" id="phdProfessor"></p>
+                            <p class="text-justify" id="phdCurriculumDescription"> </p>
                         </div>
                     </div>  
                     </div>

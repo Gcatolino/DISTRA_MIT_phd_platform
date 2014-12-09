@@ -2,9 +2,9 @@ package it.unisa.dottorato.phdCurriculum;
 
 import it.unisa.dottorato.exception.ConnectionException;
 import it.unisa.dottorato.exception.EntityNotFoundException;
-import it.unisa.dottorato.phdCycle.DeletePhdCycleServlet;
+import it.unisa.dottorato.phdCycle.GetPhdCycleServlet;
+import it.unisa.dottorato.phdCycle.PhdCycle;
 import it.unisa.dottorato.phdCycle.PhdCycleManager;
-import it.unisa.dottorato.phdCycle.UpdatePhdCycleServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-@WebServlet(name = "DeletePhdCurriculum", urlPatterns = {"/dottorato/DeletePhdCurriculum"})
-public class DeletePhdCurriculumServlet extends HttpServlet {
+@WebServlet(name = "GetPhdCurriculum", urlPatterns = {"/dottorato/GetPhdCurriculum"})
+public class GetPhdCurriculumServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,30 +33,19 @@ public class DeletePhdCurriculumServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        PrintWriter out = response.getWriter();
-        try {
-
+        try (PrintWriter out = response.getWriter()) {
+            String phdCurriculumName = request.getParameter("phdCurriculumName");
             JSONObject result = new JSONObject();
-            String namePhdCurriculum = request.getParameter("namePhdCurriculum");
-            
-            result.put("result", true);
-
             try {
-                PhdCurriculumManager.getInstance().delete(namePhdCurriculum);
-            } catch (ClassNotFoundException | SQLException | EntityNotFoundException | ConnectionException ex) {
-                result.put("result", false);
-                Logger.getLogger(DeletePhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
+                PhdCurriculum curriculum = PhdCurriculumManager.getInstance().getPhdCurriculumById(phdCurriculumName);
+                result.put("phdCurriculumDescription", curriculum.getDescription());
+                result.put("phdCurriculumName", curriculum.getName());
+                result.put("FK_Professor", curriculum.getFK_Professor());
+                out.write(result.toString());
+            } catch (ClassNotFoundException | SQLException | EntityNotFoundException | ConnectionException | JSONException ex) {
+                Logger.getLogger(GetPhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            out.write(result.toString());
-
-        } catch (JSONException ex) {
-            Logger.getLogger(UpdatePhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {
-            out.close();
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

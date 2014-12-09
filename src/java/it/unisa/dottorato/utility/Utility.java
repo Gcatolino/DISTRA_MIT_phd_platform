@@ -16,6 +16,13 @@ import java.text.DateFormat;
  */
 public class Utility {
 
+    synchronized static public String emptyValue(String value){
+        if("".equals(value))
+            return "null";
+        else
+            return value;
+    }
+    
     /**
      * Ritorna, dati un campo e una tabella, il valore massimo del campo nella
      * tabella.

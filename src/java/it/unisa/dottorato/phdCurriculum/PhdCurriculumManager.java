@@ -73,9 +73,9 @@ public class PhdCurriculumManager {
                     + pCurriculum.getName()
                     + "','"
                     + pCurriculum.getDescription()
-                    + "','"
-                    + pCurriculum.getFK_Professor()
-                    + "')";
+                    + "',"
+                    + Utility.emptyValue(pCurriculum.getFK_Professor())
+                    + ")";
 
             //Inviamo la Query al DataBase
             Utility.executeOperation(connect, tSql);
@@ -90,6 +90,7 @@ public class PhdCurriculumManager {
      * Metodo della classe incaricato della modifica di un'entita' nella tabella
      * phdCurriculum del database.
      *
+     * @param oldNamePhdCurriculum
      * @param pCurriculum
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
@@ -97,7 +98,7 @@ public class PhdCurriculumManager {
      * @throws java.io.IOException
      * @throws it.unisa.dottorato.exception.ConnectionException
      */
-    public synchronized void update(PhdCurriculum pCurriculum) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException, ConnectionException {
+    public synchronized void update(String oldNamePhdCurriculum, PhdCurriculum pCurriculum) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException, ConnectionException {
         Connection connect = null;
         try {
             // Otteniamo una Connessione al DataBase
@@ -113,10 +114,10 @@ public class PhdCurriculumManager {
                     + pCurriculum.getName()
                     + "', description = '"
                     + pCurriculum.getDescription()
-                    + "', FK_Professor = '"
-                    + pCurriculum.getFK_Professor()
-                    + "' WHERE idPhdCurriculum = '"
-                    + pCurriculum.getName() + "'";
+                    + "', FK_Professor = "
+                    + Utility.emptyValue(pCurriculum.getFK_Professor())
+                    + " WHERE name = '"
+                    + oldNamePhdCurriculum + "'";
 
             //Inviamo la Query al DataBase
             Utility.executeOperation(connect, tSql);
@@ -128,17 +129,17 @@ public class PhdCurriculumManager {
     }
 
     /**
-     * Metodo della classe incaricato della cancellazopme di un'entita'
-     * nella tabella phdCurriculum del database.
+     * Metodo della classe incaricato della cancellazopme di un'entita' nella
+     * tabella phdCurriculum del database.
      *
-     * @param pCurriculum
+     * @param phdCurriculumName
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
      * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      * @throws it.unisa.dottorato.exception.ConnectionException
      */
-    public synchronized void delete(PhdCurriculum pCurriculum) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException, ConnectionException {
+    public synchronized void delete(String phdCurriculumName) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException, ConnectionException {
         Connection connect = null;
         try {
             // Otteniamo una Connessione al DataBase
@@ -151,7 +152,7 @@ public class PhdCurriculumManager {
             String tSql = "DELETE FROM "
                     + PhdCurriculumManager.TABLE_PHDCURRICULUM
                     + " WHERE name = '"
-                    + pCurriculum.getName() + "'";
+                    + phdCurriculumName + "'";
 
             //Inviamo la Query al DataBase
             Utility.executeOperation(connect, tSql);
@@ -226,13 +227,57 @@ public class PhdCurriculumManager {
              * nella tabella phdCycle
              */
             String tSql = "SELECT name FROM "
-                    + PhdCurriculumManager.TABLE_PHDCURRICULUM;
+                    + PhdCurriculumManager.TABLE_PHDCURRICULUM
+                    + " ORDER BY name desc";
 
             //Inviamo la Query al DataBase
             ResultSet result = Utility.queryOperation(connect, tSql);
 
             while (result.next()) {
                 curriculum.add(result.getString("name"));
+            }
+
+            return curriculum;
+
+        } finally {
+            DBConnection.releaseConnection(connect);
+        }
+    }
+
+    /**
+     * Metodo della classe incaricato della ricerca delle informazioni di un
+     * curriculum contenuto nella tabella phdCurriculum.
+     *
+     * @param phdCurriculumName
+     * @return
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.sql.SQLException
+     * @throws it.unisa.dottorato.exception.EntityNotFoundException
+     * @throws java.io.IOException
+     * @throws it.unisa.dottorato.exception.ConnectionException
+     */
+    public synchronized PhdCurriculum getPhdCurriculumById(String phdCurriculumName) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException, ConnectionException {
+        Connection connect = null;
+        try {
+            PhdCurriculum curriculum = new PhdCurriculum();
+            // Otteniamo una Connessione al DataBase
+            connect = DBConnection.getConnection();
+
+            /*
+             * Prepariamo la stringa SQL per modificare un record 
+             * nella tabella phdCycle
+             */
+            String tSql = "SELECT * FROM "
+                    + PhdCurriculumManager.TABLE_PHDCURRICULUM
+                    + " WHERE name = '"
+                    + phdCurriculumName + "'";
+            //Inviamo la Query al DataBase
+            ResultSet result = Utility.queryOperation(connect, tSql);
+
+            if (result.next()) {
+                curriculum.setDescription(result.getString("description"));
+                curriculum.setName(result.getString("name"));
+                curriculum.setFK_Professor(result.getString("FK_Professor"));
             }
 
             return curriculum;

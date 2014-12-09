@@ -49,6 +49,7 @@ public class PhdCycleManager {
      * nella tabella phdCycle del database.
      *
      * @param pCycle
+     * @return
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
      * @throws it.unisa.dottorato.exception.EntityNotFoundException
@@ -71,9 +72,9 @@ public class PhdCycleManager {
                     + pCycle.getDescription()
                     + "','"
                     + pCycle.getYear()
-                    + "','"
-                    + pCycle.getFK_Professor()
-                    + "')";
+                    + "',"
+                    + Utility.emptyValue(pCycle.getFK_Professor())
+                    + ")";
 
             //Inviamo la Query al DataBase
             Utility.executeOperation(connect, tSql);
@@ -83,9 +84,10 @@ public class PhdCycleManager {
     }
 
     /**
-     * Metodo della classe incaricato della modifica di un'entita' nella
-     * tabella phdCycle del database.
+     * Metodo della classe incaricato della modifica di un'entita' nella tabella
+     * phdCycle del database.
      *
+     * @param oldIdPhdCycle
      * @param pCycle
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
@@ -93,7 +95,7 @@ public class PhdCycleManager {
      * @throws java.io.IOException
      * @throws it.unisa.dottorato.exception.ConnectionException
      */
-    public synchronized void update(PhdCycle pCycle) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException, ConnectionException {
+    public synchronized void update(String oldIdPhdCycle, PhdCycle pCycle) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException, ConnectionException {
         try (Connection connect = DBConnection.getConnection()) {
 
             /*
@@ -106,10 +108,12 @@ public class PhdCycleManager {
                     + pCycle.getDescription()
                     + "', year = '"
                     + pCycle.getYear()
-                    + "', FK_Professor = '"
-                    + pCycle.getFK_Professor()
-                    + "' WHERE idPhdCycle = '"
-                    + pCycle.getIdPhdCycle() + "'";
+                    + "', idPhdCycle = '"
+                    + pCycle.getIdPhdCycle()
+                    + "', FK_Professor = "
+                    + Utility.emptyValue(pCycle.getFK_Professor())
+                    + " WHERE idPhdCycle = '"
+                    + oldIdPhdCycle + "'";           
 
             //Inviamo la Query al DataBase
             Utility.executeOperation(connect, tSql);
@@ -119,17 +123,17 @@ public class PhdCycleManager {
     }
 
     /**
-     * Metodo della classe incaricato della cancellazopme di un'entita'
-     * nella tabella phdCycle del database.
+     * Metodo della classe incaricato della cancellazopme di un'entita' nella
+     * tabella phdCycle del database.
      *
-     * @param pCycle
+     * @param idPhdCycle
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
      * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      * @throws it.unisa.dottorato.exception.ConnectionException
      */
-    public synchronized void delete(PhdCycle pCycle) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException, ConnectionException {
+    public synchronized void delete(String idPhdCycle) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException, ConnectionException {
         Connection connect = null;
         try {
             // Otteniamo una Connessione al DataBase
@@ -142,7 +146,7 @@ public class PhdCycleManager {
             String tSql = "DELETE FROM "
                     + PhdCycleManager.TABLE_PHDCYCLE
                     + " WHERE idPhdCycle = '"
-                    + pCycle.getIdPhdCycle() + "'";
+                    + idPhdCycle + "'";
 
             //Inviamo la Query al DataBase
             Utility.executeOperation(connect, tSql);
@@ -154,7 +158,7 @@ public class PhdCycleManager {
     }
 
     /**
-     * Metodo della classe incaricato della ricerca delle informazioni di un 
+     * Metodo della classe incaricato della ricerca delle informazioni di un
      * ciclo contenuto nella tabella phdCycle.
      *
      * @param idPhdCycle
@@ -220,7 +224,8 @@ public class PhdCycleManager {
              * nella tabella phdCycle
              */
             String tSql = "SELECT IdPhdCycle FROM "
-                    + PhdCycleManager.TABLE_PHDCYCLE;
+                    + PhdCycleManager.TABLE_PHDCYCLE
+                    + " ORDER BY idPhdCycle desc";
 
             //Inviamo la Query al DataBase
             ResultSet result = Utility.queryOperation(connect, tSql);

@@ -12,6 +12,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 @WebServlet(name = "UpdatePhdCycle", urlPatterns = {"/dottorato/UpdatePhdCycle"})
 public class UpdatePhdCycleServlet extends HttpServlet {
@@ -31,29 +33,34 @@ public class UpdatePhdCycleServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
 
-            String idPhdCycle = request.getParameter("idPhdCycle");
+            JSONObject result = new JSONObject();
+
+            String oldIdPhdCycle = request.getParameter("oldIdPhdCycle");
+            String newIdPhdCycle = request.getParameter("newIdPhdCycle");
             String description = request.getParameter("description");
             String year = request.getParameter("year");
             String professor = request.getParameter("professor");
 
             PhdCycle aPhdCycle = new PhdCycle();
-            aPhdCycle.setIdPhdCycle(Integer.parseInt(idPhdCycle));
+            aPhdCycle.setIdPhdCycle(Integer.parseInt(newIdPhdCycle));
             aPhdCycle.setYear(Integer.parseInt(year));
             aPhdCycle.setDescription(description);
             aPhdCycle.setFK_Professor(professor);
 
+            result.put("result", true);
+
             try {
-                PhdCycleManager.getInstance().update(aPhdCycle);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(UpdatePhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(UpdatePhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (EntityNotFoundException ex) {
-                Logger.getLogger(UpdatePhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ConnectionException ex) {
+                PhdCycleManager.getInstance().update(oldIdPhdCycle, aPhdCycle);
+
+            } catch (ClassNotFoundException | SQLException | EntityNotFoundException | ConnectionException ex) {
+                result.put("result", false);
                 Logger.getLogger(UpdatePhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
 
+            out.write(result.toString());
+
+        } catch (JSONException ex) {
+            Logger.getLogger(UpdatePhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             out.close();
         }

@@ -3,6 +3,7 @@ package it.unisa.dottorato.phdCurriculum;
 import it.unisa.dottorato.exception.ConnectionException;
 import it.unisa.dottorato.exception.EntityNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,6 +12,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 @WebServlet(name = "UpdatePhdCurriculum", urlPatterns = {"/dottorato/UpdatePhdCurriculum"})
 public class UpdatePhdCurriculumServlet extends HttpServlet {
@@ -28,22 +31,38 @@ public class UpdatePhdCurriculumServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        String idPhdCurriculum = request.getParameter("idPhdCurriculum");
-        String name = request.getParameter("name");
-        String description = request.getParameter("description");
-        String professor = request.getParameter("professor");
-
-        PhdCurriculum aPhdCurriculum = new PhdCurriculum();
-        aPhdCurriculum.setName(name);
-        aPhdCurriculum.setDescription(description);
-        aPhdCurriculum.setFK_Professor(professor);
-
+        PrintWriter out = response.getWriter();
         try {
-            PhdCurriculumManager.getInstance().update(aPhdCurriculum);
-        } catch (ClassNotFoundException | SQLException | EntityNotFoundException | ConnectionException ex) {
-            Logger.getLogger(UpdatePhdCurriculumServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
+            JSONObject result = new JSONObject();
+
+            String oldNamePhdCurriculum = request.getParameter("oldNamePhdCurriculum");
+            String newNamePhdCurriculum = request.getParameter("newNamePhdCurriculum");
+            String description = request.getParameter("description");
+            String professor = request.getParameter("professor");
+
+            PhdCurriculum aPhdCurriculum = new PhdCurriculum();
+            aPhdCurriculum.setName(newNamePhdCurriculum);
+            aPhdCurriculum.setDescription(description);
+            aPhdCurriculum.setFK_Professor(professor);
+
+            result.put("result", true);
+
+            try {
+                PhdCurriculumManager.getInstance().update(oldNamePhdCurriculum, aPhdCurriculum);
+
+            } catch (ClassNotFoundException | SQLException | EntityNotFoundException | ConnectionException ex) {
+                result.put("result", false);
+                Logger.getLogger(UpdatePhdCurriculumServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            out.write(result.toString());
+
+        } catch (JSONException ex) {
+            Logger.getLogger(UpdatePhdCurriculumServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            out.close();
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
