@@ -7,10 +7,8 @@ package it.unisa.dottorato.phdCycle;
 
 import it.unisa.dottorato.exception.ConnectionException;
 import it.unisa.dottorato.exception.EntityNotFoundException;
-import it.unisa.dottorato.phdCurriculum.PhdCurriculumManager;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.After;
@@ -46,15 +44,7 @@ public class PhdCycleManagerTest {
         
         try {
             PhdCycleManager.getInstance().delete("11");
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(PhdCycleManagerTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(PhdCycleManagerTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(PhdCycleManagerTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (EntityNotFoundException ex) {
-            Logger.getLogger(PhdCycleManagerTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ConnectionException ex) {
+        } catch (ClassNotFoundException | SQLException | IOException | EntityNotFoundException | ConnectionException ex) {
             Logger.getLogger(PhdCycleManagerTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -71,6 +61,7 @@ public class PhdCycleManagerTest {
 
     /**
      * Test of insert method, of class PhdCycleManager.
+     * @throws java.lang.Exception
      */
     @Test
     public void testInsert() throws Exception {
@@ -131,7 +122,7 @@ public class PhdCycleManagerTest {
         PhdCycle pCycle = new PhdCycle();
         PhdCycleManager instance = PhdCycleManager.getInstance();
         pCycle.setDescription("descrizione");
-        pCycle.setIdPhdCycle("tette");
+        pCycle.setIdPhdCycle(14);
         pCycle.setYear(2014);
         pCycle.setFK_Professor("ertghyuijhtredfg");
         instance.insert(pCycle);
@@ -213,6 +204,7 @@ public class PhdCycleManagerTest {
 
     /**
      * Test of update method, of class PhdCycleManager.
+     * @throws java.lang.Exception
      */
     @Test
     public void testUpdate() throws Exception {
@@ -269,7 +261,7 @@ public class PhdCycleManagerTest {
         String oldIdPhdCycle = pCycle.getDescription();
         pCycle.setDescription("UpdateDescrizione");
         pCycle.setYear(2016);
-        pCycle.setIdPhdCycle("SS");
+        pCycle.setIdPhdCycle(14);
         pCycle.setFK_Professor("ertghyuijhtredfg");
         
         instance.update(oldIdPhdCycle, pCycle);
@@ -334,7 +326,7 @@ public class PhdCycleManagerTest {
         PhdCycle pCycle = new PhdCycle();
         String oldIdPhdCycle = pCycle.getDescription();
         pCycle.setDescription("UpdateDescrizione");
-        pCycle.setYear("year");
+        pCycle.setYear(2015);
         pCycle.setIdPhdCycle(18);
         pCycle.setFK_Professor("ertghyuijhtredfg");
         
@@ -346,6 +338,7 @@ public class PhdCycleManagerTest {
 
     /**
      * Test of delete method, of class PhdCycleManager.
+     * @throws java.lang.Exception
      */
     @Test
     public void testDelete() throws Exception {
