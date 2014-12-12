@@ -13,7 +13,7 @@ public class Account {
 
     private String email;
     private String password;
-    private String typerOfAccount;
+    private String typeOfAccount;
     private boolean active;
 
     public String getEmail() {
@@ -32,12 +32,12 @@ public class Account {
         this.password = password;
     }
 
-    public String getTyperOfAccount() {
-        return typerOfAccount;
+    public String getTypeOfAccount() {
+        return typeOfAccount;
     }
 
-    public void setTyperOfAccount(String typerOfAccount) {
-        this.typerOfAccount = typerOfAccount;
+    public void setTypeOfAccount(String typerOfAccount) {
+        this.typeOfAccount = typerOfAccount;
     }
 
     public boolean isActive() {

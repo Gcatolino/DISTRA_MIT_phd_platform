@@ -47,15 +47,30 @@ public class LoginServlet extends HttpServlet {
             AccountManager accountManager = AccountManager.getInstance();
             Person person = accountManager.login(username, password);
 
-            if (person != null) {
+            if (person.getAccount().getTypeOfAccount().equals("Bstudent")) {
                 session.removeAttribute("loginError");
                 session.setAttribute("person", person);
-                response.sendRedirect("index.jsp");
+                response.sendRedirect("indexLog.jsp");
+            } else if (person.getAccount().getTypeOfAccount().equals("Mstudent")) {
+                session.removeAttribute("loginError");
+                session.setAttribute("person", person);
+                response.sendRedirect("indexLog.jsp");
+            } else if (person.getAccount().getTypeOfAccount().equals("phd")) {
+                session.removeAttribute("loginError");
+                session.setAttribute("person", person);
+                response.sendRedirect("indexLog.jsp");
+            } else if (person.getAccount().getTypeOfAccount().equals("professor")) {
+                session.removeAttribute("loginError");
+                session.setAttribute("person", person);
+                response.sendRedirect("indexLog.jsp");
+            } else if (person.getAccount().getTypeOfAccount().equals("company")) {
+                session.removeAttribute("loginError");
+                session.setAttribute("person", person);
+                response.sendRedirect("indexLog.jsp");
             } else {
                 session.setAttribute("loginError", "error");
                 response.sendRedirect("login.jsp");
             }
-            
         } catch (SQLException sqlException) {
             out.print("<h1>SQL Exception: </h1>" + sqlException.getMessage());
         } catch (ConnectionException connectionException) {

@@ -100,25 +100,25 @@
                         </a>
                     </li>
                     <li>
-                        <a href="offertaFormativa.html">
+                        <a href="#">
                             <i class="linecons-desktop"></i>
                             <span class="title">Offerta Formativa</span>
                         </a>		
                     </li>
                     <li>
-                        <a href="gestioneTesi.html">
+                        <a href="#">
                             <i class="linecons-graduation-cap"></i>
                             <span class="title">Gestione Tesi</span>
                         </a>
                     </li>
                     <li>
-                        <a href="gestioneTirocinio.html">
+                        <a href="#">
                             <i class="linecons-megaphone"></i>
                             <span class="title">Gestione Tirocinio</span>
                         </a>
                     </li>
                     <li>
-                        <a href="dottorato/home.jsp">
+                        <a href="#">
                             <i class="linecons-lightbulb"></i>
                             <span class="title">Dottorato</span>
                         </a>
@@ -148,7 +148,7 @@
                 <!-- notifications and other links -->
                 <ul class="nav nav-userinfo navbar-right">
                     <li>
-                        <a href="register.html">
+                        <a href="register.jsp">
                             <i class="fa-pencil"></i>
                             <span class="title">Registrazione</span>
                         </a>

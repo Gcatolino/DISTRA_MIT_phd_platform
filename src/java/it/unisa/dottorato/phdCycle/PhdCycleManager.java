@@ -76,6 +76,8 @@ public class PhdCycleManager {
                     + Utility.emptyValue(pCycle.getFK_Professor())
                     + ")";
 
+            
+            System.out.println("La query: " +tSql);
             //Inviamo la Query al DataBase
             Utility.executeOperation(connect, tSql);
 

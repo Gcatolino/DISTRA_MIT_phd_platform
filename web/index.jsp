@@ -140,7 +140,7 @@
                     <c:choose>
                         <c:when test="${sessionScope.person == null}">
                             <li>
-                                <a href="register.html">
+                                <a href="register.jsp">
                                     <i class="fa-pencil"></i>
                                     <span class="title">Registrazione</span>
                                 </a>

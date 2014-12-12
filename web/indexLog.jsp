@@ -1,5 +1,14 @@
+<%-- 
+    Document   : indexLog
+    Created on : 4-dic-2014, 11.19.29
+    Author     : gemmacatolino
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,31 +30,6 @@
         <link rel="stylesheet" href="assets/css/custom.css">
 
         <script src="assets/js/jquery-1.11.1.min.js"></script>
-        <script>
-            jQuery(document).ready(function ($) {
-                if (localStorage.getItem("username") != null) {
-                    if (localStorage.getItem("typology") == "Professore") {
-                        window.location.href = "offertaFormativa/professore/offertaFormativaProfessore.html";
-                    }
-                    if (localStorage.getItem("typology") == "Studente") {
-                        window.location.href = "offertaFormativa/studente/offertaFormativaStudente.html";
-                    }
-                    if (localStorage.getItem("typology") == "Organizzazione") {
-                        window.location.href = "tirocinio/organizzazione/gestioneTirocinio&PlacementOrganizzazione.html";
-                    }
-                    if (localStorage.getItem("typology") == "Amministratore") {
-                        window.location.href = "offertaFormativa/amministratore/offertaFormativaAmministratore.html";
-                    }
-                }
-            });
-        </script>
-
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-                <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-                <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
-
 
     </head>
     <body class="page-body">
@@ -79,36 +63,38 @@
                 </div>
 
                 <div class="navbar-mobile-clear"></div>
-
+                
+                
+                     
                 <!-- main menu -->
 
                 <ul class="navbar-nav">
-                    <li>
+                    <li class="opened active">
                         <a href="index.jsp">
                             <i class="fa fa-home"></i>
                             <span class="title">Home</span>
                         </a>
                     </li>
                     <li>
-                        <a href="offertaFormativa.html">
+                        <a href="#">
                             <i class="linecons-desktop"></i>
                             <span class="title">Offerta Formativa</span>
                         </a>
                     </li>
                     <li>
-                        <a href="gestioneTesi.html">
+                        <a href="#">
                             <i class="linecons-graduation-cap"></i>
                             <span class="title">Gestione Tesi</span>
                         </a>
                     </li>
-                    <li class="opened active">
-                        <a href="gestioneTirocinio.html">
+                    <li>
+                        <a href="#">
                             <i class="linecons-megaphone"></i>
                             <span class="title">Gestione Tirocinio</span>
                         </a>
                     </li>
                     <li>
-                        <a href="dottorato.html">
+                        <a href="dottorato/index.jsp">
                             <i class="linecons-lightbulb"></i>
                             <span class="title">Dottorato</span>
                         </a>
@@ -134,18 +120,34 @@
                 </ul>
                 <!-- notifications and other links -->
                 <ul class="nav nav-userinfo navbar-right">
-                    <li>
-                        <a href="register.html">
-                            <i class="fa-pencil"></i>
-                            <span class="title">Registrazione</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="login.html">
-                            <i class="fa-user"></i>
-                            <span class="title">Login</span>
-                        </a>
-                    </li>
+                    <c:choose>
+                        <c:when test="${sessionScope.person == null}">
+                            <li>
+                                <a href="register.html">
+                                    <i class="fa-pencil"></i>
+                                    <span class="title">Registrazione</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="login.jsp">
+                                    <i class="fa-user"></i>
+                                    <span class="title">Login</span>
+                                </a>
+                            </li>
+                        </c:when>
+                        <c:when test="${sessionScope.person != null}">
+                            <li>
+                                <i class="fa-user"></i>
+                                <span class="title">Ciao ${sessionScope.person.name}!</span>
+                            </li>
+                            <li>
+                                <a href="logout">
+                                    <i class="fa-off"></i>
+                                    <span class="title">Logout</span>
+                                </a>
+                            </li>
+                        </c:when>
+                    </c:choose>
                 </ul>
 
             </div>
@@ -155,6 +157,22 @@
         <!--BODY-->
 
         <div class="page-container">
+            
+               <div class="sidebar-menu toggle-others">
+                <div class="sidebar-menu-inner">	
+                    <ul id="main-menu" class="main-menu">
+                        <!-- add class "multiple-expanded" to allow multiple submenus to open -->
+                        <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+                        <li id="offertaTirocini" class="opened active">
+                            <a href="../../tirocinio/organizzazione/gestioneTirocinio&PlacementOrganizzazione.html">
+                                <i class="linecons-cog"></i>
+                                <span class="title">Offerta Tirocinio</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
             <div class="main-content">
                 <div class="row">
                     <div class="col-sm-1"></div>
