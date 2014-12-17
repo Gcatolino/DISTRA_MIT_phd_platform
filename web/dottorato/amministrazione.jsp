@@ -22,10 +22,10 @@
         <link rel="stylesheet" href="../assets/css/xenon-components.css">
         <link rel="stylesheet" href="../assets/css/xenon-skins.css">
         <link rel="stylesheet" href="../assets/css/custom.css">  
-        <link rel="stylesheet" href="dottorato.css">
+        <link rel="stylesheet" href="style/dottorato.css">
 
         <script src="../assets/js/jquery-1.11.1.min.js"></script>
-        <script type="text/javascript" src="amministrazione.js"></script>
+        <script type="text/javascript" src="script/amministrazione.js"></script>
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -71,7 +71,7 @@
                                 Gestione cicli
                             </div>
                             <div class="panel-body hidden_menu" id="admin_menu_cycle">
-                                
+
                             </div>
                         </div>
 
@@ -82,6 +82,16 @@
                             </div>
                             <div class="panel-body hidden_menu" id="admin_menu_curriculum">
                                 <p class="admin_phdCurriculum_submenu" id="admin_menu_add_curriculum"> Nuovo curriculum </p>  
+                            </div>
+                        </div>
+
+                        <!-- Menu per la gestione dei dottorandi --> 
+                        <div class="panel panel-default">
+                            <div class="panel-heading pointer" id="admin_phd_student">
+                                Gestione Dottorandi 
+                            </div>
+                            <div class="panel-body hidden_menu" id="admin_menu_phd_student">
+                                <p class="admin_phd_student_submenu" id="admin_menu_add_phd_student"> Nuovo dottorando </p>  
                             </div>
                         </div>
                     </div>

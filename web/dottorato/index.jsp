@@ -21,10 +21,10 @@
         <link rel="stylesheet" href="../assets/css/xenon-components.css">
         <link rel="stylesheet" href="../assets/css/xenon-skins.css">
         <link rel="stylesheet" href="../assets/css/custom.css">  
-        <link rel="stylesheet" href="dottorato.css">
+        <link rel="stylesheet" href="style/dottorato.css">
 
         <script src="../assets/js/jquery-1.11.1.min.js"></script>
-        <script type="text/javascript" src="index.js"></script>
+        <script type="text/javascript" src="script/index.js"></script>
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -69,6 +69,15 @@
                     </div>
 
                     <div class="col-sm-4">
+
+                        <!-- Lista dei cicli --> 
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h1> Cicli </h1>
+                            </div>
+                            <div class="panel-body homeList" id="cycleList">
+                            </div>
+                        </div>
 
                         <!-- Lista degli avvisi --> 
                         <div class="panel panel-default">

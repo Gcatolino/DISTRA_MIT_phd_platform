@@ -5,7 +5,6 @@
  */
 package it.unisa.dottorato.phdCycle;
 
-import it.unisa.dottorato.exception.ConnectionException;
 import it.unisa.dottorato.exception.EntityNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -44,7 +43,7 @@ public class PhdCycleManagerTest {
         
         try {
             PhdCycleManager.getInstance().delete("11");
-        } catch (ClassNotFoundException | SQLException | IOException | EntityNotFoundException | ConnectionException ex) {
+        } catch (ClassNotFoundException | SQLException | IOException | EntityNotFoundException ex) {
             Logger.getLogger(PhdCycleManagerTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -107,7 +106,7 @@ public class PhdCycleManagerTest {
         pCycle.setDescription("descrizione");
         pCycle.setIdPhdCycle(111);
         pCycle.setYear(2014);
-        pCycle.setFK_Professor("ertghyuijhtredfg");
+        pCycle.setFK_Professor("CTLGMM91A71B519A");
         instance.insert(pCycle);
         
         PhdCycle result = instance.getPhdCycleById(11);
@@ -124,7 +123,7 @@ public class PhdCycleManagerTest {
         pCycle.setDescription("descrizione");
         pCycle.setIdPhdCycle(14);
         pCycle.setYear(2014);
-        pCycle.setFK_Professor("ertghyuijhtredfg");
+        pCycle.setFK_Professor("CTLGMM91A71B519A");
         instance.insert(pCycle);
         
         PhdCycle result = instance.getPhdCycleById(11);
@@ -141,7 +140,7 @@ public class PhdCycleManagerTest {
         pCycle.setDescription("descrizione");
         pCycle.setIdPhdCycle(11);
         pCycle.setYear(2014);
-        pCycle.setFK_Professor("ertghyuijhtredfg");
+        pCycle.setFK_Professor("CTLGMM91A71B519A");
         instance.insert(pCycle);
         instance.insert(pCycle);
         
@@ -159,7 +158,7 @@ public class PhdCycleManagerTest {
         pCycle.setDescription("descrizione");
         pCycle.setIdPhdCycle(11);
         pCycle.setYear(201);
-        pCycle.setFK_Professor("ertghyuijhtredfg");
+        pCycle.setFK_Professor("CTLGMM91A71B519A");
         instance.insert(pCycle);
         
         PhdCycle result = instance.getPhdCycleById(11);
@@ -177,9 +176,8 @@ public class PhdCycleManagerTest {
         pCycle.setDescription("descrizione");
         pCycle.setIdPhdCycle(11);
         pCycle.setYear(20141);
-        pCycle.setFK_Professor("ertghyuijhtredfg");
+        pCycle.setFK_Professor("CTLGMM91A71B519A");
         instance.insert(pCycle);
-        
         PhdCycle result = instance.getPhdCycleById(11);
         assertNull(result);
         
@@ -195,6 +193,7 @@ public class PhdCycleManagerTest {
         pCycle.setDescription("descrizione");
         pCycle.setIdPhdCycle(11);
         pCycle.setYear(2014);
+        pCycle.setFK_Professor(null);
         instance.insert(pCycle);
         
         PhdCycle result = instance.getPhdCycleById(11);
@@ -215,7 +214,7 @@ public class PhdCycleManagerTest {
         pCycle.setDescription("UpdateDescrizione");
         pCycle.setYear(2016);
         pCycle.setIdPhdCycle(18);
-        pCycle.setFK_Professor("ertghyuijhtredfg");
+        pCycle.setFK_Professor("CTLGMM91A71B519A");
         
         instance.update(oldIdPhdCycle, pCycle);
         assertEquals(oldIdPhdCycle, pCycle);
@@ -231,7 +230,7 @@ public class PhdCycleManagerTest {
         pCycle.setDescription("UpdateDescrizione");
         pCycle.setYear(2016);
         pCycle.setIdPhdCycle(0);
-        pCycle.setFK_Professor("ertghyuijhtredfg");
+        pCycle.setFK_Professor("CTLGMM91A71B519A");
         
         instance.update(oldIdPhdCycle, pCycle);
         assertEquals(oldIdPhdCycle, pCycle);
@@ -246,7 +245,7 @@ public class PhdCycleManagerTest {
         pCycle.setDescription("UpdateDescrizione");
         pCycle.setYear(2016);
         pCycle.setIdPhdCycle(188);
-        pCycle.setFK_Professor("ertghyuijhtredfg");
+        pCycle.setFK_Professor("CTLGMM91A71B519A");
         
         instance.update(oldIdPhdCycle, pCycle);
         assertEquals(oldIdPhdCycle, pCycle);
@@ -262,7 +261,7 @@ public class PhdCycleManagerTest {
         pCycle.setDescription("UpdateDescrizione");
         pCycle.setYear(2016);
         pCycle.setIdPhdCycle(14);
-        pCycle.setFK_Professor("ertghyuijhtredfg");
+        pCycle.setFK_Professor("CTLGMM91A71B519A");
         
         instance.update(oldIdPhdCycle, pCycle);
         assertEquals(oldIdPhdCycle, pCycle);
@@ -278,7 +277,7 @@ public class PhdCycleManagerTest {
         pCycle.setDescription("UpdateDescrizione");
         pCycle.setYear(2016);
         pCycle.setIdPhdCycle(18);
-        pCycle.setFK_Professor("ertghyuijhtredfg");
+        pCycle.setFK_Professor("CTLGMM91A71B519A");
         
         instance.update(oldIdPhdCycle, pCycle);
         instance.update(oldIdPhdCycle, pCycle);
@@ -295,7 +294,7 @@ public class PhdCycleManagerTest {
         pCycle.setDescription("UpdateDescrizione");
         pCycle.setYear(201);
         pCycle.setIdPhdCycle(18);
-        pCycle.setFK_Professor("ertghyuijhtredfg");
+        pCycle.setFK_Professor("CTLGMM91A71B519A");
         
         instance.update(oldIdPhdCycle, pCycle);
         assertEquals(oldIdPhdCycle, pCycle);
@@ -311,7 +310,7 @@ public class PhdCycleManagerTest {
         pCycle.setDescription("UpdateDescrizione");
         pCycle.setYear(201111);
         pCycle.setIdPhdCycle(18);
-        pCycle.setFK_Professor("ertghyuijhtredfg");
+        pCycle.setFK_Professor("CTLGMM91A71B519A");
         
         instance.update(oldIdPhdCycle, pCycle);
         assertEquals(oldIdPhdCycle, pCycle);
@@ -328,7 +327,7 @@ public class PhdCycleManagerTest {
         pCycle.setDescription("UpdateDescrizione");
         pCycle.setYear(2015);
         pCycle.setIdPhdCycle(18);
-        pCycle.setFK_Professor("ertghyuijhtredfg");
+        pCycle.setFK_Professor("CTLGMM91A71B519A");
         
         instance.update(oldIdPhdCycle, pCycle);
         assertEquals(oldIdPhdCycle, pCycle);

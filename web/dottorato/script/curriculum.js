@@ -1,4 +1,4 @@
-$(document).ready(function () {
+
 
 // servlet per avere le informazioni riguardanti un determinato curriculum
     $.get("GetPhdCurriculumsNames", function (data) {
@@ -11,7 +11,11 @@ $(document).ready(function () {
         $(".panel-curriculum").click(function () {
             $.getJSON("GetPhdCurriculum?phdCurriculumName=" + $(this).attr('id'), function (data) {
                 $("#phdCurriculumName").html(data.phdCurriculumName);
-                $("#phdCurriculumProfessor").html("Coordinatore: " +  data.FK_Professor);
+                
+                $.getJSON("GetPerson?pSSN=" + data.FK_Professor, function (dataProfessor) {
+                    $("#phdCurriculumProfessor").html("Coordinatore: " + dataProfessor.name + " " + dataProfessor.surname);
+                });
+                
                 $("#phdCurriculumDescription").html(data.phdCurriculumDescription);
             });
             
@@ -20,5 +24,5 @@ $(document).ready(function () {
         });
     });
 
-});
+
 

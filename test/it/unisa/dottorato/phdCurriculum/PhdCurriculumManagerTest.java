@@ -5,14 +5,11 @@
  */
 package it.unisa.dottorato.phdCurriculum;
 
-import it.unisa.dottorato.exception.ConnectionException;
 import it.unisa.dottorato.exception.EntityNotFoundException;
-import it.unisa.dottorato.phdCycle.PhdCycle;
 import it.unisa.dottorato.phdCycle.PhdCycleManager;
 import it.unisa.dottorato.phdCycle.PhdCycleManagerTest;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.After;
@@ -48,17 +45,9 @@ public class PhdCurriculumManagerTest {
         
         try {
             PhdCycleManager.getInstance().delete("11");
-        } catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException | SQLException | IOException | EntityNotFoundException ex) {
             Logger.getLogger(PhdCycleManagerTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(PhdCycleManagerTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(PhdCycleManagerTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (EntityNotFoundException ex) {
-            Logger.getLogger(PhdCycleManagerTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ConnectionException ex) {
-            Logger.getLogger(PhdCycleManagerTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
     }
 
     /**
@@ -81,7 +70,7 @@ public class PhdCurriculumManagerTest {
         PhdCurriculumManager instance = PhdCurriculumManager.getInstance();
         pCurriculum.setName("Informatica");
         pCurriculum.setDescription("descrizione");
-        pCurriculum.setFK_Professor("ertghyuijhtredfg");
+        pCurriculum.setFK_Professor("CTLGMM91A71B519A");
         instance.insert(pCurriculum);
         
         PhdCurriculum result = instance.getPhdCurriculumById("Informatica");
@@ -98,7 +87,7 @@ public class PhdCurriculumManagerTest {
         PhdCurriculumManager instance = PhdCurriculumManager.getInstance();
         pCurriculum.setName("info");
         pCurriculum.setDescription("descrizione");
-        pCurriculum.setFK_Professor("ertghyuijhtredfg");
+        pCurriculum.setFK_Professor("CTLGMM91A71B519A");
         instance.insert(pCurriculum);
         
         PhdCurriculum result = instance.getPhdCurriculumById("Informatica");
@@ -114,7 +103,7 @@ public class PhdCurriculumManagerTest {
         PhdCurriculumManager instance = PhdCurriculumManager.getInstance();
         pCurriculum.setName("DGASHDGHASGDJHASGDHJGASHJDHJASGDGASJHGDJHASGJHDGASJHGDHJASGDJHASGJHDGASHJGDHASGJHDGASJHDGJHASGDJHASGJHDGJASHGDHJASGHJDGASHJGDJHSAGFDSHASHJDGASJHDGAHJSGDHJASGDJHASGJHDGASJHDGASHJGDHJASGDJHASGJDHASGJHDGASHJDGASHJDGHJASGDJHASGDJHAGHDJASGJJHDGASJHGD");
         pCurriculum.setDescription("descrizione");
-        pCurriculum.setFK_Professor("ertghyuijhtredfg");
+        pCurriculum.setFK_Professor("CTLGMM91A71B519A");
         instance.insert(pCurriculum);
         
         PhdCurriculum result = instance.getPhdCurriculumById("Informatica");
@@ -130,7 +119,7 @@ public class PhdCurriculumManagerTest {
         PhdCurriculumManager instance = PhdCurriculumManager.getInstance();
         pCurriculum.setName("&&&&&&&&&&&&&&");
         pCurriculum.setDescription("descrizione");
-        pCurriculum.setFK_Professor("ertghyuijhtredfg");
+        pCurriculum.setFK_Professor("CTLGMM91A71B519A");
         instance.insert(pCurriculum);
         
         PhdCurriculum result = instance.getPhdCurriculumById("Informatica");
@@ -152,7 +141,7 @@ public class PhdCurriculumManagerTest {
         String oldCurriculum = pCurriculum.getDescription();
         pCurriculum.setDescription("UpdateDescrizione");
         pCurriculum.setName("UpdateInformatica");
-        pCurriculum.setFK_Professor("ertghyuijhtredfg");
+        pCurriculum.setFK_Professor("CTLGMM91A71B519A");
         
         instance.update(oldCurriculum, pCurriculum);
         assertEquals(oldCurriculum, pCurriculum);
@@ -167,7 +156,7 @@ public class PhdCurriculumManagerTest {
         String oldCurriculum = pCurriculum.getDescription();
         pCurriculum.setDescription("UpdateDescrizione");
         pCurriculum.setName("in");
-        pCurriculum.setFK_Professor("ertghyuijhtredfg");
+        pCurriculum.setFK_Professor("CTLGMM91A71B519A");
         
         instance.update(oldCurriculum, pCurriculum);
         assertEquals(oldCurriculum, pCurriculum);
@@ -182,7 +171,7 @@ public class PhdCurriculumManagerTest {
         String oldCurriculum = pCurriculum.getDescription();
         pCurriculum.setDescription("UpdateDescrizione");
         pCurriculum.setName("UpdateInfbkbdsjhfdsigfhsuishyfiusgfgdsjhfgjdshgfvjhcxbjhvfgdsjhfgcxjhgvfjhxcgjfhxgdsjhfgxcjhgfjhx<gcfhjxzgjhcgxhj<cg<xjhgdcjhz<gcjhxzgcjhgxjhvcgxjhgvcjhsdgjfhgsdjhgvcjhxgvjhcxgjhvgxcjhvgjhxgzvjhcxgzvjhgjxhfgjhdsgfjhgdsjhfgsjhdagfjhagjfsagfjhsaormatica");
-        pCurriculum.setFK_Professor("ertghyuijhtredfg");
+        pCurriculum.setFK_Professor("CTLGMM91A71B519A");
         
         instance.update(oldCurriculum, pCurriculum);
         assertEquals(oldCurriculum, pCurriculum);
@@ -197,7 +186,7 @@ public class PhdCurriculumManagerTest {
         String oldCurriculum = pCurriculum.getDescription();
         pCurriculum.setDescription("UpdateDescrizione");
         pCurriculum.setName("&&&&&");
-        pCurriculum.setFK_Professor("ertghyuijhtredfg");
+        pCurriculum.setFK_Professor("CTLGMM91A71B519A");
         
         instance.update(oldCurriculum, pCurriculum);
         assertEquals(oldCurriculum, pCurriculum);

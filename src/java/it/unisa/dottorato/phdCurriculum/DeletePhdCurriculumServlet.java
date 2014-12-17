@@ -1,9 +1,7 @@
 package it.unisa.dottorato.phdCurriculum;
 
-import it.unisa.dottorato.exception.ConnectionException;
 import it.unisa.dottorato.exception.EntityNotFoundException;
 import it.unisa.dottorato.phdCycle.DeletePhdCycleServlet;
-import it.unisa.dottorato.phdCycle.PhdCycleManager;
 import it.unisa.dottorato.phdCycle.UpdatePhdCycleServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -44,7 +42,7 @@ public class DeletePhdCurriculumServlet extends HttpServlet {
 
             try {
                 PhdCurriculumManager.getInstance().delete(namePhdCurriculum);
-            } catch (ClassNotFoundException | SQLException | EntityNotFoundException | ConnectionException ex) {
+            } catch (ClassNotFoundException | SQLException | EntityNotFoundException ex) {
                 result.put("result", false);
                 Logger.getLogger(DeletePhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
             }

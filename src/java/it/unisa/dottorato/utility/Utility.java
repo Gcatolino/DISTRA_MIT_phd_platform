@@ -1,6 +1,5 @@
 package it.unisa.dottorato.utility;
 
-import it.unisa.dottorato.exception.ConnectionException;
 import it.unisa.dottorato.exception.EntityNotFoundException;
 import it.unisa.integrazione.database.DBConnection;
 import java.io.IOException;
@@ -23,65 +22,6 @@ public class Utility {
             return value;
     }
     
-    /**
-     * Ritorna, dati un campo e una tabella, il valore massimo del campo nella
-     * tabella.
-     *
-     * @param pField Il campo di cui vogliamo recuperare il valore massimo.
-     * @param pTable La tabella in cui ricercare le informazioni richieste.
-     * @return Ritorna il valore massimo, del campo pField, passato come
-     * parametro, presente nella tabella pTable, passata come parametro.
-     *
-     * @throws EntityNotFoundException
-     * @throws ConnectionException
-     * @throws SQLException
-     * @throws java.lang.ClassNotFoundException
-     * @throws java.io.IOException
-     */
-    synchronized static public int getMaxValue(String pField, String pTable)
-            throws EntityNotFoundException, ConnectionException, SQLException, ClassNotFoundException, IOException {
-
-        int value = 0;
-        Connection connect = null;
-        try {
-            /*
-             * Se non sono stati forniti il campo e la tabella restituiamo un
-             * codice di errore
-             */
-            if (pField.equals("")) {
-                throw new EntityNotFoundException();
-            }
-            if (pTable.equals("")) {
-                throw new EntityNotFoundException();
-            }
-
-            /*
-             * Prepariamo la stringa SQL per recuperare le informazioni
-             * richieste
-             */
-            String tSql = "SELECT max(" + pField + ") as new_field FROM "
-                    + pTable;
-
-            // Otteniamo una Connessione al DataBase
-            connect = DBConnection.getConnection();
-            if (connect == null) {
-                throw new ConnectionException();
-            }
-
-            // Inviamo la Query al DataBase
-            ResultSet tRs = Utility.queryOperation(connect, tSql);
-
-            if (tRs.next()) {
-                value = tRs.getInt("new_field");
-            } else {
-                throw new EntityNotFoundException();
-            }
-
-            return value;
-        } finally {
-            DBConnection.releaseConnection(connect);
-        }
-    }
 
     /**
      * Converte una data in una stringa formattata per il database.

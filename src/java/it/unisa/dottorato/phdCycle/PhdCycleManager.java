@@ -1,6 +1,5 @@
 package it.unisa.dottorato.phdCycle;
 
-import it.unisa.dottorato.exception.ConnectionException;
 import it.unisa.dottorato.exception.EntityNotFoundException;
 import it.unisa.dottorato.utility.Utility;
 import it.unisa.integrazione.database.DBConnection;
@@ -49,14 +48,12 @@ public class PhdCycleManager {
      * nella tabella phdCycle del database.
      *
      * @param pCycle
-     * @return
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
      * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
-     * @throws it.unisa.dottorato.exception.ConnectionException
      */
-    public synchronized void insert(PhdCycle pCycle) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException, ConnectionException {
+    public synchronized void insert(PhdCycle pCycle) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException {
         try (Connection connect = DBConnection.getConnection()) {
 
             /*
@@ -72,9 +69,9 @@ public class PhdCycleManager {
                     + pCycle.getDescription()
                     + "','"
                     + pCycle.getYear()
-                    + "',"
+                    + "','"
                     + Utility.emptyValue(pCycle.getFK_Professor())
-                    + ")";
+                    + "')";
 
             
             System.out.println("La query: " +tSql);
@@ -95,9 +92,8 @@ public class PhdCycleManager {
      * @throws java.sql.SQLException
      * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
-     * @throws it.unisa.dottorato.exception.ConnectionException
      */
-    public synchronized void update(String oldIdPhdCycle, PhdCycle pCycle) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException, ConnectionException {
+    public synchronized void update(String oldIdPhdCycle, PhdCycle pCycle) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException {
         try (Connection connect = DBConnection.getConnection()) {
 
             /*
@@ -133,9 +129,8 @@ public class PhdCycleManager {
      * @throws java.sql.SQLException
      * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
-     * @throws it.unisa.dottorato.exception.ConnectionException
      */
-    public synchronized void delete(String idPhdCycle) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException, ConnectionException {
+    public synchronized void delete(String idPhdCycle) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException {
         Connection connect = null;
         try {
             // Otteniamo una Connessione al DataBase
@@ -169,9 +164,8 @@ public class PhdCycleManager {
      * @throws java.sql.SQLException
      * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
-     * @throws it.unisa.dottorato.exception.ConnectionException
      */
-    public synchronized PhdCycle getPhdCycleById(int idPhdCycle) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException, ConnectionException {
+    public synchronized PhdCycle getPhdCycleById(int idPhdCycle) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException {
         Connection connect = null;
         try {
             PhdCycle cycle = new PhdCycle();
@@ -212,9 +206,8 @@ public class PhdCycleManager {
      * @throws java.sql.SQLException
      * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
-     * @throws it.unisa.dottorato.exception.ConnectionException
      */
-    public synchronized ArrayList<String> getPhdCyclesIds() throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException, ConnectionException {
+    public synchronized ArrayList<String> getPhdCyclesIds() throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException {
         Connection connect = null;
         try {
             ArrayList<String> cycles = new ArrayList<>();

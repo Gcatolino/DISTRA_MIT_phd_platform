@@ -267,19 +267,35 @@ var initCurriculum = function () {
     });
 };
 
+
+// servlet per avere la lista dei curriculum 
+var initPhdStudent = function () {
+$("#admin_add_phd_student").show();
+};
+ 
+
+
 // Funzione per la gestione del menù
 $(document).ready(function () {
 
     initCycle();
     initCurriculum();
+    initPhdStudent();
 
     $("#admin_cycle").click(function () {
         $("#admin_menu_curriculum").slideUp();
+        $("#admin_menu_phd_student").slideUp();
         $("#admin_menu_cycle").slideToggle();
     });
     $("#admin_curriculum").click(function () {
         $("#admin_menu_cycle").slideUp();
+        $("#admin_menu_phd_student").slideUp();
         $("#admin_menu_curriculum").slideToggle();
+    });
+    $("#admin_phd_student").click(function () {
+        $("#admin_menu_cycle").slideUp();
+        $("#admin_menu_curriculum").slideUp();
+        $("#admin_menu_phd_student").slideToggle();
     });
 
 });

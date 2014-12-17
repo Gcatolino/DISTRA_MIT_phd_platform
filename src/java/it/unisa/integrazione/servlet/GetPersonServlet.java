@@ -1,11 +1,16 @@
-package it.unisa.dottorato.phdCycle;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package it.unisa.integrazione.servlet;
 
-import it.unisa.dottorato.exception.EntityNotFoundException;
-import it.unisa.dottorato.phdCurriculum.GetPhdCurriculumsNamesByPhdCycleServlet;
+import it.unisa.integrazione.database.PersonManager;
+import it.unisa.integrazione.database.exception.ConnectionException;
+import it.unisa.model.Person;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -13,12 +18,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-@WebServlet(name = "GetPhdCyclesIds", urlPatterns = {"/dottorato/GetPhdCyclesIds"})
-public class GetPhdCyclesIdsServlet extends HttpServlet {
+/**
+ *
+ * @author sesa
+ */
+@WebServlet(name = "GetPerson", urlPatterns = {"/dottorato/GetPerson"})
+public class GetPersonServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,14 +41,16 @@ public class GetPhdCyclesIdsServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            String SSN = request.getParameter("pSSN");
             JSONObject result = new JSONObject();
             try {
-                ArrayList<String> cyclesIds = PhdCycleManager.getInstance().getPhdCyclesIds();
-                JSONArray resultArray = new JSONArray(cyclesIds);
-                result.put("cyclesIds", resultArray);
+                Person aPerson = PersonManager.getInstance().getPersonBySSN(SSN);
+                result.put("name", aPerson.getName());
+                result.put("surname", aPerson.getSurname());
                 out.write(result.toString());
-            } catch (ClassNotFoundException | SQLException | EntityNotFoundException | JSONException ex) {
-                Logger.getLogger(GetPhdCurriculumsNamesByPhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException | JSONException | ConnectionException ex) {
+                Logger.getLogger(GetPersonServlet.class.getName()).log(Level.SEVERE, null, ex);
+
             }
         }
     }

@@ -6,16 +6,21 @@
     cursor: pointer;
 }
 
-.admin_phdCycle_submenu:hover, .admin_phdCurriculum_submenu:hover{
+.admin_phdCycle_submenu:hover, .admin_phdCurriculum_submenu:hover, .phdCycle_submenu:hover{
     background-color: #e8eaf6;
     cursor: pointer;
 }
 
-.admin_phdCycle_submenu, .admin_phdCurriculum_submenu{
+.admin_phdCycle_submenu, .admin_phdCurriculum_submenu, .phdCycle_submenu{
     padding: 7px;
     margin-top: 0px !important;
 }
 
 .hidden_menu{
     display: none;
+}
+
+.homeList{
+    max-height: 200px;
+    overflow-y: auto;
 }
