@@ -6,7 +6,7 @@
 package it.unisa.integrazione.database;
 
 import it.unisa.integrazione.database.exception.ConnectionException;
-import it.unisa.model.Cycle;
+import it.unisa.integrazione.model.Cycle;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -68,17 +68,7 @@ public class CycleManager {
             }
         } finally {
 
-            if (rs != null) {
-                rs.close();
-            }
-
-            if (stmt != null) {
-                stmt.close();
-            }
-
-            if (connection != null) {
-                connection.close();
-            }
+       DBConnection.releaseConnection(connection);
         }
 
         return cycle;

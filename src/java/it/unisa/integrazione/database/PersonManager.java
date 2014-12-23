@@ -3,7 +3,7 @@ package it.unisa.integrazione.database;
 import it.unisa.integrazione.database.exception.ConnectionException;
 import it.unisa.integrazione.database.exception.MissingDataException;
 import it.unisa.integrazione.database.utility.Utilities;
-import it.unisa.model.Person;
+import it.unisa.integrazione.model.Person;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,7 +33,7 @@ public class PersonManager {
             throw new MissingDataException();
         }
 
-        if (DepartmentManager.getInstance().getDepartmentByAbbreviation(pPerson.getDepartment().getAbbrevation()) == null) {
+        if (DepartmentManager.getInstance().getDepartmentByAbbreviation(pPerson.getDepartment().getAbbreviation()) == null) {
             DepartmentManager.getInstance().add(pPerson.getDepartment());
         }
 
@@ -45,29 +45,31 @@ public class PersonManager {
                 + "position, cycle";
 
         if (pPerson.getDegree() != null) {
-            sql += ",  degree_matricula) VALUES (";
+            sql += ",  degree_matricula, cover_letter) VALUES (";
         } else {
-            sql += ") VALUES ( ";
+            sql += " cover_letter) VALUES ( ";
         }
-        
-        sql += "'" + pPerson.getSsn() + "','"
-                + Utilities.emptyValue(pPerson.getName()) + "','" + Utilities.emptyValue(pPerson.getSurname()) + "','"
-                + Utilities.emptyValue(pPerson.getPhone()) + "','" + Utilities.emptyValue(pPerson.getCity()) + "','"
-                + Utilities.emptyValue(pPerson.getAddress()) + "','" + Utilities.emptyValue(pPerson.getZipCode()) + "','"
-                + Utilities.emptyValue(pPerson.getGender()) + "','" + Utilities.emptyValue(pPerson.getCitizenship()) + "','"
-                + pPerson.getAccount().getEmail() + "','"
-                + Utilities.emptyValue(pPerson.getDepartment().getAbbrevation()) + "','"
-                + Utilities.emptyValue(pPerson.getWebPage()) + "','" + Utilities.emptyValue(pPerson.getUniversity()) + "','"
-                + Utilities.emptyValue(pPerson.getMatricula()) + "','" + Utilities.emptyValue(pPerson.getPosition()) + "',"
+
+        sql += "\"" + pPerson.getSsn() + "\",\""
+                + Utilities.emptyValue(pPerson.getName()) + "\",\"" + Utilities.emptyValue(pPerson.getSurname()) + "\",\""
+                + Utilities.emptyValue(pPerson.getPhone()) + "\",\"" + Utilities.emptyValue(pPerson.getCity()) + "\",\""
+                + Utilities.emptyValue(pPerson.getAddress()) + "\",\"" + Utilities.emptyValue(pPerson.getZipCode()) + "\",\""
+                + Utilities.emptyValue(pPerson.getGender()) + "\",\"" + Utilities.emptyValue(pPerson.getCitizenship()) + "\",\""
+                + pPerson.getAccount().getEmail() + "\",\""
+                + Utilities.emptyValue(pPerson.getDepartment().getAbbreviation()) + "\",\""
+                + Utilities.emptyValue(pPerson.getWebPage()) + "\",\"" + Utilities.emptyValue(pPerson.getUniversity()) + "\",\""
+                + Utilities.emptyValue(pPerson.getMatricula()) + "\",\"" + Utilities.emptyValue(pPerson.getPosition()) + "\","
                 + pPerson.getCycle().getCycleNumber();
-        
+
         if (pPerson.getDegree() != null) {
-            sql += ",'" 
-                + Utilities.emptyValue(pPerson.getDegree().getMatricula()) + "')";
+            sql += ",\""
+                    + Utilities.emptyValue(pPerson.getDegree().getMatricula()) + "\",\""
+                    + Utilities.emptyValue(pPerson.getCoverLetter()) + "\")";
         } else {
-            sql += ")";
+            sql += ",\""
+                    + Utilities.emptyValue(pPerson.getCoverLetter()) + "\")";
         }
-        
+
         try {
             Statement stmt = connect.createStatement();
             stmt.executeUpdate(sql);
@@ -110,23 +112,18 @@ public class PersonManager {
                 person.setUniversity(rs.getString("university"));
                 person.setMatricula(rs.getString("matricula"));
                 person.setPosition(rs.getString("position"));
+                person.setCoverLetter(rs.getString("cover_letter"));
 
                 person.setDepartment(DepartmentManager.getInstance().getDepartmentByAbbreviation("Department_abbreviation"));
                 person.setCycle(CycleManager.getInstance().getCycleByCycleNumber(rs.getInt("cycle")));
+
+                if (rs.getString("degree_matricula") != null) {
+                    person.setDegree(DegreeManager.getInstance().readDegree(person.getMatricula()));
+                }
+
             }
         } finally {
-
-            if (rs != null) {
-                rs.close();
-            }
-
-            if (stmt != null) {
-                stmt.close();
-            }
-
-            if (connection != null) {
-                connection.close();
-            }
+            DBConnection.releaseConnection(connection);
         }
 
         return person;
@@ -165,27 +162,45 @@ public class PersonManager {
                 person.setUniversity(rs.getString("university"));
                 person.setMatricula(rs.getString("matricula"));
                 person.setPosition(rs.getString("position"));
+                person.setCoverLetter(rs.getString("cover_letter"));
 
                 person.setDepartment(DepartmentManager.getInstance().getDepartmentByAbbreviation("Department_abbreviation"));
                 person.setCycle(CycleManager.getInstance().getCycleByCycleNumber(rs.getInt("cycle")));
                 person.setAccount(AccountManager.getInstance().getAccoutnByEmail(pEmail));
 
+                if (rs.getString("degree_matricula") != null) {
+                    person.setDegree(DegreeManager.getInstance().readDegree(person.getMatricula()));
+                }
+
             }
         } finally {
 
-            if (rs != null) {
-                rs.close();
-            }
-
-            if (stmt != null) {
-                stmt.close();
-            }
-
-            if (connection != null) {
-                connection.close();
-            }
+            DBConnection.releaseConnection(connection);
         }
 
         return person;
     }
+
+    public void updateCoverLetter(String pCoverLetter, String pSnn) throws SQLException, ConnectionException {
+
+        Statement stmt = null;
+        Connection connection = null;
+
+        String query = "update `db_distra`.`person` set cover_letter = '" + pCoverLetter + "' where SSN = '" + pSnn + "'";
+
+        try {
+            connection = DBConnection.getConnection();
+
+            if (connection == null) {
+                throw new ConnectionException();
+            }
+            stmt = connection.createStatement();
+            stmt.executeUpdate(query);
+            connection.commit();
+        } finally {
+            DBConnection.releaseConnection(connection);
+        }
+
+    }
+
 }

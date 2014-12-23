@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.unisa.model;
+package it.unisa.integrazione.model;
 
 /**
  *
@@ -28,6 +28,7 @@ public class Person {
     private Department department;
     private Account account;
     private Degree degree;
+    private String CoverLetter; 
 
     public Degree getDegree() {
         return degree;
@@ -164,4 +165,14 @@ public class Person {
     public void setPosition(String position) {
         this.position = position;
     }
+
+    public String getCoverLetter() {
+        return CoverLetter;
+    }
+
+    public void setCoverLetter(String CoverLetter) {
+        this.CoverLetter = CoverLetter;
+    }
+    
+    
 }

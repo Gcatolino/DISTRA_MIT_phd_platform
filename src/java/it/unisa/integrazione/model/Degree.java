@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.unisa.model;
+package it.unisa.integrazione.model;
 
 /**
  *
@@ -29,6 +29,9 @@ public class Degree {
      * department to which this degree belongs.
      */
     private String departmentAbbreviation;
+    
+    
+    private String esse3Content;
 
     /**
      * cycle = 1 -> Bachelor degree cycle = 2 -> Degree cycle = 3 -> PhD

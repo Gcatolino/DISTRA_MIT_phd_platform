@@ -6,9 +6,8 @@
 package it.unisa.integrazione.servlet;
 
 import it.unisa.integrazione.database.AccountManager;
-import it.unisa.integrazione.database.exception.AccountNotActiveException;
 import it.unisa.integrazione.database.exception.ConnectionException;
-import it.unisa.model.Person;
+import it.unisa.integrazione.model.Person;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -47,26 +46,36 @@ public class LoginServlet extends HttpServlet {
             AccountManager accountManager = AccountManager.getInstance();
             Person person = accountManager.login(username, password);
 
-            if (person.getAccount().getTypeOfAccount().equals("Bstudent")) {
-                session.removeAttribute("loginError");
-                session.setAttribute("person", person);
-                response.sendRedirect("indexLog.jsp");
-            } else if (person.getAccount().getTypeOfAccount().equals("Mstudent")) {
-                session.removeAttribute("loginError");
-                session.setAttribute("person", person);
-                response.sendRedirect("indexLog.jsp");
-            } else if (person.getAccount().getTypeOfAccount().equals("phd")) {
-                session.removeAttribute("loginError");
-                session.setAttribute("person", person);
-                response.sendRedirect("indexLog.jsp");
-            } else if (person.getAccount().getTypeOfAccount().equals("professor")) {
-                session.removeAttribute("loginError");
-                session.setAttribute("person", person);
-                response.sendRedirect("indexLog.jsp");
-            } else if (person.getAccount().getTypeOfAccount().equals("company")) {
-                session.removeAttribute("loginError");
-                session.setAttribute("person", person);
-                response.sendRedirect("indexLog.jsp");
+            if (person != null) {
+                if (! person.getAccount().isActive()) {
+                    out.println("<script type=\"text/javascript\">");
+                    out.println("alert('Account non attivo');");
+                    out.println("location='login.jsp';");
+                    out.println("</script>");
+                } else if (person.getAccount().getTypeOfAccount().equals("Bstudent")) {
+                    session.removeAttribute("loginError");
+                    session.setAttribute("person", person);
+                    response.sendRedirect("indexLog.jsp");
+                } else if (person.getAccount().getTypeOfAccount().equals("Mstudent")) {
+                    session.removeAttribute("loginError");
+                    session.setAttribute("person", person);
+                    response.sendRedirect("indexLog.jsp");
+                } else if (person.getAccount().getTypeOfAccount().equals("phd")) {
+                    session.removeAttribute("loginError");
+                    session.setAttribute("person", person);
+                    response.sendRedirect("indexLog.jsp");
+                } else if (person.getAccount().getTypeOfAccount().equals("professor")) {
+                    session.removeAttribute("loginError");
+                    session.setAttribute("person", person);
+                    response.sendRedirect("indexLog.jsp");
+                } else if (person.getAccount().getTypeOfAccount().equals("company")) {
+                    session.removeAttribute("loginError");
+                    session.setAttribute("person", person);
+                    response.sendRedirect("indexLog.jsp");
+                } else {
+                    session.setAttribute("loginError", "error");
+                    response.sendRedirect("login.jsp");
+                }
             } else {
                 session.setAttribute("loginError", "error");
                 response.sendRedirect("login.jsp");
@@ -75,8 +84,6 @@ public class LoginServlet extends HttpServlet {
             out.print("<h1>SQL Exception: </h1>" + sqlException.getMessage());
         } catch (ConnectionException connectionException) {
             out.print("<h1>Connection Exception</h1>");
-        } catch (AccountNotActiveException ex) {
-            out.print("<h1>Account not Active!</h1>");
         } finally {
             out.close();
         }
