@@ -6,7 +6,7 @@
 package it.unisa.integrazione.database;
 
 import it.unisa.integrazione.database.exception.ConnectionException;
-import it.unisa.model.Department;
+import it.unisa.integrazione.model.Department;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -32,7 +32,7 @@ public class DepartmentManager {
     public void add(Department pDepartment) throws SQLException {
         Connection connect = DBConnection.getConnection();
 
-        String sql = "INSERT INTO department (abbreviation, title, url_moodle, token) VALUES ('" + pDepartment.getAbbrevation() + "'," + "'" + pDepartment.getTitle() + "','" + pDepartment.getUrl_moodle() + "'," + pDepartment.getToken() + ")";
+        String sql = "INSERT INTO department (abbreviation, title, url_moodle, token) VALUES ('" + pDepartment.getAbbreviation() + "'," + "'" + pDepartment.getTitle() + "','" + pDepartment.getUrlMoodle() + "'," + pDepartment.getToken() + ")";
 
        
         try {
@@ -66,27 +66,15 @@ public class DepartmentManager {
             while (rs.next()) {
                 
                 Department department = new Department();
-                department.setAbbrevation(rs.getString("abbreviation"));
+                department.setAbbreviation(rs.getString("abbreviation"));
                 department.setTitle(rs.getString("title"));
                 department.setToken(rs.getString("token"));
-                department.setUrl_moodle(rs.getString("url_moodle"));
+                department.setUrlMoodle(rs.getString("url_moodle"));
                 
                 departments.add(department);
                 
             }
-        } finally {
-
-            if (rs != null) {
-                rs.close();
-            }
-
-            if (stmt != null) {
-                stmt.close();
-            }
-
-            if (connection != null) {
-                connection.close();
-            }
+        } finally {DBConnection.releaseConnection(connection);
         }
 
         return departments;
@@ -112,25 +100,13 @@ public class DepartmentManager {
 
             if (rs.next()) {
                 department = new Department();
-                department.setAbbrevation(rs.getString("abbreviation"));
+                department.setAbbreviation(rs.getString("abbreviation"));
                 department.setTitle(rs.getString("title"));
                 department.setToken(rs.getString("token"));
-                department.setUrl_moodle(rs.getString("url_moodle"));
+                department.setUrlMoodle(rs.getString("url_moodle"));
                 
             }
-        } finally {
-
-            if (rs != null) {
-                rs.close();
-            }
-
-            if (stmt != null) {
-                stmt.close();
-            }
-
-            if (connection != null) {
-                connection.close();
-            }
+        } finally {DBConnection.releaseConnection(connection);
         }
 
         return department;

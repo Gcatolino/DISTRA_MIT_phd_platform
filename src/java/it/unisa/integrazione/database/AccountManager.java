@@ -1,13 +1,12 @@
 package it.unisa.integrazione.database;
 
-import it.unisa.integrazione.database.exception.AccountNotActiveException;
 import it.unisa.integrazione.database.exception.ConnectionException;
-import it.unisa.model.Account;
+import it.unisa.integrazione.model.Account;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import it.unisa.model.Person;
+import it.unisa.integrazione.model.Person;
 
 /**
  *
@@ -26,7 +25,7 @@ public class AccountManager {
 
     }
 
-    public Person login(String pUsername, String pPassword) throws AccountNotActiveException,  SQLException, ConnectionException {
+    public Person login(String pUsername, String pPassword) throws SQLException, ConnectionException {
         Connection connection = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -34,8 +33,6 @@ public class AccountManager {
 
         String query = "select * from account where email='" + pUsername + "' and password='" + pPassword + "'";
 
-        System.out.println("la query è:" +query);
-                
         try {
             connection = DBConnection.getConnection();
 
@@ -53,22 +50,12 @@ public class AccountManager {
                 account.setTypeOfAccount(rs.getString("typeOfAccount"));
                 account.setActive(rs.getBoolean("active"));
                 
-                if(!account.isActive()) {
-                    throw new AccountNotActiveException();
-                }
-
                 person = PersonManager.getInstance().getPersonByEmail(account.getEmail());
+                
             }
 
         } finally {
-            if(rs != null)
-                rs.close();
-            
-            if(stmt != null)
-                stmt.close();
-            
-            if(connection != null)
-                connection.close();
+            DBConnection.releaseConnection(connection);
         }
         
         return person;
@@ -116,17 +103,7 @@ public class AccountManager {
             }
         } finally {
 
-            if (rs != null) {
-                rs.close();
-            }
-
-            if (stmt != null) {
-                stmt.close();
-            }
-
-            if (connection != null) {
-                connection.close();
-            }
+         DBConnection.releaseConnection(connection);
         }
 
         return account;

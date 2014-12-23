@@ -24,32 +24,6 @@
 
         <script src="assets/js/jquery-1.11.1.min.js"></script>
 
-        <!--<script>
-            jQuery(document).ready(function ($) {
-                if (localStorage.getItem("username") != null) {
-                    if (localStorage.getItem("typology") == "Professore") {
-                        window.location.href = "offertaFormativa/professore/offertaFormativaProfessore.html";
-                    }
-                    if (localStorage.getItem("typology") == "Studente") {
-                        window.location.href = "offertaFormativa/studente/offertaFormativaStudente.html";
-                    }
-                    if (localStorage.getItem("typology") == "Organizzazione") {
-                        window.location.href = "tirocinio/organizzazione/gestioneTirocinio&PlacementOrganizzazione.html";
-                    }
-                    if (localStorage.getItem("typology") == "Amministratore") {
-                        window.location.href = "offertaFormativa/amministratore/offertaFormativaAmministratore.html";
-                    }
-                }
-            });
-        </script>-->
-
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-                <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-                <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
-
-
     </head>
     <body class="page-body">
 

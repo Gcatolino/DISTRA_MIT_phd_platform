@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.unisa.model;
+package it.unisa.integrazione.model;
 
 /**
  *
@@ -11,17 +11,17 @@ package it.unisa.model;
  */
 public class Department {
     
-    String abbrevation;
+    String abbreviation;
     String title;
-    String url_moodle;
+    String urlMoodle;
     String token;
 
-    public String getAbbrevation() {
-        return abbrevation;
+    public String getAbbreviation() {
+        return abbreviation;
     }
 
-    public void setAbbrevation(String abbrevation) {
-        this.abbrevation = abbrevation;
+    public void setAbbreviation(String abbreviation) {
+        this.abbreviation = abbreviation;
     }
 
     public String getTitle() {
@@ -32,12 +32,12 @@ public class Department {
         this.title = title;
     }
 
-    public String getUrl_moodle() {
-        return url_moodle;
+    public String getUrlMoodle() {
+        return urlMoodle;
     }
 
-    public void setUrl_moodle(String url_moodle) {
-        this.url_moodle = url_moodle;
+    public void setUrlMoodle(String urlMoodle) {
+        this.urlMoodle = urlMoodle;
     }
 
     public String getToken() {

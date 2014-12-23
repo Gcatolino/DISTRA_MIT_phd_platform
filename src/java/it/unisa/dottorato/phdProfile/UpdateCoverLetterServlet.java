@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.unisa.integrazione.servlet;
+package it.unisa.dottorato.phdProfile;
 
 import it.unisa.integrazione.database.PersonManager;
 import it.unisa.integrazione.database.exception.ConnectionException;
-import it.unisa.model.Person;
+import it.unisa.integrazione.model.Person;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -18,15 +18,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.JSONException;
-import org.json.JSONObject;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author sesa
+ * mo@author gemmacatolino
  */
-@WebServlet(name = "GetPerson", urlPatterns = {"/dottorato/GetPerson"})
-public class GetPersonServlet extends HttpServlet {
+@WebServlet(name = "UpdateCoverLetterServlet", urlPatterns = {"/UpdateCoverLetterServlet"})
+public class UpdateCoverLetterServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,18 +38,18 @@ public class GetPersonServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String SSN = request.getParameter("pSSN");
-            JSONObject result = new JSONObject();
-            try {
-                Person aPerson = PersonManager.getInstance().getPersonBySSN(SSN);
-                result.put("name", aPerson.getName());
-                result.put("surname", aPerson.getSurname());
-                out.write(result.toString());
-            } catch (SQLException | JSONException | ConnectionException ex) {
-                Logger.getLogger(GetPersonServlet.class.getName()).log(Level.SEVERE, null, ex);
+            HttpSession session = request.getSession();
+            Person loggedUser = (Person) session.getAttribute("person");
 
+            String coverLetter = request.getParameter("cover-letter");
+            
+            try {
+            PersonManager.getInstance().updateCoverLetter(coverLetter, loggedUser.getSsn());
+            } catch (SQLException | ConnectionException ex) {
+                Logger.getLogger(UpdateCoverLetterServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

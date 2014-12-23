@@ -6,8 +6,8 @@ import it.unisa.integrazione.database.DepartmentManager;
 import it.unisa.integrazione.database.PersonManager;
 import it.unisa.integrazione.database.exception.ConnectionException;
 import it.unisa.integrazione.database.exception.MissingDataException;
-import it.unisa.model.Account;
-import it.unisa.model.Person;
+import it.unisa.integrazione.model.Account;
+import it.unisa.integrazione.model.Person;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -75,6 +75,7 @@ public class RegistrationServlet extends HttpServlet {
             String webpage = request.getParameter("webPage");
             String zipCode = request.getParameter("zipCode");
             String degree = request.getParameter("degree");
+            
             
             Account account = new Account();
             account.setEmail(email);

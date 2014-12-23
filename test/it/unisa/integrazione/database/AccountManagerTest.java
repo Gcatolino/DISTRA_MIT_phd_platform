@@ -5,7 +5,7 @@
  */
 package it.unisa.integrazione.database;
 
-import it.unisa.model.Person;
+import it.unisa.integrazione.model.Person;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
