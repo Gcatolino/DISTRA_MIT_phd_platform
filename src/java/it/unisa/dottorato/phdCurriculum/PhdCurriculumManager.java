@@ -68,9 +68,9 @@ public class PhdCurriculumManager {
                     + PhdCurriculumManager.TABLE_PHDCURRICULUM
                     + " (name, description, FK_professor)"
                     + " VALUES ('"
-                    + pCurriculum.getName()
+                    + Utility.Replace(pCurriculum.getName())
                     + "','"
-                    + pCurriculum.getDescription()
+                    + Utility.Replace(pCurriculum.getDescription())
                     + "',"
                     + Utility.emptyValue(pCurriculum.getFK_Professor())
                     + ")";
@@ -108,9 +108,9 @@ public class PhdCurriculumManager {
             String tSql = "UPDATE "
                     + PhdCurriculumManager.TABLE_PHDCURRICULUM
                     + " set name = '"
-                    + pCurriculum.getName()
+                    + Utility.Replace(pCurriculum.getName())
                     + "', description = '"
-                    + pCurriculum.getDescription()
+                    + Utility.Replace(pCurriculum.getDescription())
                     + "', FK_Professor = "
                     + Utility.emptyValue(pCurriculum.getFK_Professor())
                     + " WHERE name = '"
@@ -148,7 +148,7 @@ public class PhdCurriculumManager {
             String tSql = "DELETE FROM "
                     + PhdCurriculumManager.TABLE_PHDCURRICULUM
                     + " WHERE name = '"
-                    + phdCurriculumName + "'";
+                    + Utility.Replace(phdCurriculumName) + "'";
 
             //Inviamo la Query al DataBase
             Utility.executeOperation(connect, tSql);
@@ -191,6 +191,58 @@ public class PhdCurriculumManager {
                     + PhdCurriculumManager.TABLE_PHDCLASS
                     + ".FK_PhdCurriculum "
                     + " WHERE FK_PhdCycle = '"
+                    + idPhdCycle + "'";
+            
+
+            System.out.println(tSql);
+
+            //Inviamo la Query al DataBase
+            ResultSet result = Utility.queryOperation(connect, tSql);
+
+            while (result.next()) {
+                curriculum.add(result.getString("name"));
+            }
+
+            return curriculum;
+
+        } finally {
+            DBConnection.releaseConnection(connect);
+        }
+    }
+    
+    
+    /**
+     * Metodo della classe incaricato della ricerca delle informazioni di un
+     * curriculum relativo ad un ciclo.
+     *
+     * @param idPhdCycle
+     * @return
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.sql.SQLException
+     * @throws it.unisa.dottorato.exception.EntityNotFoundException
+     * @throws java.io.IOException
+     */
+    public synchronized ArrayList<String> getPhdCurriculumNameByDifferentCycle(int idPhdCycle) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException {
+        Connection connect = null;
+        try {
+            ArrayList<String> curriculum = new ArrayList<>();
+            // Otteniamo una Connessione al DataBase
+            connect = DBConnection.getConnection();
+
+            /*
+             * Prepariamo la stringa SQL per modificare un record 
+             * nella tabella phdCycle
+             */
+            String tSql = "SELECT name FROM "
+                    + PhdCurriculumManager.TABLE_PHDCURRICULUM
+                    + "  JOIN "
+                    + PhdCurriculumManager.TABLE_PHDCLASS
+                    + " ON "
+                    + PhdCurriculumManager.TABLE_PHDCURRICULUM
+                    + ".name = "
+                    + PhdCurriculumManager.TABLE_PHDCLASS
+                    + ".FK_PhdCurriculum "
+                    + " WHERE FK_PhdCycle <> '"
                     + idPhdCycle + "'";
             
 

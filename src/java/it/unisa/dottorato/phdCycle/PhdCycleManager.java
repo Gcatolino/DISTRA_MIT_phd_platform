@@ -3,6 +3,7 @@ package it.unisa.dottorato.phdCycle;
 import it.unisa.dottorato.exception.EntityNotFoundException;
 import it.unisa.dottorato.utility.Utility;
 import it.unisa.integrazione.database.DBConnection;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -15,6 +16,8 @@ public class PhdCycleManager {
      * Il nome della tabella
      */
     private static final String TABLE_PHDCYCLE = "phdcycle";
+    
+    
 
     //	 istanza della classe
     private static PhdCycleManager instance;
@@ -66,12 +69,12 @@ public class PhdCycleManager {
                     + " VALUES ('"
                     + pCycle.getIdPhdCycle()
                     + "','"
-                    + pCycle.getDescription()
+                    + Utility.Replace(pCycle.getDescription())
                     + "','"
                     + pCycle.getYear()
-                    + "','"
+                    + "',"
                     + Utility.emptyValue(pCycle.getFK_Professor())
-                    + "')";
+                    + ")";
 
             
             System.out.println("La query: " +tSql);
@@ -103,7 +106,7 @@ public class PhdCycleManager {
             String tSql = "UPDATE "
                     + PhdCycleManager.TABLE_PHDCYCLE
                     + " set description = '"
-                    + pCycle.getDescription()
+                    + Utility.Replace(pCycle.getDescription())
                     + "', year = '"
                     + pCycle.getYear()
                     + "', idPhdCycle = '"
@@ -113,6 +116,7 @@ public class PhdCycleManager {
                     + " WHERE idPhdCycle = '"
                     + oldIdPhdCycle + "'";           
 
+            System.out.println(tSql);
             //Inviamo la Query al DataBase
             Utility.executeOperation(connect, tSql);
 
@@ -235,5 +239,12 @@ public class PhdCycleManager {
             DBConnection.releaseConnection(connect);
         }
     }
+    
+    
+    
+    
+    
+    
+
 
 }

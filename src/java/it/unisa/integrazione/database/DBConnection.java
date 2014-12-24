@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 public class DBConnection {
     private static String dbPath = "jdbc:mysql://localhost:3306/db_distra";
     private static String dbUsername = "root";
-    private static String dbPassword = "root";
+    private static String dbPassword = "";
 
     static {
         freeDbConnections = new ArrayList<Connection>();

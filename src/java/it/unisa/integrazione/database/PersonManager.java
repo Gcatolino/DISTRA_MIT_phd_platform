@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -201,5 +202,61 @@ public class PersonManager {
             DBConnection.releaseConnection(connection);
         }
 
+    }
+    
+    public ArrayList<Person> getPersonByTypeOfAccount(String typeOfACcount) throws SQLException, ConnectionException {
+        Statement stmt = null;
+        ResultSet rs = null;
+        Connection connection = null;
+        Person aPerson = new Person();
+        ArrayList<Person> person = new ArrayList<>();
+
+        String query = "select * from person join account on account.email = person.Account_email where account.typeOfAccount = '" + typeOfACcount + "'";
+
+        try {
+            connection = DBConnection.getConnection();
+
+            if (connection == null) {
+                throw new ConnectionException();
+            }
+
+            stmt = connection.createStatement();
+            rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                aPerson = new Person();
+                aPerson.setSsn(rs.getString("SSN"));
+                aPerson.setName(rs.getString("name"));
+                aPerson.setSurname(rs.getString("surname"));
+                aPerson.setPhone(rs.getString("phone"));
+                aPerson.setCity(rs.getString("city"));
+                aPerson.setAddress(rs.getString("address"));
+                aPerson.setZipCode(rs.getString("zip_code"));
+                aPerson.setGender(rs.getString("gender"));
+                aPerson.setCitizenship(rs.getString("citizenship"));
+                aPerson.setWebPage(rs.getString("web_page"));
+                aPerson.setUniversity(rs.getString("university"));
+                aPerson.setMatricula(rs.getString("matricula"));
+                aPerson.setPosition(rs.getString("position"));
+                
+                person.add(aPerson);
+
+            }
+        } finally {
+
+            if (rs != null) {
+                rs.close();
+            }
+
+            if (stmt != null) {
+                stmt.close();
+            }
+
+            if (connection != null) {
+                connection.close();
+            }
+        }
+
+        return person;
     }
 }
