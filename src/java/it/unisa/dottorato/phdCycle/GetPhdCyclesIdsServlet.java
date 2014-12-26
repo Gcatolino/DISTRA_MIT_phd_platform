@@ -42,6 +42,7 @@ public class GetPhdCyclesIdsServlet extends HttpServlet {
             } catch (ClassNotFoundException | SQLException | EntityNotFoundException | JSONException ex) {
                 Logger.getLogger(GetPhdCurriculumsNamesByPhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
+
         }
     }
 

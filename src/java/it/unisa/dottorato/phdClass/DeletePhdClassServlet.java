@@ -3,18 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.unisa.integrazione.servlet;
+package it.unisa.dottorato.phdClass;
 
 import it.unisa.dottorato.exception.EntityNotFoundException;
-import it.unisa.dottorato.phdCurriculum.GetPhdCurriculumsNamesByPhdCycleServlet;
-import it.unisa.dottorato.phdCycle.PhdCycleManager;
-import it.unisa.integrazione.database.PersonManager;
-import it.unisa.integrazione.database.exception.ConnectionException;
-import it.unisa.model.Person;
+import it.unisa.dottorato.phdCurriculum.PhdCurriculumManager;
+import it.unisa.dottorato.phdCycle.DeletePhdCycleServlet;
+import it.unisa.dottorato.phdCycle.UpdatePhdCycleServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -22,7 +19,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,8 +26,8 @@ import org.json.JSONObject;
  *
  * @author Elisa
  */
-@WebServlet(name = "GetPersonByTypeOfAccount", urlPatterns = {"/dottorato/GetPersonByTypeOfAccount"})
-public class GetPersonByTypeOfAccountServlet extends HttpServlet {
+@WebServlet(name = "DeletePhdClass", urlPatterns = {"/dottorato/DeletePhdClass"})
+public class DeletePhdClassServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,19 +40,33 @@ public class GetPersonByTypeOfAccountServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            String typeOfAccount = request.getParameter("typeOfAccount");
+
+        PrintWriter out = response.getWriter();
+        try {
+
             JSONObject result = new JSONObject();
+            String idPhdCycle = request.getParameter("idPhdCycle");
+            String idPhdCurriculum = request.getParameter("idPhdCurriculum");
+            
+            result.put("result", true);
+
             try {
-                ArrayList<Person> personList = PersonManager.getInstance().getPersonByTypeOfAccount(typeOfAccount);
-                JSONArray resultArray = new JSONArray(personList);
-                result.put("person", resultArray);
-                out.write(result.toString());
-            } catch (SQLException | JSONException | ConnectionException ex) {
-                Logger.getLogger(GetPersonByTypeOfAccountServlet.class.getName()).log(Level.SEVERE, null, ex);
+                PhdClassManager.getInstance().delete(idPhdCycle, idPhdCurriculum);
+            } catch (ClassNotFoundException | SQLException | EntityNotFoundException ex) {
+                result.put("result", false);
+                Logger.getLogger(DeletePhdClassServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+            out.write(result.toString());
+
+        } catch (JSONException ex) {
+            Logger.getLogger(DeletePhdClassServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }finally {
+            out.close();
         }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
