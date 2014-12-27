@@ -1,11 +1,17 @@
-package it.unisa.dottorato.phdCycle;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package it.unisa.dottorato.phdClass;
 
 import it.unisa.dottorato.exception.EntityNotFoundException;
-import it.unisa.dottorato.phdCurriculum.GetPhdCurriculumsNamesByPhdCycleServlet;
+import it.unisa.dottorato.phdCurriculum.PhdCurriculumManager;
+import it.unisa.dottorato.phdCycle.DeletePhdCycleServlet;
+import it.unisa.dottorato.phdCycle.UpdatePhdCycleServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -13,12 +19,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-@WebServlet(name = "GetPhdCyclesIds", urlPatterns = {"/dottorato/GetPhdCyclesIds"})
-public class GetPhdCyclesIdsServlet extends HttpServlet {
+/**
+ *
+ * @author Elisa
+ */
+@WebServlet(name = "DeletePhdClass", urlPatterns = {"/dottorato/DeletePhdClass"})
+public class DeletePhdClassServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,19 +40,33 @@ public class GetPhdCyclesIdsServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            JSONObject result = new JSONObject();
-            try {
-                ArrayList<String> cyclesIds = PhdCycleManager.getInstance().getPhdCyclesIds();
-                JSONArray resultArray = new JSONArray(cyclesIds);
-                result.put("cyclesIds", resultArray);
-                out.write(result.toString());
-            } catch (ClassNotFoundException | SQLException | EntityNotFoundException | JSONException ex) {
-                Logger.getLogger(GetPhdCurriculumsNamesByPhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
 
+        response.setContentType("text/html;charset=UTF-8");
+
+        PrintWriter out = response.getWriter();
+        try {
+
+            JSONObject result = new JSONObject();
+            String idPhdCycle = request.getParameter("idPhdCycle");
+            String idPhdCurriculum = request.getParameter("idPhdCurriculum");
+            
+            result.put("result", true);
+
+            try {
+                PhdClassManager.getInstance().delete(idPhdCycle, idPhdCurriculum);
+            } catch (ClassNotFoundException | SQLException | EntityNotFoundException ex) {
+                result.put("result", false);
+                Logger.getLogger(DeletePhdClassServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            out.write(result.toString());
+
+        } catch (JSONException ex) {
+            Logger.getLogger(DeletePhdClassServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }finally {
+            out.close();
         }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

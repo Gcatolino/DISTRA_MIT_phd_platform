@@ -2,6 +2,16 @@
     background-color: #e8eaf6;
 }
 
+.list-group-item:hover span{
+    float: right;
+    color: #ff0000;
+    display: inline;
+}
+
+.list-group-item span{
+    display: none;
+}
+
 .pointer{
     cursor: pointer;
 }

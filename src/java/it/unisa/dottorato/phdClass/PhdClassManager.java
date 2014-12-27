@@ -6,6 +6,7 @@
 package it.unisa.dottorato.phdClass;
 
 import it.unisa.dottorato.exception.EntityNotFoundException;
+import it.unisa.dottorato.phdCurriculum.PhdCurriculumManager;
 import it.unisa.dottorato.phdCycle.PhdCycle;
 import it.unisa.dottorato.phdCycle.PhdCycleManager;
 import it.unisa.dottorato.utility.Utility;
@@ -21,11 +22,11 @@ import java.util.ArrayList;
  * @author Elisa
  */
 public class PhdClassManager {
-    
+
     private static final String TABLE_PHDCLASS = "phdclass";
     private static final String TABLE_PHDSTUDENT_PHDCLASS = "student_phdclass";
     private static final String TABLE_PERSON = "person";
-    
+
     //	 istanza della classe
     private static PhdClassManager instance;
 
@@ -48,12 +49,11 @@ public class PhdClassManager {
      */
     public static synchronized PhdClassManager getInstance() {
         if (instance == null) {
-            instance = new PhdClassManager(); 
+            instance = new PhdClassManager();
         }
         return instance;
     }
-    
-    
+
     /**
      * Metodo della classe incaricato dell'inserimento di una nuova entita'
      * nella tabella phdCycle del database.
@@ -88,8 +88,7 @@ public class PhdClassManager {
             connect.commit();
         }
     }
-    
-    
+
     /**
      * Metodo della classe incaricato dell'inserimento di una nuova entita'
      * nella tabella phdCycle del database.
@@ -123,8 +122,7 @@ public class PhdClassManager {
             connect.commit();
         }
     }
-    
-    
+
     /**
      * Metodo della classe incaricato della modifica di un'entita' nella tabella
      * phdCycle del database.
@@ -148,8 +146,8 @@ public class PhdClassManager {
                     + " set FK_PhdClass = '"
                     + studentClass.getFK_PhdClass()
                     + "' WHERE FK_Student = '"
-                    + studentClass.getFK_Student() + "'"; 
-            
+                    + studentClass.getFK_Student() + "'";
+
             System.out.println(tSql);
 
             //Inviamo la Query al DataBase
@@ -158,9 +156,44 @@ public class PhdClassManager {
             connect.commit();
         }
     }
-    
-    
-        /**
+
+    /**
+     * Metodo della classe incaricato della cancellazopme di un'entita' nella
+     * tabella phdCurriculum del database.
+     *
+     * @param phdCurriculumName
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.sql.SQLException
+     * @throws it.unisa.dottorato.exception.EntityNotFoundException
+     * @throws java.io.IOException
+     */
+    public synchronized void delete(String idPhdCycle, String idPhdCurriculum) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException {
+        Connection connect = null;
+        try {
+            // Otteniamo una Connessione al DataBase
+            connect = DBConnection.getConnection();
+
+            /*
+             * Prepariamo la stringa SQL per modificare un record 
+             * nella tabella phdCycle
+             */
+            String tSql = "DELETE FROM "
+                    + PhdClassManager.TABLE_PHDCLASS
+                    + " WHERE FK_PhdCycle = '"
+                    + idPhdCycle + "' AND "
+                    +" FK_PhdCurriculum = '"
+                    + Utility.Replace(idPhdCurriculum) + "'";
+
+            //Inviamo la Query al DataBase
+            Utility.executeOperation(connect, tSql);
+
+            connect.commit();
+        } finally {
+            DBConnection.releaseConnection(connect);
+        }
+    }
+
+    /**
      * Metodo della classe incaricato della cancellazopme di un'entita' nella
      * tabella phdCycle del database.
      *
@@ -193,7 +226,7 @@ public class PhdClassManager {
             DBConnection.releaseConnection(connect);
         }
     }
-    
+
     /**
      * Metodo della classe incaricato della ricerca dei cicli esistenti.
      *
@@ -227,19 +260,17 @@ public class PhdClassManager {
                 aPhdClass.setIdClass(result.getInt("idClass"));
                 aPhdClass.setFK_PhdCycle(result.getInt("FK_PhdCycle"));
                 aPhdClass.setFK_PhdCurriculum(result.getString("FK_PhdCurriculum"));
-                
+
                 classList.add(aPhdClass);
             }
-            
+
             return classList;
 
         } finally {
             DBConnection.releaseConnection(connect);
         }
     }
-    
-    
-    
+
     /**
      * Metodo della classe incaricato della ricerca dei cicli esistenti.
      *
@@ -256,10 +287,6 @@ public class PhdClassManager {
             // Otteniamo una Connessione al DataBase
             connect = DBConnection.getConnection();
 
-            
-
-        
-        
             /*
              * Prepariamo la stringa SQL per modificare un record 
              * nella tabella phdCycle
@@ -297,13 +324,12 @@ public class PhdClassManager {
                 aPhdClass.setFK_PhdCurriculum(result.getString("FK_PhdCurriculum"));
 
             }
-            
+
             return aPhdClass;
 
         } finally {
             DBConnection.releaseConnection(connect);
         }
     }
-
 
 }

@@ -71,7 +71,7 @@
                                 Gestione cicli
                             </div>
                             <div class="panel-body hidden_menu" id="admin_menu_cycle">
-
+                                <p class="admin_phdCycle_submenu" id="admin_menu_add_cycle"> Nuovo ciclo </p>
                             </div>
                         </div>
 
@@ -156,21 +156,28 @@
                                         <input type="button" id="deleteCycleButton" class="btn btn-red" value="Elimina ciclo">
                                         <input type="reset" id="resetCycleButton" class="btn btn-white" value="Reset">
                                     </div>
-                                    <div id="addCycleCurriculumDiv">
+                            </div>
+
+                            <div class="page-body">
+
+                                <div id="addCycleCurriculumDiv">
+                                    <div class="panel-heading">
+                                        <h2>Curriculum connessi al ciclo</h2>
+                                    </div>
                                     <div class="form-group">
-                                        <h3 id="PhdCycleCurriculum">  </h3>
+                                        <h4 id="PhdCycleCurriculum">  </h4>
                                         <ul class="list-group" id="curriculumCycleList">           
                                         </ul>
                                     </div>
-                                    
+
                                     <div class="form-group">
-                                        <label> <h3> Aggiungi curriculum </h3> </label>
+                                        <label> <h4> Aggiungi curriculum </h4> </label>
                                         <span class="input-group-addon"></span>
                                         <select class="form-control" id="phdDifferentCurriculumList">
                                         </select> <br>
                                         <input type="button" id="submitDifferentPhdCycle" class="btn btn-blue" value="Aggiungi"> 
                                     </div>
-                                    </div>
+                                </div>
                                 </form>
                             </div>
 
@@ -287,11 +294,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
-
-
                 </div>
 
             </div>
