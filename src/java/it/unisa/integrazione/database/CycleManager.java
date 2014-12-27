@@ -42,18 +42,18 @@ public class CycleManager {
             DBConnection.releaseConnection(connect);
         }
     }
-    
-      public Cycle getCycleByCycleNumber(int pCycleNumber) throws SQLException, ConnectionException {
+
+    public Cycle getCycleByCycleNumber(int pCycleNumber) throws SQLException, ConnectionException {
         Statement stmt = null;
         ResultSet rs = null;
         Connection connection = null;
         Cycle cycle = null;
 
         String query = "select * from cycle where cycle_number = " + pCycleNumber;
-        
+
         try {
             connection = DBConnection.getConnection();
-            
+
             if (connection == null) {
                 throw new ConnectionException();
             }
@@ -68,7 +68,7 @@ public class CycleManager {
             }
         } finally {
 
-       DBConnection.releaseConnection(connection);
+            DBConnection.releaseConnection(connection);
         }
 
         return cycle;

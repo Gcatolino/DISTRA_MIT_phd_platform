@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -69,6 +70,75 @@ public class PersonManager {
             sql += ",\""
                     + Utilities.emptyValue(pPerson.getCoverLetter()) + "\")";
         }
+
+        try {
+            Statement stmt = connect.createStatement();
+            stmt.executeUpdate(sql);
+            connect.commit();
+        } finally {
+            DBConnection.releaseConnection(connect);
+        }
+    }
+
+    public void update(Person pPerson) throws SQLException, ConnectionException, MissingDataException {
+        Connection connect = DBConnection.getConnection();
+
+        if (CycleManager.getInstance().getCycleByCycleNumber(pPerson.getCycle().getCycleNumber()) == null) {
+            throw new MissingDataException();
+        }
+
+        if (DepartmentManager.getInstance().getDepartmentByAbbreviation(pPerson.getDepartment().getAbbreviation()) == null) {
+            DepartmentManager.getInstance().add(pPerson.getDepartment());
+        }
+
+        String sql = "UPDATE person "
+                + "set person.name = '"
+                + pPerson.getName()
+                + "', surname = '"
+                + pPerson.getSurname()
+                + "', phone = '"
+                + pPerson.getPhone()
+                + "', city = '"
+                + pPerson.getCity()
+                + "', address = '"
+                + pPerson.getAddress()
+                + "', zip_code = '"
+                + pPerson.getZipCode()
+                + "', gender = '"
+                + pPerson.getGender()
+                + "', citizenship = '"
+                + pPerson.getCitizenship()
+                + "', Account_email = '"
+                + pPerson.getAccount().getEmail()
+                + "', Department_abbreviation = '"
+                + pPerson.getDepartment().getAbbreviation()
+                + "', web_page = '"
+                + pPerson.getWebPage()
+                + "', university = '"
+                + pPerson.getUniversity()
+                + "', matricula = '"
+                + pPerson.getMatricula()
+                + "', position = '"
+                + pPerson.getPosition()
+                + "', cycle = '"
+                + pPerson.getCycle().getCycleNumber()
+                + "'";
+
+        if (pPerson.getDegree() != null) {
+            sql += ", degree_matricula = '"
+                    + pPerson.getDegree().getMatricula()
+                    + "'";
+        }
+
+        if (pPerson.getCoverLetter() != null) {
+            sql += ", cover_letter = '"
+                    + pPerson.getCoverLetter()
+                    + "'";
+        }
+
+        sql += " WHERE SSN = '"
+                + pPerson.getSsn()
+                + "'";
 
         try {
             Statement stmt = connect.createStatement();
@@ -164,7 +234,7 @@ public class PersonManager {
                 person.setPosition(rs.getString("position"));
                 person.setCoverLetter(rs.getString("cover_letter"));
 
-                person.setDepartment(DepartmentManager.getInstance().getDepartmentByAbbreviation("Department_abbreviation"));
+                person.setDepartment(DepartmentManager.getInstance().getDepartmentByAbbreviation(rs.getString("Department_abbreviation")));
                 person.setCycle(CycleManager.getInstance().getCycleByCycleNumber(rs.getInt("cycle")));
                 person.setAccount(AccountManager.getInstance().getAccoutnByEmail(pEmail));
 
@@ -203,4 +273,59 @@ public class PersonManager {
 
     }
 
+    public ArrayList<Person> getPersonByTypeOfAccount(String typeOfACcount) throws SQLException, ConnectionException {
+        Statement stmt = null;
+        ResultSet rs = null;
+        Connection connection = null;
+        Person aPerson = new Person();
+        ArrayList<Person> person = new ArrayList<>();
+
+        String query = "select * from person join account on account.email = person.Account_email where account.typeOfAccount = '" + typeOfACcount + "'";
+
+        try {
+            connection = DBConnection.getConnection();
+
+            if (connection == null) {
+                throw new ConnectionException();
+            }
+
+            stmt = connection.createStatement();
+            rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                aPerson = new Person();
+                aPerson.setSsn(rs.getString("SSN"));
+                aPerson.setName(rs.getString("name"));
+                aPerson.setSurname(rs.getString("surname"));
+                aPerson.setPhone(rs.getString("phone"));
+                aPerson.setCity(rs.getString("city"));
+                aPerson.setAddress(rs.getString("address"));
+                aPerson.setZipCode(rs.getString("zip_code"));
+                aPerson.setGender(rs.getString("gender"));
+                aPerson.setCitizenship(rs.getString("citizenship"));
+                aPerson.setWebPage(rs.getString("web_page"));
+                aPerson.setUniversity(rs.getString("university"));
+                aPerson.setMatricula(rs.getString("matricula"));
+                aPerson.setPosition(rs.getString("position"));
+
+                person.add(aPerson);
+
+            }
+        } finally {
+
+            if (rs != null) {
+                rs.close();
+            }
+
+            if (stmt != null) {
+                stmt.close();
+            }
+
+            if (connection != null) {
+                connection.close();
+            }
+        }
+
+        return person;
+    }
 }

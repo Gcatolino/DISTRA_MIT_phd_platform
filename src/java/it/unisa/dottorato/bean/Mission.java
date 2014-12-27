@@ -10,7 +10,7 @@ public class Mission implements Serializable{
     private String description;
     private Date startDate;
     private Date endDate;
-    private int FK_Student;
+    private String FK_Student;
 
     public int getIdMission() {
         return idMission;
@@ -52,11 +52,11 @@ public class Mission implements Serializable{
         this.endDate = endDate;
     }
 
-    public int getFK_Student() {
+    public String getFK_Student() {
         return FK_Student;
     }
 
-    public void setFK_Student(int FK_Student) {
+    public void setFK_Student(String FK_Student) {
         this.FK_Student = FK_Student;
     }  
     

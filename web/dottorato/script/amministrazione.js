@@ -22,12 +22,80 @@ var initCycle = function () {
                 // Viene mostrato solo il pulsante di invio
                 $("#deleteCycleButton").show();
                 $("#resetCycleButton").hide();
+                $("#addCycleCurriculumDiv").show();
+
                 // Popolazione form con i dati del ciclo selezionato
+                $("#cycle_form").get(0).reset();
+                $("#curriculumCycleList").empty();
+                $('#phdDifferentCurriculumList').find('option').remove();
+
                 $.getJSON("GetPhdCycle?phdCycleId=" + $(this).attr('id'), function (data) {
                     $("#phdCycleId").val(data.phdCycle);
                     $("#phdCycleYear").val(data.phdYear);
                     $("#phdCycleDescription").val(data.phdDescription);
-                    $("#phdCyleProfessor").val(data.FK_Professor);
+
+                    $.getJSON("GetPerson?pSSN=" + data.FK_Professor, function (dataProfessor) {
+                        $("#phdCycleProfessor").val(dataProfessor.name + " " + dataProfessor.surname);
+                    });
+
+                    $.getJSON("GetPersonByTypeOfAccount",
+                            {typeOfAccount: "professor"},
+                    function (dataProfessor) {
+
+                        $.each(dataProfessor.person, function (index, value) {
+                            person = "<option label='" + value.ssn + "' name='" + value.name + " " + value.surname + "' value='" + value.name + " " + value.surname + "'>  ";
+                            $("#professorCycleList").append(person);
+                        });
+                    });
+
+                    $.getJSON("GetPhdCurriculumsNames",
+                            function (dataDifferentCurriculum) {
+
+                                $.each(dataDifferentCurriculum.curriculumNames, function (index, value) {
+                                    curriculum = "<option id='" + value + "'>" + value + " </option>";
+                                    $("#phdDifferentCurriculumList").append(curriculum);
+                                });
+                            });
+
+                    $.getJSON("GetPhdCurriculumsNamesByPhdCycle", {
+                        phdCycleId: data.phdCycle
+                    },
+                    function (dataCurriculum) {
+                        $("#PhdCycleCurriculum").html("Curriculum attivi");
+                        $.each(dataCurriculum.curriculumNames, function (index, value) {
+                            curriculum = "<li class='list-group-item'>" + value + " </li>";
+                            $("#curriculumCycleList").append(curriculum);
+                        });
+                    });
+
+                });
+
+                // Azione del pulsante per la modifica di un ciclo
+                $("#submitDifferentPhdCycle").click(function () {
+
+                    // Invio dati alla servlet per la modifica del ciclo
+                    $.getJSON("InsertPhdClass",
+                            {idPhdCycle: idCycle,
+                                idPhdCurriculum: $("#phdDifferentCurriculumList").find(":selected").val()},
+                    function (data) {
+
+                        // Messaggio di inserimento riuscito
+                        if (data.result === true) {
+                            $("#InfoTitle").html("Curriculum inserito correttamente");
+                            $("#InfoMessage").html("");
+                            $("#InfoDialog").modal();
+                            $("#InfoDialog").on('hidden.bs.modal', function () {
+                                location.reload();
+                            });
+                        }
+                        // Messaggio di inserimento non riuscito
+                        else {
+                            $("#InfoTitle").html("Errore nell'inserimento del curriculum");
+                            $("#InfoMessage").html("Controlla i dati.");
+                            $("#InfoDialog").modal();
+                        }
+                    }
+                    );
                 });
                 // Azione del pulsante per la modifica di un ciclo
                 $("#submitPhdCycle").click(function () {
@@ -38,7 +106,7 @@ var initCycle = function () {
                                 newIdPhdCycle: $("#phdCycleId").val(),
                                 description: $("#phdCycleDescription").val(),
                                 year: $("#phdCycleYear").val(),
-                                professor: $("#phdCycleProfessor").val()},
+                                professor: document.getElementsByName($("#phdCycleProfessor").val()).item(0).text},
                     function (data) {
 
                         // Messaggio di inserimento riuscito
@@ -91,6 +159,20 @@ var initCycle = function () {
 
                 $("#phdCycleTitle").html(" Nuovo ciclo di dottorato ");
                 $("#cycle_form").get(0).reset();
+                $("#curriculumCycleList").empty();
+                $('#phdDifferentCurriculumList').find('option').remove();
+                $("#addCycleCurriculumDiv").hide();
+                
+
+                $.getJSON("GetPersonByTypeOfAccount",
+                        {typeOfAccount: "professor"},
+                function (data) {
+
+                    $.each(data.person, function (index, value) {
+                        person = "<option label='" + value.ssn + "' name='" + value.name + " " + value.surname + "' value='" + value.name + " " + value.surname + "'>  ";
+                        $("#professorCycleList").append(person);
+                    });
+                });
 
                 // Vengono mostrati i pulsanti di invio ed reset
                 $("#deleteCycleButton").hide();
@@ -104,7 +186,7 @@ var initCycle = function () {
                             {idPhdCycle: $("#phdCycleId").val(),
                                 description: $("#phdCycleDescription").val(),
                                 year: $("#phdCycleYear").val(),
-                                professor: $("#phdCycleProfessor").val()},
+                                professor: document.getElementsByName($("#phdCycleProfessor").val()).item(0).text},
                     function (data) {
 
                         // Messaggio di inserimento riuscito
@@ -112,7 +194,7 @@ var initCycle = function () {
                             $("#InfoTitle").html("Ciclo inserito correttamente");
                             $("#InfoMessage").html("");
                             $("#InfoDialog").modal();
-                            $("#InfoDialog").on('hidden.bs.modal', function () {                           
+                            $("#InfoDialog").on('hidden.bs.modal', function () {
                                 location.reload();
                             });
                         }
@@ -125,7 +207,7 @@ var initCycle = function () {
                     }
                     );
                 });
-                
+
             }
 
             $("#admin_add_cycle").show();
@@ -161,7 +243,20 @@ var initCurriculum = function () {
                 $.getJSON("GetPhdCurriculum?phdCurriculumName=" + $(this).attr('id'), function (data) {
                     $("#phdCurriculumName").val(data.phdCurriculumName);
                     $("#phdCurriculumDescription").val(data.phdCurriculumDescription);
-                    $("#phdCurriculumProfessor").val(data.FK_Professor);
+
+                    $.getJSON("GetPerson?pSSN=" + data.FK_Professor, function (dataProfessor) {
+                        $("#phdCurriculumProfessor").val(dataProfessor.name + " " + dataProfessor.surname);
+                    });
+
+                    $.getJSON("GetPersonByTypeOfAccount",
+                            {typeOfAccount: "professor"},
+                    function (data) {
+
+                        $.each(data.person, function (index, value) {
+                            person = "<option label='" + value.ssn + "' name='" + value.name + " " + value.surname + "' value='" + value.name + " " + value.surname + "'>  ";
+                            $("#professorCurriculumList").append(person);
+                        });
+                    });
                 });
                 // Azione del pulsante per la modifica di un curriculum
                 $("#submitPhdCurriculum").click(function () {
@@ -225,6 +320,16 @@ var initCurriculum = function () {
                 $("#phdCurriculumTitle").html(" Nuovo curriculum di dottorato ");
                 $("#curriculum_form").get(0).reset();
 
+                $.getJSON("GetPersonByTypeOfAccount",
+                        {typeOfAccount: "professor"},
+                function (data) {
+
+                    $.each(data.person, function (index, value) {
+                        person = "<option label='" + value.ssn + "' name='" + value.name + " " + value.surname + "' value='" + value.name + " " + value.surname + "'>  ";
+                        $("#professorCurriculumList").append(person);
+                    });
+                });
+
                 // Vengono mostrati i pulsanti di invio ed reset
                 $("#deleteCurriculumButton").hide();
                 $("#resetCurriculumButton").show();
@@ -236,7 +341,7 @@ var initCurriculum = function () {
                     $.getJSON("InsertPhdCurriculum",
                             {name: $("#phdCurriculumName").val(),
                                 description: $("#phdCurriculumDescription").val(),
-                                professor: $("#phdCurriculumProfessor").val()},
+                                professor: document.getElementsByName($("#phdCurriculumProfessor").val()).item(0).text},
                     function (data) {
 
                         // Messaggio di inserimento riuscito
@@ -269,10 +374,156 @@ var initCurriculum = function () {
 
 
 // servlet per avere la lista dei curriculum 
-var initPhdStudent = function () {
-$("#admin_add_phd_student").show();
+var initPhdUser = function () {
+
+
+// azioni da compiere per ogni item del menù di gestione curriculum
+    $(".admin_phd_user_submenu").click(function () {
+        user = $(this).attr('id');
+
+        // Azioni da compiere se è stato selezionato un curriculum già esistente
+        if (user == "admin_menu_add_phd_student") {
+
+            $("#phdStudentTitle").html("Gestione dottorandi");
+
+
+
+            $.getJSON("GetPersonByTypeOfAccount",
+                    {typeOfAccount: "phd"},
+            function (data) {
+
+                $.each(data.person, function (index, value) {
+                    person = "<option label='" + value.ssn + "' name='" + value.name + " " + value.surname + "' value='" + value.name + " " + value.surname + "'>  ";
+                    $("#personList").append(person);
+                });
+
+
+                var ssn;
+                $("#showPhdStudent").click(function () {
+                    var name = $("#phdUser").val();
+
+                    ssn = document.getElementsByName(name).item(0).text;
+
+                    $("#phdStudentName").html(name);
+
+                    $("#updateStudentPhdClass").hide();
+                    $("#deleteStudentPhdClass").hide();
+                    $("#insertStudentPhdClass").show();
+
+                    $.getJSON("GetPhdClassBySSN", {SSN: ssn}, function (data) {
+                        var classe = data.FK_PhdCycle + "° ciclo - Dottorato in " + data.FK_PhdCurriculum;
+                        $("#phdStudentClass").html(classe);
+
+
+                        $("#updateStudentPhdClass").show();
+                        $("#deleteStudentPhdClass").show();
+                        $("#insertStudentPhdClass").hide();
+
+                    }
+                    );
+
+                    $.getJSON("GetPhdClassList", function (classdata) {
+                        $("#phdClassList option").remove();
+
+                        $.each(classdata.phdClassList, function (index, value) {
+                            phdclass = "<option class='optionItem' id='" + value.idClass + "'> " + value.FK_PhdCycle + "° ciclo - curriculum in " + value.FK_PhdCurriculum + " </option> ";
+                            $("#phdClassList").append(phdclass);
+                        });
+
+                    }
+                    );
+                    $("#phdStudent").show();
+
+                });
+
+                $("#insertStudentPhdClass").click(function () {
+
+                    $.getJSON("InsertStudentPhdClass", {idCycle: $("#phdClassList").find(":selected").attr("id"), SSN: ssn}, function (data) {
+                        // Messaggio di inserimento riuscito
+                        if (data.result === true) {
+                            $("#InfoTitle").html("Classe assegnata con successo");
+                            $("#InfoMessage").html("");
+                            $("#InfoDialog").modal();
+                            $("#InfoDialog").on('hidden.bs.modal', function () {
+                                $("#phdStudent").hide();
+                                $("#phdUser").val("");
+                            });
+                        }
+                        // Messaggio di inserimento non riuscito
+                        else {
+                            $("#InfoTitle").html("Errore nell'assegnazione della classe");
+                            $("#InfoMessage").html("Controlla i dati.");
+                            $("#InfoDialog").modal();
+                        }
+                    }
+                    );
+
+                });
+
+                $("#updateStudentPhdClass").click(function () {
+                    $.getJSON("UpdateStudentPhdClass", {idCycle: $("#phdClassList").find(":selected").attr("id"), SSN: ssn}, function (data) {
+                        // Messaggio di inserimento riuscito
+                        if (data.result === true) {
+                            $("#InfoTitle").html("Classe assegnata con successo");
+                            $("#InfoMessage").html("");
+                            $("#InfoDialog").modal();
+                            $("#InfoDialog").on('hidden.bs.modal', function () {
+                                $("#phdStudent").hide();
+                                $("#phdUser").val("");
+                            });
+                        }
+                        // Messaggio di inserimento non riuscito
+                        else {
+                            $("#InfoTitle").html("Errore nell'assegnazione della classe");
+                            $("#InfoMessage").html("Controlla i dati.");
+                            $("#InfoDialog").modal();
+                        }
+                    }
+                    );
+
+                });
+
+
+                $("#deleteStudentPhdClass").click(function () {
+
+                    $.getJSON("DeleteStudentPhdClass", {SSN: ssn}, function (data) {
+
+                        $("#phdStudentClass").html("");
+
+                        // Messaggio di inserimento riuscito
+                        if (data.result === true) {
+                            $("#InfoTitle").html("Classe eliminata con successo");
+                            $("#InfoMessage").html("");
+                            $("#InfoDialog").modal();
+                            $("#InfoDialog").on('hidden.bs.modal', function () {
+                                $("#phdStudent").hide();
+                                $("#phdUser").val("");
+                            });
+                        }
+                        // Messaggio di inserimento non riuscito
+                        else {
+                            $("#InfoTitle").html("Errore nella cancellazione della classe");
+                            $("#InfoMessage").html("Controlla i dati.");
+                            $("#InfoDialog").modal();
+                        }
+                    }
+                    );
+
+                });
+            }
+            );
+
+        }
+
+        $("#admin_add_phd_student").show();
+        $("#buttonClosePhdStudentDialog").click(function () {
+            $("#admin_add_phd_student").hide();
+        });
+
+    });
+
 };
- 
+
 
 
 // Funzione per la gestione del menù
@@ -280,22 +531,22 @@ $(document).ready(function () {
 
     initCycle();
     initCurriculum();
-    initPhdStudent();
+    initPhdUser();
 
     $("#admin_cycle").click(function () {
         $("#admin_menu_curriculum").slideUp();
-        $("#admin_menu_phd_student").slideUp();
+        $("#admin_menu_phd_user").slideUp();
         $("#admin_menu_cycle").slideToggle();
     });
     $("#admin_curriculum").click(function () {
         $("#admin_menu_cycle").slideUp();
-        $("#admin_menu_phd_student").slideUp();
+        $("#admin_menu_phd_user").slideUp();
         $("#admin_menu_curriculum").slideToggle();
     });
-    $("#admin_phd_student").click(function () {
+    $("#admin_phd_user").click(function () {
         $("#admin_menu_cycle").slideUp();
         $("#admin_menu_curriculum").slideUp();
-        $("#admin_menu_phd_student").slideToggle();
+        $("#admin_menu_phd_user").slideToggle();
     });
 
 });

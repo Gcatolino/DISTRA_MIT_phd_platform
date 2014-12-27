@@ -19,7 +19,7 @@ public class Utility {
         if("".equals(value))
             return "null";
         else
-            return value;
+            return "'" + value + "'";
     }
     
 
@@ -132,7 +132,7 @@ public class Utility {
     static public String Replace(String pStr) {
         String tRis;
         tRis = pStr.replaceAll("\"", "'");
-        tRis = tRis.replaceAll("'", "\\'");
+        tRis = tRis.replaceAll("'", "''");
         return tRis;
     }
 

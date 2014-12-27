@@ -1,5 +1,6 @@
 // servlet per avere le informazioni riguardanti un determinato ciclo
 $.getJSON("GetPhdCycle?phdCycleId=15", function (data) {
+
     $("#phdCycle").html(data.phdCycle);
     $("#phdYear").html(data.phdYear);
     $("#phdDescription").html(data.phdDescription);
@@ -27,10 +28,15 @@ $.get("GetPhdCyclesIds", function (data) {
     });
 
     $(".phdCycle_submenu").click(function () {
-        
+
         cSelected = $(this).attr('id');
 
         $.getJSON("GetPhdCycle?phdCycleId=" + cSelected, function (data) {
+
+            // questi campi necessitano di essere cancellati prima della visualizzazione di un nuovo ciclo
+            $("#phdDescription").html("");
+            $("#phdProfessor").html("");
+
             $("#phdCycle").html(data.phdCycle);
             $("#phdYear").html(data.phdYear);
             $("#phdDescription").html(data.phdDescription);

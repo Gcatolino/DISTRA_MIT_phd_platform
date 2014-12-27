@@ -13,7 +13,7 @@ public class Publication implements Serializable{
     private String type;
     private String publicationIssue;
     private int numberPages;
-    private int FK_Strudent;
+    private String FK_Strudent;
 
     public int getIdPublication() {
         return idPublication;
@@ -87,11 +87,11 @@ public class Publication implements Serializable{
         this.numberPages = numberPages;
     }
 
-    public int getFK_Strudent() {
+    public String getFK_Strudent() {
         return FK_Strudent;
     }
 
-    public void setFK_Strudent(int FK_Strudent) {
+    public void setFK_Student(String FK_Strudent) {
         this.FK_Strudent = FK_Strudent;
     }
     

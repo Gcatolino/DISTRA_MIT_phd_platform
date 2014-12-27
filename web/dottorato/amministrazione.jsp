@@ -87,11 +87,12 @@
 
                         <!-- Menu per la gestione dei dottorandi --> 
                         <div class="panel panel-default">
-                            <div class="panel-heading pointer" id="admin_phd_student">
-                                Gestione Dottorandi 
+                            <div class="panel-heading pointer" id="admin_phd_user">
+                                Gestione Utenti 
                             </div>
-                            <div class="panel-body hidden_menu" id="admin_menu_phd_student">
-                                <p class="admin_phd_student_submenu" id="admin_menu_add_phd_student"> Nuovo dottorando </p>  
+                            <div class="panel-body hidden_menu" id="admin_menu_phd_user">
+                                <p class="admin_phd_user_submenu" id="admin_menu_add_phd_student"> Gestione dottorandi </p>  
+                                <p class="admin_phd_user_submenu" id="admin_menu_add_phd_professor"> Gestione docenti </p> 
                             </div>
                         </div>
                     </div>
@@ -141,12 +142,9 @@
                                         <label>Coordinatore:</label>
                                         <div class="input-group">
                                             <span class="input-group-addon"></span>
-                                            <input list="browsers" id="phdCycleProfessor" class="form-control" name="professor" placeholder="Inserisci il coordinatore del ciclo">
-                                            <datalist id="browsers">
-                                                <option value="Andrea De Lucia">
-                                                <option value="Anna Forte">
-                                                <option value="Amelia Nobile">
-                                                <option value="Angelo Cassari">
+                                            <input list="professorCycleList" id="phdCycleProfessor" class="form-control" name="professor" placeholder="Inserisci il coordinatore del ciclo">
+                                            <datalist id="professorCycleList">
+
                                             </datalist>
 
                                         </div>
@@ -158,8 +156,24 @@
                                         <input type="button" id="deleteCycleButton" class="btn btn-red" value="Elimina ciclo">
                                         <input type="reset" id="resetCycleButton" class="btn btn-white" value="Reset">
                                     </div>
+                                    <div id="addCycleCurriculumDiv">
+                                    <div class="form-group">
+                                        <h3 id="PhdCycleCurriculum">  </h3>
+                                        <ul class="list-group" id="curriculumCycleList">           
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label> <h3> Aggiungi curriculum </h3> </label>
+                                        <span class="input-group-addon"></span>
+                                        <select class="form-control" id="phdDifferentCurriculumList">
+                                        </select> <br>
+                                        <input type="button" id="submitDifferentPhdCycle" class="btn btn-blue" value="Aggiungi"> 
+                                    </div>
+                                    </div>
                                 </form>
                             </div>
+
                         </div>
                     </div>
 
@@ -200,12 +214,9 @@
                                         <label>Coordinatore:</label>
                                         <div class="input-group">
                                             <span class="input-group-addon"></span>
-                                            <input list="browsers" id="phdCurriculumProfessor" class="form-control" name="professor" placeholder="Inserisci il coordinatore del curriculum">
-                                            <datalist id="browsers">
-                                                <option value="Andrea De Lucia">
-                                                <option value="Anna Forte">
-                                                <option value="Amelia Nobile">
-                                                <option value="Angelo Cassari">
+                                            <input list="professorCurriculumList" id="phdCurriculumProfessor" class="form-control" name="professor" placeholder="Inserisci il coordinatore del curriculum">
+                                            <datalist id="professorCurriculumList">
+
                                             </datalist>
 
                                         </div>
@@ -221,6 +232,65 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-sm-8 hidden_menu" id="admin_add_phd_student">
+
+                        <!-- Pannello per creazione di un nuovo phdStudent o la modifica di un phdStudent selezionato --> 
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <button type="button" class="close" id="buttonClosePhdStudentDialog">&times;</button>
+                                <h2 id="phdStudentTitle"></h2>
+                            </div>
+                            <div class="panel-body">
+
+                                <!-- Form contenenti i campi dei phdStudent -->
+                                <form id="phdUser_form">
+
+                                    <!-- Campo di testo relativo al coordinatore di un curriculum -->
+                                    <div class="form-group">
+                                        <label>Nome e cognome:</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"></span>
+                                            <input list="personList" id="phdUser" class="form-control" name="phdUser" placeholder="Inserisci dottorando">
+                                            <datalist id="personList">
+                                            </datalist>
+
+                                        </div>
+                                    </div>
+
+                                    <!-- Pulsanti di invio e reset del form -->
+                                    <div class="form-group">
+                                        <input type="button" id="showPhdStudent" class="btn btn-white" value="Assegna classe"> 
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="panel-body">
+
+                                <div id="phdStudent" class="hidden_menu">
+                                    <h2 id="phdStudentName"> </h2>
+                                    <h3 id="phdStudentClass"> </h3>
+                                    <form>
+                                        <label> Classe: </label>
+                                        <span class="input-group-addon"></span>
+                                        <select class="form-control" id="phdClassList">
+                                        </select>
+                                        <br>
+                                        <input type="button" id="insertStudentPhdClass" class="btn btn-blue" value="Inserisci"> 
+                                        <input type="button" id="updateStudentPhdClass" class="btn btn-blue" value="Modifica"> 
+                                        <input type="button" id="deleteStudentPhdClass" class="btn btn-red" value="Elimina">
+                                    </form>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
 
                 </div>
 

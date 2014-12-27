@@ -63,7 +63,7 @@ public class LoginServlet extends HttpServlet {
                 } else if (person.getAccount().getTypeOfAccount().equals("phd")) {
                     session.removeAttribute("loginError");
                     session.setAttribute("person", person);
-                    response.sendRedirect("indexLog.jsp");
+                    response.sendRedirect("dottorato/index.jsp");
                 } else if (person.getAccount().getTypeOfAccount().equals("professor")) {
                     session.removeAttribute("loginError");
                     session.setAttribute("person", person);
@@ -72,7 +72,11 @@ public class LoginServlet extends HttpServlet {
                     session.removeAttribute("loginError");
                     session.setAttribute("person", person);
                     response.sendRedirect("indexLog.jsp");
-                } else {
+                } else if (person.getAccount().getTypeOfAccount().equals("admin")) {
+                    session.removeAttribute("loginError");
+                    session.setAttribute("person", person);
+                    response.sendRedirect("indexLog.jsp"); 
+                }else {
                     session.setAttribute("loginError", "error");
                     response.sendRedirect("login.jsp");
                 }

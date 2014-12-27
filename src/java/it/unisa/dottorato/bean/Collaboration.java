@@ -3,14 +3,14 @@ package it.unisa.dottorato.bean;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Collaboration implements Serializable{
+public class Collaboration implements Serializable {
     
     private int idCollaboration;
     private String istitution;
     private String description;
     private Date startDate;
     private Date endDate;
-    private int FK_Strudent;
+    private String FK_Strudent;
 
     public int getIdCollaboration() {
         return idCollaboration;
@@ -52,11 +52,11 @@ public class Collaboration implements Serializable{
         this.endDate = endDate;
     }
 
-    public int getFK_Strudent() {
+    public String getFK_Strudent() {
         return FK_Strudent;
     }
 
-    public void setFK_Strudent(int FK_Strudent) {
+    public void setFK_Strudent(String FK_Strudent) {
         this.FK_Strudent = FK_Strudent;
     }  
     

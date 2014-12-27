@@ -154,7 +154,7 @@
                         </a>
                     </li>
                     <li class="opened active">
-                        <a href="login.html">
+                        <a href="login.jsp">
                             <i class="fa-user"></i>
                             <span class="title">Login</span>
                         </a>
