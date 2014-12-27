@@ -133,7 +133,7 @@
                 <br>
                 <br>
                 <p style='color: #000;font-size:medium ; margin-left: 3%'><b>Interessi di Ricerca:</b></p>
-                <textarea name="coverLetter" rows="5" cols="40"  style='color: #000;font-size:medium ; margin-left: 3%'> <%= loggedPerson.getCoverLetter()%> </textarea>
+                <textarea name="coverLetter" rows="5" cols="40"  style='color: #000;font-size:medium ; margin-left: 3%' readonly> <%= loggedPerson.getCoverLetter()%> </textarea>
                 <br>
 
             </div>

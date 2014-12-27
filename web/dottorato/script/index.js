@@ -59,4 +59,3 @@ $.getJSON("GetPhdCyclesIds", function (data) {
     });
     
 });
-});

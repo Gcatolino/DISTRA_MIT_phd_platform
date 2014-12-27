@@ -1,9 +1,9 @@
 // Funzione per la gestione del menù
 $(document).ready(function () {
 
-        var ssn;
-        // Azione da compiere per la visualizzazione del pannello della classe dello studente selezionato
-        $("#showPhdStudent").click(function () {
+    initCycle();
+    initCurriculum();
+    initPhdStudent();
 
     $("#admin_cycle").click(function () {
         $("#admin_menu_curriculum").slideUp();
@@ -21,24 +21,7 @@ $(document).ready(function () {
         $("#admin_menu_phd_user").slideToggle();
     });
 
-function messageDialog(result, trueMEssage, falseMessage) {
-    // Messaggio di inserimento riuscito
-    if (result === true) {
-        $("#InfoTitle").html(trueMEssage);
-        $("#InfoMessage").html("");
-        $("#InfoDialog").modal();
-        $("#InfoDialog").on('hidden.bs.modal', function () {
-            location.reload();
-        });
-    }
-    // Messaggio di inserimento non riuscito
-    else {
-        $("#InfoTitle").html(falseMessage);
-        $("#InfoMessage").html("Controlla i dati.");
-        $("#InfoDialog").modal();
-    }
-}
-;
+});
 
 // funzione per la gestione dei cicli
 function initCycle() {
