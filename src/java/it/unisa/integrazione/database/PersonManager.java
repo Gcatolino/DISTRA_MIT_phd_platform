@@ -272,7 +272,7 @@ public class PersonManager {
         }
 
     }
-
+    
     public ArrayList<Person> getPersonByTypeOfAccount(String typeOfACcount) throws SQLException, ConnectionException {
         Statement stmt = null;
         ResultSet rs = null;
@@ -307,7 +307,7 @@ public class PersonManager {
                 aPerson.setUniversity(rs.getString("university"));
                 aPerson.setMatricula(rs.getString("matricula"));
                 aPerson.setPosition(rs.getString("position"));
-
+                
                 person.add(aPerson);
 
             }

@@ -29,7 +29,7 @@ $.getJSON("GetPhdCyclesIds", function (data) {
     });
     
     $(".phdCycle_submenu").click(function () {
-
+        
         cSelected = $(this).attr('id');
         $.getJSON("GetPhdCycle", {phdCycleId: cSelected},  function (data) {
 
@@ -58,4 +58,5 @@ $.getJSON("GetPhdCyclesIds", function (data) {
         
     });
     
+});
 });
