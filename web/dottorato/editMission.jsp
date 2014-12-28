@@ -4,6 +4,8 @@
     Author     : gemmacatolino
 --%>
 
+<%@page import="it.unisa.dottorato.phdProfile.missions.MissionManager"%>
+<%@page import="it.unisa.dottorato.bean.Mission"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -47,7 +49,9 @@
 
             <!-- Inclusione della pagina contenente il menù laterale -->
             <jsp:include page="lateralMenu.jsp"/>
-
+<%
+                int missionID = (Integer.parseInt("" + session.getAttribute("idMission")));
+                Mission mission = MissionManager.getInstance().getMissionById(missionID) ;%>
             <!-- Contenuto della pagina -->
 
             <div class="main-content" id="content">
@@ -63,35 +67,35 @@
                                 <h1>Modifica Mission</h1>
                             </div>
                             <div class="panel-body">
-                                <form class="form-horizontal" method="POST" action="#">
+                                <form class="form-horizontal" method="POST" action="UpdateMissionServlet">
                                     <div class="form-group">
                                         <table width="90%" align="center">
                                             <tr><td>
                                                     <p>Luogo:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <input class="form-control" name="" type="text" >
+                                                        <input class="form-control" name="place" type="text" value="<%= mission.getPlace()%>" >
                                                     </div>
                                                     <br>
                                                     <br>
                                                     <p>Descrizione:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <textarea class="form-control" name="" rows="5" cols="40"></textarea>
+                                                        <textarea class="form-control" name="description" rows="5" cols="40"><%= mission.getDescription() %></textarea>
                                                     </div>
                                                     <br>
                                                     <br>
                                                     <p>Data Di Inizio:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <input class="form-control" name="" type="text" >
+                                                        <input class="form-control" name="startDate" type="text" value="<%= mission.getStartDate() %>" >
                                                     </div>
                                                     <br>
                                                     <br>
                                                     <p>Data Di Fine:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <input class="form-control" name="" type="text"  >
+                                                        <input class="form-control" name="endDate" type="text" value="<%= mission.getEndDate() %>"  >
                                                     </div>
                                                     <br>
                                                     <br>

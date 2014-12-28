@@ -16,14 +16,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
  *
  * @author gemmacatolino
  */
-@WebServlet(name = "DeleteMissionServlet", urlPatterns = {"/DeleteMissionServlet"})
+@WebServlet(name = "DeleteMissionServlet", urlPatterns = {"/dottorato/DeleteMissionServlet"})
 public class DeleteMissionServlet extends HttpServlet {
 
     /**
@@ -39,31 +38,18 @@ public class DeleteMissionServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        JSONObject result = new JSONObject();
+        String idMission = request.getParameter("id");
         try {
-
-            JSONObject result = new JSONObject();
-            String idMission = request.getParameter("idMission");
-
-            result.put("result", true);
-
-            try {
-                MissionManager.getInstance().delete(idMission);
-            } catch (ClassNotFoundException | SQLException | EntityNotFoundException ex) {
-                result.put("result", false);
-                Logger.getLogger(DeleteMissionServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            out.write(result.toString());
-
-            out.println("<script type=\"text/javascript\">");
-            out.println("alert('La missione è stata eliminata.');");
-            out.println("location='dottorato/profile.jsp';");
-            out.println("</script>");
-        } catch (JSONException ex) {
+            MissionManager.getInstance().delete(idMission);
+        } catch (ClassNotFoundException | SQLException | EntityNotFoundException ex) {
+            
             Logger.getLogger(DeleteMissionServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            out.close();
         }
+        out.println("<script type=\"text/javascript\">");
+        out.println("alert('La missione è stata eliminata.');");
+        out.println("location='missionActivity.jsp';");
+        out.println("</script>");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

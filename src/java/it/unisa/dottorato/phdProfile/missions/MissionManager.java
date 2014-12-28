@@ -69,13 +69,13 @@ public class MissionManager {
                     + Utility.Replace(pMission.getPlace())
                     + "','"
                     + Utility.Replace(pMission.getDescription())
-                    + "',"
+                    + "','"
                     + pMission.getStartDate()
-                    + "',"
+                    + "','"
                     + pMission.getEndDate() 
-                    + "',"
+                    + "','"
                     + pMission.getFK_Student()
-                    + ")";
+                    + "')";
 
             System.out.println("La query: " +tSql);
             //Inviamo la Query al DataBase
@@ -85,7 +85,7 @@ public class MissionManager {
         }
     }
           
-    public synchronized void update(String oldMissionID, Mission pMission) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException {
+    public synchronized void update(int oldMissionID, Mission pMission) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException {
         try (Connection connect = DBConnection.getConnection()) {
 
             /*
@@ -100,10 +100,10 @@ public class MissionManager {
                     + Utility.Replace(pMission.getDescription())
                     + "', startDate = '"
                     + pMission.getStartDate()
-                    + "', endDate = "
+                    + "', endDate = '"
                     + pMission.getEndDate()
-                    + " WHERE idCollaboration = '"
-                    + oldMissionID + "'";           
+                    + "' WHERE idMission = "
+                    + oldMissionID + "";           
 
             System.out.println(tSql);
             //Inviamo la Query al DataBase

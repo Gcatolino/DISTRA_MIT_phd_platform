@@ -91,7 +91,7 @@
                                                 Sito web: <a href="<%= loggedPerson.getWebPage()%>" target="_blank"><%= loggedPerson.getWebPage()%></a> <br>
                                                 <%}
                                                     if (loggedPerson.getDepartment() != null) {%>
-                                                <%= loggedPerson.getDepartment().getTitle()%> <br>
+                                                <%= loggedPerson.getDepartment().getAbbreviation() %> <br>
                                                 <% }%>
 
                                             </p>

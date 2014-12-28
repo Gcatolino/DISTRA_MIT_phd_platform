@@ -11,9 +11,6 @@ import it.unisa.integrazione.model.Person;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -22,14 +19,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
  *
  * @author gemmacatolino
  */
-@WebServlet(name = "UpdateMissionServlet", urlPatterns = {"/UpdateMissionServlet"})
+@WebServlet(name = "UpdateMissionServlet", urlPatterns = {"/dottorato/UpdateMissionServlet"})
 public class UpdateMissionServlet extends HttpServlet {
 
     /**
@@ -48,49 +44,36 @@ public class UpdateMissionServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         try {
-            try {
-                response.setContentType("text/html;charset=UTF-8");
-
-                String idMission = request.getParameter("idMission");
-
-                String place = request.getParameter("place");
-                String description = request.getParameter("description");
-                String startDate = request.getParameter("startDate");
-                String endDate = request.getParameter("endDate");
-
-                HttpSession session = request.getSession();
-                Person loggedPerson = (Person) session.getAttribute("person");
-
-                Mission mission = new Mission();
-
-                mission.setPlace(place);
-                mission.setDescription(description);
-
-                SimpleDateFormat inputDf = new SimpleDateFormat("yyyy-MM-dd");
-                Date start = inputDf.parse(startDate);
-                mission.setStartDate(start);
-
-                Date end = inputDf.parse(endDate);
-                mission.setEndDate(end);
-
-                mission.setFK_Student(loggedPerson.getSsn());
-
-                MissionManager.getInstance().update(idMission, mission);
-                result.put("result", true);
-
-                out.println("<script type=\"text/javascript\">");
-                out.println("alert('La missione è stata modificata.');");
-                out.println("location='dottorato/profile.jsp';");
-                out.println("</script>");
-            } catch (ParseException | SQLException ex) {
-                Logger.getLogger(UpdateMissionServlet.class.getName()).log(Level.SEVERE, null, ex);
-                result.put("result", false);
-            } catch (ClassNotFoundException | EntityNotFoundException ex) {
-                Logger.getLogger(UpdateMissionServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            out.write(result.toString());
-
-        } catch (JSONException ex) {
+            response.setContentType("text/html;charset=UTF-8");
+            
+            int missionID = Integer.parseInt("" + request.getSession().getAttribute("idMission"));
+            
+            String place = request.getParameter("place");
+            String description = request.getParameter("description");
+            String startDate = request.getParameter("startDate");
+            String endDate = request.getParameter("endDate");
+            
+            HttpSession session = request.getSession();
+            Person loggedPerson = (Person) session.getAttribute("person");
+            
+            Mission mission = new Mission();
+            
+            mission.setPlace(place);
+            mission.setDescription(description);
+            mission.setStartDate(java.sql.Date.valueOf(startDate));
+            mission.setEndDate(java.sql.Date.valueOf(endDate));
+            mission.setFK_Student(loggedPerson.getSsn());
+            
+            MissionManager.getInstance().update(missionID, mission);
+            
+            out.println("<script type=\"text/javascript\">");
+            out.println("alert('La missione è stata modificata.');");
+            out.println("location='missionActivity.jsp';");
+            out.println("</script>");
+        } catch (SQLException ex) {
+            Logger.getLogger(UpdateMissionServlet.class.getName()).log(Level.SEVERE, null, ex);
+            
+        } catch (ClassNotFoundException | EntityNotFoundException ex) {
             Logger.getLogger(UpdateMissionServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

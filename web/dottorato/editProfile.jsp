@@ -114,7 +114,7 @@
                                                     <br>
 
                                                     <div>
-                                                        <input type="submit" id="#" class="btn btn-blue" value="Modifica">
+                                                        <input type="submit"class="btn btn-blue" value="Modifica">
                                                         <br>
                                                         <br>
 

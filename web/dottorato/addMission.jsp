@@ -61,35 +61,35 @@
                                 <h1>Inserisci Mission</h1>
                             </div>
                             <div class="panel-body">
-                                <form class="form-horizontal" method="POST" action="#">
+                                <form class="form-horizontal" method="POST" action="AddMissionServlet">
                                     <div class="form-group">
                                         <table width="90%" align="center">
                                             <tr><td>
                                                     <p>Luogo:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <input class="form-control" name="title" type="text">
+                                                        <input class="form-control" name="place" type="text">
                                                     </div>
                                                     <br>
                                                     <br>
                                                     <p>Descrizione:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <textarea class="form-control" name="abstractText" rows="5" cols="40"> </textarea>
+                                                        <textarea class="form-control" name="description" rows="5" cols="40"> </textarea>
                                                     </div>
                                                     <br>
                                                     <br>
                                                     <p>Data di Inizio:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <input class="form-control" name="authors" type="text" placeholder="gg/mm/aaaa">
+                                                        <input class="form-control" name="startDate" type="text" placeholder="aaaa-mm-gg">
                                                     </div>
                                                     <br>
                                                     <br>
                                                     <p>Data di Fine:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <input class="form-control" name="year" type="text" placeholder="gg/mm/aaaa">
+                                                        <input class="form-control" name="endDate" type="text" placeholder="aaaa-mm-gg">
                                                     </div>
                                                     <br>
                                                     <br>

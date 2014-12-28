@@ -3,6 +3,10 @@
     Created on : 26-dic-2014, 17.33.00
     Author     : gemmacatolino
 --%>
+<%@page import="it.unisa.dottorato.phdProfile.missions.MissionManager"%>
+<%@page import="it.unisa.dottorato.bean.Mission"%>
+<%@page import="java.util.List"%>
+<%@page import="it.unisa.integrazione.model.Person"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -45,6 +49,11 @@
 
             <!-- Inclusione della pagina contenente il menù laterale --> 
             <jsp:include page="lateralMenu.jsp"/> 
+            
+             <% Person loggedPerson = ((Person) session.getAttribute("person"));
+                List<Mission> missions = MissionManager.getInstance().getAllMissionsOf(loggedPerson);
+
+            %>
 
             <div class="main-content" id="content">
 
@@ -77,12 +86,16 @@
                                     <th>Data Di Inizio</th>
                                     <th>Data Di Fine</th>
                                     </thead>
+                                    
+                                    <% for (Mission mission : missions) {%>
 
                                     <tr>
-                                        <td></td>
-                                        <td> </td>		
-                                        <td></td>
-                                        <td></td>
+                                        <td><%= mission.getPlace()%></td>
+                                        <td><%= mission.getDescription()%></td>		
+                                        <td><%= mission.getStartDate()%></td>
+                                        <td><%= mission.getEndDate()%></td>
+                                        
+                                         <% session.setAttribute("idMission", mission.getIdMission());%>
 
 
 
@@ -92,10 +105,11 @@
                                         </td>
                                         <td width="20px">
                                             <button type="button" class="btn btn-white"title="delete">
-                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                <span class="glyphicon glyphicon-remove" aria-hidden="true" onclick="location.href = '<%= "DeleteMissionServlet?id=" + mission.getIdMission() %>'" ></span>
                                             </button>
                                         </td>
                                     </tr>
+                                    <% }%>
                                 
                                 </table>
                             </div>

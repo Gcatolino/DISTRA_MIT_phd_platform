@@ -10,9 +10,6 @@ import it.unisa.integrazione.model.Person;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -28,7 +25,7 @@ import org.json.JSONObject;
  *
  * @author gemmacatolino
  */
-@WebServlet(name = "AddMissionServlet", urlPatterns = {"/AddMissionServlet"})
+@WebServlet(name = "AddMissionServlet", urlPatterns = {"/dottorato/AddMissionServlet"})
 public class AddMissionServlet extends HttpServlet {
 
     /**
@@ -62,14 +59,8 @@ public class AddMissionServlet extends HttpServlet {
 
                 mission.setPlace(place);
                 mission.setDescription(description);
-
-                SimpleDateFormat inputDf = new SimpleDateFormat("yyyy-MM-dd");
-                Date start = inputDf.parse(startDate);
-                mission.setStartDate(start);
-
-                Date end = inputDf.parse(endDate);
-                mission.setEndDate(end);
-                
+                mission.setStartDate(java.sql.Date.valueOf(startDate));
+                mission.setEndDate(java.sql.Date.valueOf(endDate));
                 mission.setFK_Student(loggedPerson.getSsn());
 
                 MissionManager.getInstance().insert(mission);
@@ -77,9 +68,9 @@ public class AddMissionServlet extends HttpServlet {
 
                 out.println("<script type=\"text/javascript\">");
                 out.println("alert('La missione è stata inserita');");
-                out.println("location='dottorato/profile.jsp';");
+                out.println("location='missionActivity.jsp';");
                 out.println("</script>");
-            } catch (ParseException | SQLException ex) {
+            } catch (SQLException ex) {
                 Logger.getLogger(AddMissionServlet.class.getName()).log(Level.SEVERE, null, ex);
                 result.put("result", false);
             }
