@@ -38,18 +38,7 @@
                 <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
                 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-        <style>
-            hr {
-                display: block;
-                margin-top: 0.5em;
-                margin-bottom: 0.5em;
-                margin-right: auto;
-                border-style: inset;
-                color: #305b90;
-                background-color: #305b90;
-                height: 3px;
-            }
-        </style>
+
     </head>
     <body class="page-body">
 
@@ -64,47 +53,87 @@
             <% Person loggedPerson = ((Person) session.getAttribute("person"));
             %>
 
+            <div class="main-content" id="content">
 
-            <!--Qui chiama servlet update che prende infomazioni person-->
-            <form class="form-horizontal" method="POST" action="UpdateProfileServlet" style='color: #000;font-size:medium ; margin-left: 3%' />
-            <div class="form-group">
-                <hr>
-                <p style="font-size: x-large ; color: #000">Modifica Profilo</p>
-                <hr>
-                <br>
-                <p style='color: #000;font-size:medium ; margin-left: 3%'><b>Nome:</b></p>
-                <input name="name"size="30" style=' color: #000;font-size:medium ; margin-left: 3%' type="text" value="<%= loggedPerson.getName()%>" class="field left">
-                <br>
-                <br>
-                <p style='color: #000;font-size:medium ; margin-left: 3%'><b>Cognome:</b></p>
-                <input name="surname"size="30" style='color: #000;font-size:medium ; margin-left: 3%' type="text" value="<%= loggedPerson.getSurname()%>" class="field left">
-                <br>
-                <br>
-                <p style='color: #000;font-size:medium ; margin-left: 3%'><b>Telefono:</b></p>
-                <input name="phone"size="30" style='color: #000;font-size:medium ; margin-left: 3%' type="text" value="<%= loggedPerson.getPhone()%>" class="field left">
-                <br>
-                <br>
-                <p style='color: #000;font-size:medium ; margin-left: 3%'><b>Email:</b></p>
-                <input name="email" size="30" style='color: #000;font-size:medium ; margin-left: 3%' type="text" value="<%= loggedPerson.getAccount().getEmail()%>" class="field left">
-                <br>
-                <br>
-                <p style='color: #000;font-size:medium ; margin-left: 3%'><b>Web Page:</b></p>
-                <input name="webPage" size="30" style='color: #000;font-size:medium ; margin-left: 3%' type="text" value="<%= loggedPerson.getWebPage()%>" class="field left">
-                <br>
-                <br>
-                <p style='color: #000;font-size:medium ; margin-left: 3%'><b>Interessi di Ricerca:</b></p>
-                <textarea name="coverLetter" rows="5" cols="40"  style='color: #000;font-size:medium ; margin-left: 3%'> <%= loggedPerson.getCoverLetter()%> </textarea>
-                <br>
-                <br>
-                
-                <div style='margin-left: 15%'>
-                    <input type="submit" id="#" class="btn btn-red" value="Modifica">
-                <br>
-                <br>
+                <div class="row">
+
+                    <div class="col-sm-1"></div>
+
+                    <div class="col-sm-10">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h1> Modifica profilo</h1>
+                            </div>
+                            <div class="panel-body">
+                                <form class="form-horizontal" method="POST" action="UpdateProfileServlet">
+                                    <div class="form-group">
+                                        <table width="90%" align="center">
+                                            <tr><td>
+                                                    <p>Nome:</p>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"></span>
+                                                        <input class="form-control" name="name" type="text" value="<%= loggedPerson.getName()%>">
+                                                    </div>
+                                                    <br>
+                                                    <br>
+                                                    <p>Cognome:</p>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"></span>
+                                                        <input class="form-control" name="surname" type="text" value="<%= loggedPerson.getSurname()%>" >
+                                                    </div>
+                                                    <br>
+                                                    <br>
+                                                    <p >Telefono:</p>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"></span>
+                                                        <input class="form-control" name="phone" type="text" value="<%= loggedPerson.getPhone()%>" >
+                                                    </div>
+                                                    <br>
+                                                    <br>
+                                                    <p>Email:</p>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"></span>
+                                                        <input class="form-control" name="email" type="text" value="<%= loggedPerson.getAccount().getEmail()%>" >
+                                                    </div>
+                                                    <br>
+                                                    <br>
+                                                    <p>Web Page:</p>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"></span>
+                                                        <input class="form-control" name="webPage" type="text" value="<%= loggedPerson.getWebPage()%>" >
+                                                    </div>
+                                                    <br>
+                                                    <br>
+                                                    <p>Interessi di Ricerca:</p>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"></span>
+                                                        <textarea class="form-control" name="coverLetter" rows="5" cols="40"> <%= loggedPerson.getCoverLetter()%> </textarea>
+                                                    </div>
+                                                    <br>
+                                                    <br>
+
+                                                    <div>
+                                                        <input type="submit" id="#" class="btn btn-blue" value="Modifica">
+                                                        <br>
+                                                        <br>
+
+                                                    </div>
+                                                </td></tr>
+                                        </table>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-1"></div>
 
                 </div>
-
             </div>
-        </form>
-</body>
+
+
+
+    </body>
 </html>

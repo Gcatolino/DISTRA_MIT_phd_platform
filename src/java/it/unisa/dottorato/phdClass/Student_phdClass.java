@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unisa.dottorato.phdClass;
 
 import java.io.Serializable;
 
 /**
  *
- * @author Elisa
+ * @author Elisa D'Eugenio
  */
 public class Student_phdClass implements Serializable{
     

@@ -2,6 +2,10 @@ package it.unisa.dottorato.bean;
 
 import java.io.Serializable;
 
+/**
+ *
+ * @author Elisa D'Eugenio
+ */
 public class Notice implements Serializable {
     
     private int idNotice;

@@ -1,19 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unisa.dottorato.phdClass;
 
-import it.unisa.dottorato.phdClass.PhdClass;
 import it.unisa.dottorato.exception.EntityNotFoundException;
 import it.unisa.dottorato.phdCurriculum.GetPhdCurriculumsNamesByPhdCycleServlet;
-import it.unisa.dottorato.phdCurriculum.PhdCurriculumManager;
-import it.unisa.dottorato.phdCycle.PhdCycleManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -21,13 +12,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
  *
- * @author Elisa
+ * @author Elisa D'Eugenio
  */
 @WebServlet(name = "GetPhdClassBySSN", urlPatterns = {"/dottorato/GetPhdClassBySSN"})
 public class GetPhdClassBySSNServlet extends HttpServlet {

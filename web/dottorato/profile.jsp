@@ -44,19 +44,8 @@
         <!--[if lt IE 9]>
                 <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
                 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
-        <style>
-            hr { 
-                display: block;
-                margin-top: 0.5em;
-                margin-bottom: 0.5em;
-                margin-right: auto;
-                border-style: inset;
-                color: #305b90;
-                background-color: #305b90;
-                height: 3px;
-            } 
-        </style>
+        <![endif]--> 
+
     </head>
     <body class="page-body">
 
@@ -69,100 +58,70 @@
 
             <!-- Contenuto della pagina --> 
 
+            <div class="main-content" id="content">
 
-            <% Person loggedPerson = ((Person) session.getAttribute("person")); 
-               PhdClass phdClass = PhdClassManager.getInstance().getPhdClassBySSN(loggedPerson.getSsn());
-            %>
-            <!--Qui chiama servlet update che prende infomazioni person-->
-            <form id="#" class="form-horizontal" method="POST" action="#" style='color: #000;font-size:medium ; margin-left: 3%' />
-            <div class="form-group">
-                <hr>
-                <p style="font-size: x-large ; color: #000">Profilo <button type="button" class="btn btn-xs" style="float:right; margin: 7px 880px 7px 7px" >    
-                        <span class="glyphicon glyphicon-cog" aria-hidden="true" onclick="location.href = 'editProfile.jsp'"></span> </button> </p>
-                <hr>
-                <br>
-                <img  class="img-polaroid" style='width: 100 px ; height: 100px ; margin-left: 3%' src="../Immagini/scam_facebook_fake_tutela_amici.jpg" alt="nome immagine" >
-                <br>
-                <br>
-                <p style='color: #000;font-size:medium ; margin-left: 3%'><b>Nome:</b></p>
-                <input size="30" style=' color: #000;font-size:medium ; margin-left: 3%' type="text" value="<%= loggedPerson.getName() %>" class="field left" readonly>
-                <br>
-                <br>
-                <p style='color: #000;font-size:medium ; margin-left: 3%'><b>Cognome:</b></p>
-                <input size="30" style='color: #000;font-size:medium ; margin-left: 3%' type="text" value="<%= loggedPerson.getSurname()%>" class="field left" readonly>
-                <br>
-                <br>
-                <p style='color: #000;font-size:medium ; margin-left: 3%'><b>Telefono:</b></p>
-                <input size="30" style='color: #000;font-size:medium ; margin-left: 3%' type="text" value="<%= loggedPerson.getPhone()%>" class="field left" readonly>
-                <br>
-                <br>
-                <p style='color: #000;font-size:medium ; margin-left: 3%'><b>Email:</b></p>
-                <input size="30" style='color: #000;font-size:medium ; margin-left: 3%' type="text" value="<%= loggedPerson.getAccount().getEmail() %>" class="field left" readonly>
-                <br>
-                <br>
-                <p style='color: #000;font-size:medium ; margin-left: 3%'><b>Dipartimento:</b></p>
-                <% if(loggedPerson.getDepartment()!= null) { %>
-                <input size="30" style='color: #000;font-size:medium ; margin-left: 3%' type="text" value="<%= loggedPerson.getDepartment().getAbbreviation() %>" class="field left" readonly>
-                <%} else { %>
-                <input size="30" style='color: #000;font-size:medium ; margin-left: 3%' type="text" value="nessun dip" class="field left" readonly>
-                <% } %>
-                <br>
-                <br>
-                <p style='color: #000;font-size:medium ; margin-left: 3%'><b>Web Page:</b></p>
-                <% if(loggedPerson.getWebPage() != null) { %>
-                <input size="30" style='color: #000;font-size:medium ; margin-left: 3%' type="text" value="<%= loggedPerson.getWebPage() %>" class="field left" readonly>
-                <%} else { %>
-                <input size="30" style='color: #000;font-size:medium ; margin-left: 3%' type="text" value="" class="field left" readonly>
-                <%}%>
-                <br>
-                <br>
-                <p style='color: #000;font-size:medium ; margin-left: 3%'><b>Ciclo di Appartenenza:</b></p>
-                <% if(phdClass != null) { %>
-                <input size="30" style='color: #000;font-size:medium ; margin-left: 3%' type="text" value="<%= PhdCycleManager.getInstance().getPhdCycleById(phdClass.getFK_PhdCycle()).getIdPhdCycle() %>" class="field left" readonly>
-                <%} else { %>
-                <input size="30" style='color: #000;font-size:medium ; margin-left: 3%' type="text" value="" class="field left" readonly>
-                <%}%>
-                <br>
-                <br>
-                <p style='color: #000;font-size:medium ; margin-left: 3%'><b>Curriculum:</b></p>
-                <% if(phdClass != null) { %>
-                <input size="30" style='color: #000;font-size:medium ; margin-left: 3%' type="text" value="<%= PhdCurriculumManager.getInstance().getPhdCurriculumById(phdClass.getFK_PhdCurriculum()).getName() %>" class="field left" readonly>
-                <%} else { %>
-                <input size="30" style='color: #000;font-size:medium ; margin-left: 3%' type="text" value="" class="field left" readonly>
-                <%}%>
-                <br>
-                <br>
-                <p style='color: #000;font-size:medium ; margin-left: 3%'><b>Interessi di Ricerca:</b></p>
-                <textarea name="coverLetter" rows="5" cols="40"  style='color: #000;font-size:medium ; margin-left: 3%' readonly> <%= loggedPerson.getCoverLetter()%> </textarea>
-                <br>
+                <div class="row">
+                    
+                    <div class="col-sm-1"></div>
+                    
+                    <div class="col-sm-10">
+                        <!--Qui chiama servlet update che prende infomazioni person--> 
+                        <% Person loggedPerson = ((Person) session.getAttribute("person"));
+                            PhdClass phdClass = PhdClassManager.getInstance().getPhdClassBySSN(loggedPerson.getSsn());
+                        %>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h1> <%= loggedPerson.getName()%> <%= loggedPerson.getSurname()%>  <span class="glyphicon glyphicon-cog pointer" aria-hidden="true" onclick="location.href = 'editProfile.jsp'" style="float: right; display: inline;"></span></h1>
+                                    <% if (phdClass != null) {%>
+                                <h4> <%= PhdCycleManager.getInstance().getPhdCycleById(phdClass.getFK_PhdCycle()).getIdPhdCycle()%>° ciclo di dottorato in <%= PhdCurriculumManager.getInstance().getPhdCurriculumById(phdClass.getFK_PhdCurriculum()).getName()%></h4>
+                                <% }%>
+                            </div>
+                            <div class="panel-body">
+                                <table width="97%" align="center">
+                                    <tr>
+                                        <td width="180px" >
+                                            <img class="img-polaroid" style='width: 150px ; height: 150px ;' src="../Immagini/scam_facebook_fake_tutela_amici.jpg" alt="nome immagine" >
+                                        </td>
+                                        <td>
+                                            <h3 > Contatti </h3>
+                                            <p > 
+                                                Telefono: <%= loggedPerson.getPhone()%> <br>
+                                                E-mail: <%= loggedPerson.getAccount().getEmail()%> <br>
+                                                <% if (loggedPerson.getWebPage() != null) {%>
+                                                Sito web: <a href="<%= loggedPerson.getWebPage()%>" target="_blank"><%= loggedPerson.getWebPage()%></a> <br>
+                                                <%}
+                                                    if (loggedPerson.getDepartment() != null) {%>
+                                                <%= loggedPerson.getDepartment().getTitle()%> <br>
+                                                <% }%>
 
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <br>
+                                            <h3> Interessi di ricerca </h3> <br>
+                                            <p class="text-justify" > 
+                                                <%= loggedPerson.getCoverLetter()%> <br> <br>
+
+                                            </p>
+
+                                            <p class="text-justify"> 
+                                            <h3>Registo attività: <span class="glyphicon glyphicon-eye-open pointer" aria-hidden="true" onclick="location.href = 'publicationActivity.jsp'"></span></h3>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                                                
+                    <div class="col-sm-1"></div>
+                    
+                </div>
             </div>
-        </form>
 
-        <form id="#" class="form-horizontal" method="POST" action="#" style='color: #000;font-size:medium ; margin-left: 3%'/>
-        <div class="form-group">
-            <hr>
-            <p style="font-size: x-large ; color: #000"onclick="location.href = 'publicationActivity.jsp'" >Registro Attività <button type="button" class="btn btn-xs" style="float:right; margin: 7px 780px 7px 7px" >    
-                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true" onclick="location.href = 'publicationActivity.jsp'"></span> </button>
-                
-            <hr>
-            
         </div>
-    </form>
 
-
-
-
-
-
-
-
-
-</div>
-
-
-
-
-
-</body>
+    </body>
 </html>

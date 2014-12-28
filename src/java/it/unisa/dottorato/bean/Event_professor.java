@@ -2,6 +2,10 @@ package it.unisa.dottorato.bean;
 
 import java.io.Serializable;
 
+/**
+ *
+ * @author Elisa D'Eugenio
+ */
 public class Event_professor implements Serializable{
     
     private int FK_Event;

@@ -2,6 +2,10 @@ package it.unisa.dottorato.phdCurriculum;
 
 import java.io.Serializable;
 
+/**
+ *
+ * @author Elisa D'Eugenio
+ */
 public class PhdCurriculum implements Serializable {
 
     private String name;

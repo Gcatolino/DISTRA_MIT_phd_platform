@@ -17,6 +17,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ *
+ * @author Elisa D'Eugenio
+ */
 @WebServlet(name = "GetPhdCyclesIds", urlPatterns = {"/dottorato/GetPhdCyclesIds"})
 public class GetPhdCyclesIdsServlet extends HttpServlet {
 

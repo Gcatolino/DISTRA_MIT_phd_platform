@@ -50,68 +50,75 @@
 
             <!-- Inclusione della pagina contenente il menù laterale --> 
             <jsp:include page="lateralMenu.jsp"/> 
-            
-            <% Person loggedPerson = ((Person) session.getAttribute("person")); 
-               List<Collaboration> collaborations = CollaborationManager.getInstance().getAllCollaborationOf(loggedPerson);
-            
+
+            <% Person loggedPerson = ((Person) session.getAttribute("person"));
+                List<Collaboration> collaborations = CollaborationManager.getInstance().getAllCollaborationOf(loggedPerson);
+
             %>
 
-            <ul class="nav nav-tabs" style='margin-left: 3%'>
-                <li role="presentation"><a href="publicationActivity.jsp">Pubblicazioni</a></li>
-                <li role="presentation" class="active"><a href="collaborationActivity.jsp">Collaborazioni</a></li>
-                <li role="presentation"><a href="missionActivity.jsp">Mission</a></li>
-            </ul>
-            <br>
-            <button type="button" class="btn btn-xs" aria-label="Left Align" style="margin-left: 3%">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true" onclick="location.href = 'addCollaboration.jsp'"></span>
-                        </button>
-            <br>
-            <table style="width:100% ;margin-left: 3%">
-                <tr>
-                    <th>Istituzione &nbsp;&nbsp;&nbsp;</th>
-                    <th>Descrizione &nbsp;&nbsp;&nbsp;</th>		
-                    <th>Data Di Inizio &nbsp;&nbsp;&nbsp;</th>
-                    <th>Data Di Fine&nbsp;&nbsp;&nbsp;</th>
-                </tr>
-                 <% for(Collaboration collaboration: collaborations) { %>
-                <tr>
-                    <td><%= collaboration.getIstitution()%></td>
+            <div class="main-content" id="content">
+
+                <div class="row">
+
+                    <div class="col-sm-1"></div>
+
+                    <div class="col-sm-10">
+                        <!--Qui chiama servlet update che prende infomazioni person--> 
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <ul class="nav nav-tabs">
+                                    <li role="presentation"><a href="publicationActivity.jsp">Pubblicazioni</a></li>
+                                    <li role="presentation" class="active"><a href="collaborationActivity.jsp">Collaborazioni</a></li>
+                                    <li role="presentation"><a href="missionActivity.jsp">Mission</a></li>
+                                </ul>
+                                <br>
+                                <button type="button" class="btn btn-xs" aria-label="Left Align" onclick="location.href = 'addCollaboration.jsp'">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span> Aggiungi collaborazione
+                                </button>
+
+
+                            </div>
+                            <div class="panel-body">
+                                <table class="table table-hover" width="98%" align="center" >
+                                    <thead>
+                                    <th>Istituzione</th>
+                                    <th>Descrizione</th>		
+                                    <th>Data Di Inizio</th>
+                                    <th>Data Di Fine</th>
+                                    </thead>
+
+                                    <% for (Collaboration collaboration : collaborations) {%>
+                                    <tr>
+                                        <td><%= collaboration.getIstitution()%></td>
                     <td><%= collaboration.getDescription()%></td>		
-                    <td><%= collaboration.getStartDate() %></td>
-                    <td><%= collaboration.getEndDate() %></td>
-                    
-                    <% session.setAttribute("idCollaboration", collaboration.getIdCollaboration()); %>
-                    
-                    <td><button type="button" class="btn btn-xs" title="modifica">
+                    <td><%= collaboration.getStartDate()%></td>
+                    <td><%= collaboration.getEndDate()%></td>
+
+                                        <% session.setAttribute("idCollaboration", collaboration.getIdCollaboration());%>
+
+                                        <td width="20px"> <button type="button" class="btn btn-white" title="modifica">
                             <span class="glyphicon glyphicon-cog" aria-hidden="true"onclick="location.href = 'editCollaboration.jsp'" ></span>
-                        </button></td>
-                    <td><button type="button" class="btn btn-xs"title="delete">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true" onclick="location.href ='<%= "DeleteCollaborationServlet?id="+collaboration.getIdCollaboration() %>'" ></span>
-                        </button></td>
-                </tr>
-                
-                <% } %>
-            </table>
+                        </button>
+                                        </td>
+                                        <td width="20px">
+                                           <button type="button" class="btn btn-white"title="delete">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true" onclick="location.href = '<%= "DeleteCollaborationServlet?id=" + collaboration.getIdCollaboration()%>'" ></span>
+                        </button>
+                                        </td>
+                                    </tr>
+                                    <% }%>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="col-sm-1"></div>
 
-
-
-
-
-
+                </div>
+            </div>
+                                
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
     </body>
 </html>

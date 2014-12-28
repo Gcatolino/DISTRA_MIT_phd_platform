@@ -3,6 +3,10 @@ package it.unisa.dottorato.bean;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ *
+ * @author Elisa D'Eugenio
+ */
 public class Event implements Serializable{
     
     private int idEvent;

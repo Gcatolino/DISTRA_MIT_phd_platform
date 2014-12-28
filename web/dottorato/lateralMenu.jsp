@@ -55,7 +55,7 @@
                     </li>
 
 
-                    <%} else if (loggedPerson.getAccount().getTypeOfAccount().equals("phdadmin") || loggedPerson.getAccount().getTypeOfAccount().equals("professoradmin")) { %>
+                    <%} // if (loggedPerson.getAccount().getTypeOfAccount().equals("phdadmin") || loggedPerson.getAccount().getTypeOfAccount().equals("professoradmin")) { %>
 
 
                     <li id="funzionalita3Permission_0">
@@ -64,7 +64,7 @@
                             <span class="title">Pannello <br> amministratore</span>
                         </a>
                     </li>
-                    <%}%>
+                    <%//}%>
                 </c:when>
             </c:choose>
         </ul>

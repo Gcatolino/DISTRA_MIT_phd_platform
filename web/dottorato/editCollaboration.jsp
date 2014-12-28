@@ -39,18 +39,7 @@
                 <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
                 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-        <style>
-            hr {
-                display: block;
-                margin-top: 0.5em;
-                margin-bottom: 0.5em;
-                margin-right: auto;
-                border-style: inset;
-                color: #305b90;
-                background-color: #305b90;
-                height: 3px;
-            }
-        </style>
+
     </head>
     <body class="page-body">
 
@@ -62,46 +51,76 @@
             <jsp:include page="lateralMenu.jsp"/>
 
             <!-- Contenuto della pagina -->
-            <% 
-                int collaborationID = (Integer.parseInt(""+session.getAttribute("idCollaboration")));
-                Collaboration collaboration = CollaborationManager.getInstance().getCollaborationById(collaborationID); %>
+            <%
+                int collaborationID = (Integer.parseInt("" + session.getAttribute("idCollaboration")));
+                Collaboration collaboration = CollaborationManager.getInstance().getCollaborationById(collaborationID);%>
 
+            <div class="main-content" id="content">
 
+                <div class="row">
 
-            <!--Qui chiama servlet update che prende infomazioni person-->
-            <form class="form-horizontal" method="POST" action="UpdateCollaboration" style='color: #000;font-size:medium ; margin-left: 3%' />
-            <div class="form-group">
-                <hr>
-                <p style="font-size: x-large ; color: #000">Modifica Collaborazione</p>
-                <hr>
-                <br>
-                <b>Istituzione:</b>
-                <br>
-                <input name="istitution" style='color: #000;font-size:medium' value="<%= collaboration.getIstitution() %>">
-                <br>
-                <br>
-                <b>Descrizione:</b>
-                <br>
-                <textarea name="description" rows="5" cols="40"  style='color: #000;font-size:medium ; margin-left: 0%'><%= collaboration.getDescription() %></textarea>
-<br>
-                <br>
-                <b>Data Di Inizio:</b>
-                <br>
-                <input name="startDate" style='color: #000;font-size:medium' value="<%= collaboration.getStartDate() %>">
-                <br>
-                <br>
-                <b>Data Di Fine:</b>
-                <br>
-                 <input name="endDate" style='color: #000;font-size:medium' value="<%= collaboration.getEndDate() %>" >
-                <br>
-                <br>
-                <div align="center">
-                                    <input type="submit" id="#" class="btn btn-red" value="Modifica"> 
+                    <div class="col-sm-1"></div>
 
-                                </div>
+                    <div class="col-sm-10">
 
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h1>Modifica Collaborazione</h1>
+                            </div>
+                            <div class="panel-body">
+                                <form class="form-horizontal" method="POST" action="UpdateCollaboration">
+                                    <div class="form-group">
+                                        <table width="90%" align="center">
+                                            <tr><td>
+                                                    <p>Istituzione:</p>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"></span>
+                                                        <input class="form-control" name="istitution" type="text" value="<%= collaboration.getIstitution()%>">
+                                                    </div>
+                                                    <br>
+                                                    <br>
+                                                    <p>Descrizione:</p>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"></span>
+                                                        <textarea class="form-control" name="description" rows="5" cols="40"><%= collaboration.getDescription()%></textarea>
+                                                    </div>
+                                                    <br>
+                                                    <br>
+                                                    <p>Data Di Inizio:</p>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"></span>
+                                                        <input class="form-control" name="startDate" type="text" value="<%= collaboration.getStartDate()%>">
+                                                    </div>
+                                                    <br>
+                                                    <br>
+                                                    <p>Data Di Fine:</p>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"></span>
+                                                        <input class="form-control" name="endDate" type="text" value="<%= collaboration.getEndDate()%>" >
+                                                    </div>
+                                                    <br>
+                                                    <br>
+
+                                                    <div>
+                                                        <input type="submit" class="btn btn-blue" value="Modifica"> 
+                                                        <br>
+                                                        <br>
+
+                                                    </div>
+                                                </td></tr>
+                                        </table>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-1"></div>
+
+                </div>
             </div>
-        </form>
-</body>
+
+    </body>
 </html>
 

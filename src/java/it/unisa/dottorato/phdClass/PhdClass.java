@@ -2,6 +2,10 @@ package it.unisa.dottorato.phdClass;
 
 import java.io.Serializable;
 
+/**
+ *
+ * @author Elisa D'Eugenio
+ */
 public class PhdClass implements Serializable{
     
     private int idClass;

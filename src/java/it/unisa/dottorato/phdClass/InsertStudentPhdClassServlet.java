@@ -1,15 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unisa.dottorato.phdClass;
 
 import it.unisa.dottorato.exception.EntityNotFoundException;
-import it.unisa.dottorato.phdCurriculum.InsertPhdCurriculumServlet;
-import it.unisa.dottorato.phdCurriculum.PhdCurriculum;
-import it.unisa.dottorato.phdCurriculum.PhdCurriculumManager;
-import it.unisa.dottorato.phdCurriculum.UpdatePhdCurriculumServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -25,7 +16,7 @@ import org.json.JSONObject;
 
 /**
  *
- * @author Elisa
+ * @author Elisa D'Eugenio
  */
 @WebServlet(name = "InsertStudentPhdClass", urlPatterns = {"/dottorato/InsertStudentPhdClass"})
 public class InsertStudentPhdClassServlet extends HttpServlet {

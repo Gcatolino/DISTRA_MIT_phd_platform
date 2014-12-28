@@ -46,56 +46,68 @@
             <!-- Inclusione della pagina contenente il menù laterale --> 
             <jsp:include page="lateralMenu.jsp"/> 
 
-            <ul class="nav nav-tabs" style='margin-left: 3%'>
-                <li role="presentation"><a href="publicationActivity.jsp">Pubblicazioni</a></li>
-                <li role="presentation"><a href="collaborationActivity.jsp">Collaborazioni</a></li>
-                <li role="presentation" class="active"><a href="missionActivity.jsp">Mission</a></li>
-            </ul>
-            <br>
-            <button type="button" class="btn btn-xs" aria-label="Left Align" style="margin-left: 3%">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true" onclick="location.href = 'addMission.jsp'"></span>
-                        </button>
-            <br>
-            <table style="width:100% ;margin-left: 3%">
-                <tr>
-                    <th>Luogo &nbsp;&nbsp;&nbsp;</th>
-                    <th>Descrizione &nbsp;&nbsp;&nbsp;</th>		
-                    <th>Data Di Inizio &nbsp;&nbsp;&nbsp;</th>
-                    <th>Data Di Fine&nbsp;&nbsp;&nbsp;</th>
-                </tr>
-                <tr>
-                    <td>-</td>
-                    <td>-</td>		
-                    <td>-</td>
-                    <td>-</td>
-                    <td><button type="button" class="btn btn-xs" title="modifica">
-                            <span class="glyphicon glyphicon-cog" aria-hidden="true"onclick="location.href = 'editMission.jsp'" ></span>
-                        </button></td>
-                    <td><button type="button" class="btn btn-xs"title="delete">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        </button></td>
-                </tr>
-            </table>
+            <div class="main-content" id="content">
+
+                <div class="row">
+
+                    <div class="col-sm-1"></div>
+
+                    <div class="col-sm-10">
+                        <!--Qui chiama servlet update che prende infomazioni person--> 
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <ul class="nav nav-tabs">
+                                    <li role="presentation"><a href="publicationActivity.jsp">Pubblicazioni</a></li>
+                                    <li role="presentation"><a href="collaborationActivity.jsp">Collaborazioni</a></li>
+                                    <li role="presentation" class="active"><a href="missionActivity.jsp">Mission</a></li>
+                                </ul>
+                                <br>
+                                <button type="button" class="btn btn-xs" aria-label="Left Align" onclick="location.href = 'addMission.jsp'">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span> Aggiungi mission
+                                </button>
+
+
+                            </div>
+                            <div class="panel-body">
+                                <table class="table table-hover" width="98%" align="center" >
+                                    <thead>
+                                    <th>Luogo</th>
+                                    <th>Descrizione</th>		
+                                    <th>Data Di Inizio</th>
+                                    <th>Data Di Fine</th>
+                                    </thead>
+
+                                    <tr>
+                                        <td></td>
+                                        <td> </td>		
+                                        <td></td>
+                                        <td></td>
 
 
 
+                                        <td width="20px"> <button type="button" class="btn btn-white" title="modifica">
+                                                <span class="glyphicon glyphicon-cog" aria-hidden="true"onclick="location.href = 'editMission.jsp'" ></span>
+                                            </button>
+                                        </td>
+                                        <td width="20px">
+                                            <button type="button" class="btn btn-white"title="delete">
+                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                
+                                </table>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="col-sm-1"></div>
 
-
+                </div>
+            </div>
 
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
     </body>
 </html>

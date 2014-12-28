@@ -14,6 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
+/**
+ *
+ * @author Elisa D'Eugenio
+ */
 @WebServlet(name = "UpdatePhdCurriculum", urlPatterns = {"/dottorato/UpdatePhdCurriculum"})
 public class UpdatePhdCurriculumServlet extends HttpServlet {
 

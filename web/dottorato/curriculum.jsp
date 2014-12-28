@@ -8,7 +8,7 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="Xenon Boostrap Admin Panel" />
-        <meta name="author" content="" />
+        <meta name="author" content="Elisa D'Eugenio" />
 
         <title>DISTRA-MIT Dottorato</title>
 

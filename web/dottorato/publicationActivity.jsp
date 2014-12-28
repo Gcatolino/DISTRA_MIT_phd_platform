@@ -51,75 +51,82 @@
             <!-- Inclusione della pagina contenente il menù laterale --> 
             <jsp:include page="lateralMenu.jsp"/> 
 
-            <% Person loggedPerson = ((Person) session.getAttribute("person")); 
-               List<Publication> publications = PublicationManager.getInstance().getAllPublicationsOf(loggedPerson);
-            
+            <% Person loggedPerson = ((Person) session.getAttribute("person"));
+                List<Publication> publications = PublicationManager.getInstance().getAllPublicationsOf(loggedPerson);
+
             %>
-            
-            <ul class="nav nav-tabs" style='margin-left: 3%'>
-                <li role="presentation" class="active"><a href="publicationActivity.jsp">Pubblicazioni</a></li>
-                <li role="presentation"><a href="collaborationActivity.jsp">Collaborazioni</a></li>
-                <li role="presentation"><a href="missionActivity.jsp">Mission</a></li>
-            </ul>
-            <br>
-            <button type="button" class="btn btn-xs" aria-label="Left Align" style="margin-left: 3%">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true" onclick="location.href = 'addPublication.jsp'"></span>
-                        </button>
-            <br>
-            <table style="width:100% ;margin-left: 3%">
-                <tr>
-                    <th>Titolo &nbsp;&nbsp;&nbsp;</th>
-                    <th>Autori &nbsp;&nbsp;&nbsp;</th>		
-                    <th>Abstract &nbsp;&nbsp;&nbsp;</th>
-                    <th>Anno &nbsp;&nbsp;&nbsp;</th>
-                    <th>Type &nbsp;&nbsp;&nbsp;</th>
-                    <th>PubblicationIssue &nbsp;&nbsp;&nbsp;</th>
-                    <th>Numero Pagine &nbsp;&nbsp;&nbsp;</th>
-                </tr>
-                
-                <% for(Publication publication: publications) { %>
-                <tr>
-                    <td><%= publication.getTitle() %></td>
-                    <td><%= publication.getAuthors()%> </td>		
-                    <td><%= publication.getAbstractText()%></td>
-                    <td><%= publication.getYear()%></td>
-                    <td><%= publication.getType()%></td>
-                    <td><%= publication.getPublicationIssue()%></td>		
-                    <td><%= publication.getNumberPages()%></td>
-                    
-                    <% session.setAttribute("idPublication", publication.getIdPublication()); %>
-                    
-                    <td><button type="button" class="btn btn-xs" title="modifica">
-                            <span class="glyphicon glyphicon-cog" aria-hidden="true" onclick="location.href ='editPublication.jsp'" ></span>
-                        </button></td>
-                    <td><button type="button" class="btn btn-xs"title="delete">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true" onclick="location.href ='<%= "DeletePublicationServlet?id="+publication.getIdPublication() %>'" ></span>
-                        </button></td>
-                </tr>
-                <% } %>
-                
-                
-            </table>
 
 
 
+            <div class="main-content" id="content">
+
+                <div class="row">
+
+                    <div class="col-sm-1"></div>
+
+                    <div class="col-sm-10">
+                        <!--Qui chiama servlet update che prende infomazioni person--> 
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <ul class="nav nav-tabs" >
+                                    <li role="presentation" class="active"><a href="publicationActivity.jsp">Pubblicazioni</a></li>
+                                    <li role="presentation"><a href="collaborationActivity.jsp">Collaborazioni</a></li>
+                                    <li role="presentation"><a href="missionActivity.jsp">Mission</a></li>
+                                </ul>
+                                <br>
+                                <button type="button" class="btn btn-xs" aria-label="Left Align" onclick="location.href = 'addPublication.jsp'">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"> </span> Aggiungi pubblicazione
+                                </button>
 
 
+                            </div>
+                            <div class="panel-body">
+                                <table class="table table-hover" width="98%" align="center" >
+                                    <thead>
+                                    <th width="15%">Titolo</th>
+                                    <th width="15%">Autori</th>		
+                                    <th width="30%">Abstract</th>
+                                    <th width="10%">Anno</th>
+                                    <th width="10%">Type</th>
+                                    <th width="10%">Pubblication Issue</th>
+                                    <th width="10%">Numero Pagine</th>
+                                    </thead>
 
+                                    <% for (Publication publication : publications) {%>
+                                    <tr>
+                                        <td><%= publication.getTitle()%></td>
+                                        <td><%= publication.getAuthors()%> </td>		
+                                        <td><%= publication.getAbstractText()%></td>
+                                        <td><%= publication.getYear()%></td>
+                                        <td><%= publication.getType()%></td>
+                                        <td><%= publication.getPublicationIssue()%></td>		
+                                        <td><%= publication.getNumberPages()%></td>
+
+                                        <% session.setAttribute("idPublication", publication.getIdPublication());%>
+
+                                        <td width="20px"> <button type="button" class="btn btn-white" title="modifica">
+                                                <span class="glyphicon glyphicon-cog" aria-hidden="true" onclick="location.href = 'editPublication.jsp'" ></span>
+                                            </button>
+                                        </td>
+                                        <td width="20px">
+                                            <button type="button" class="btn btn-white"title="delete">
+                                                <span class="glyphicon glyphicon-remove" aria-hidden="true" onclick="location.href = '<%= "DeletePublicationServlet?id=" + publication.getIdPublication()%>'" ></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <% }%>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-1"></div>
+
+                </div>
+            </div>
 
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
     </body>
 </html>

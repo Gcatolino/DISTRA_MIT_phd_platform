@@ -3,13 +3,17 @@ package it.unisa.dottorato.phdCycle;
 import it.unisa.dottorato.exception.EntityNotFoundException;
 import it.unisa.dottorato.utility.Utility;
 import it.unisa.integrazione.database.DBConnection;
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+
+/**
+ *
+ * @author Elisa D'Eugenio
+ */
 public class PhdCycleManager {
 
     /**
