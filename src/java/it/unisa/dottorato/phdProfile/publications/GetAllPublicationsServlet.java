@@ -5,7 +5,6 @@
  */
 package it.unisa.dottorato.phdProfile.publications;
 
-import it.unisa.dottorato.bean.Publication;
 import it.unisa.integrazione.model.Person;
 import java.io.IOException;
 import java.io.PrintWriter;

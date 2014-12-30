@@ -4,8 +4,8 @@
     Author     : gemmacatolino
 --%>
 
+<%@page import="it.unisa.dottorato.phdProfile.missions.Mission"%>
 <%@page import="it.unisa.dottorato.phdProfile.missions.MissionManager"%>
-<%@page import="it.unisa.dottorato.bean.Mission"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

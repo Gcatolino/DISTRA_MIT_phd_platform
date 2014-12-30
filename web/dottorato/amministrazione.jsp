@@ -91,8 +91,8 @@
                                 Gestione Utenti 
                             </div>
                             <div class="panel-body hidden_menu" id="admin_menu_phd_user">
-                                <p class="admin_phd_user_submenu" id="admin_menu_add_phd_student"> Gestione dottorandi </p>  
-                                <p class="admin_phd_user_submenu" id="admin_menu_add_phd_professor"> Gestione docenti </p> 
+                                <p class="admin_phd_user_submenu" id="admin_menu_add_phd_student"> Assegna classe </p>  
+                                <p class="admin_phd_user_submenu" id="admin_menu_add_phd_tutor"> Assegna tutor </p> 
                             </div>
                         </div>
                     </div>
@@ -158,24 +158,49 @@
                                     </div>
                             </div>
 
-                            <div class="page-body">
+                            <div class="page-body" style="margin-top: 50px;">
 
                                 <div id="addCycleCurriculumDiv">
                                     <div class="panel-heading">
-                                        <h2>Curriculum connessi al ciclo</h2>
+                                        <h2>Curriculum connessi al ciclo</h2> 
                                     </div>
                                     <div class="form-group">
-                                        <h4 id="PhdCycleCurriculum">  </h4>
+                                        <h4 id="PhdCycleCurriculum"> </h4>
                                         <ul class="list-group" id="curriculumCycleList">           
                                         </ul>
                                     </div>
 
                                     <div class="form-group">
                                         <label> <h4> Aggiungi curriculum </h4> </label>
-                                        <span class="input-group-addon"></span>
-                                        <select class="form-control" id="phdDifferentCurriculumList">
-                                        </select> <br>
-                                        <input type="button" id="submitDifferentPhdCycle" class="btn btn-blue" value="Aggiungi"> 
+                                        <div class="input-group">
+                                            <span class="input-group-addon"></span>
+                                            <select class="form-control" id="phdDifferentCurriculumList">
+                                            </select></div> <br>
+                                        <input type="button" id="submitDifferentPhdCycle" class="btn btn-blue" value="Aggiungi curriculum"> 
+                                    </div>
+                                </div>
+                                </form>
+                            </div>
+
+                            <div class="page-body" style="margin-top: 50px;">
+
+                                <div id="addCycleProfessorDiv">
+                                    <div class="panel-heading">
+                                        <h2>Docenti connessi al ciclo</h2>
+                                    </div>
+                                    <div class="form-group">
+                                        <h4 id="PhdCycleProfessor">  </h4>
+                                        <ul class="list-group" id="professorConnectedCycleList">   
+                                        </ul>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> <h4> Aggiungi docente </h4> </label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"></span>
+                                            <select class="form-control" id="phdDifferentProfessorList">
+                                            </select> </div> <br>
+                                        <input type="button" id="submitDifferentProfessor" class="btn btn-blue" value="Aggiungi docente"> 
                                     </div>
                                 </div>
                                 </form>
@@ -237,6 +262,30 @@
                                     </div>
                                 </form>
                             </div>
+                            <div class="page-body" style="margin-top: 50px;">
+
+                                <div id="addCurriculumProfessorDiv">
+                                    <div class="panel-heading">
+                                        <h2>Docenti connessi al curriculum</h2>
+                                    </div>
+                                    <div class="form-group">
+                                        <h4 id="PhdCurriculumProfessor">  </h4>
+                                        <ul class="list-group" id="professorConnectedCurriculumList">   
+                                        </ul>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> <h4> Aggiungi docente </h4> </label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"></span>
+                                            <select class="form-control" id="phdDifferentProfessorCurriculumList">
+                                            </select> </div> <br>
+                                        <input type="button" id="submitDifferentProfessorCurriculum" class="btn btn-blue" value="Aggiungi docente"> 
+                                    </div>
+                                </div>
+                                </form>
+                            </div>
+                            
                         </div>
                     </div>
 
@@ -292,8 +341,69 @@
                                 </div>
 
                             </div>
+                            
+                            
                         </div>
                     </div>
+                    
+                    <div class="col-sm-8 hidden_menu" id="admin_add_phd_tutor">
+
+                        <!-- Pannello per creazione di un nuovo phdStudent o la modifica di un phdStudent selezionato --> 
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <button type="button" class="close" id="buttonClosePhdTutorDialog">&times;</button>
+                                <h2 id="phdTutorTitle"></h2>
+                            </div>
+                            <div class="panel-body">
+
+                                <!-- Form contenenti i campi dei phdStudent -->
+                                <form id="phdTutor_form">
+
+                                    <!-- Campo di testo relativo al coordinatore di un curriculum -->
+                                    <div class="form-group">
+                                        <label>Nome e cognome:</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"></span>
+                                            <input list="personTutorList" id="phdTutor" class="form-control" name="phdUser" placeholder="Inserisci dottorando">
+                                            <datalist id="personTutorList">
+                                            </datalist>
+
+                                        </div>
+                                    </div>
+
+                                    <!-- Pulsanti di invio e reset del form -->
+                                    <div class="form-group">
+                                        <input type="button" id="showTutor" class="btn btn-white" value="Assegna tutor"> 
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="panel-body">
+
+                                <div id="phdTutorDiv" class="hidden_menu">
+                                    <h2 id="studentTutorName"> </h2>
+                                    <h4 id="professorTutorName"> </h4> <br>
+                                    <form>
+                                        <label> Tutor: </label>
+                                        <span class="input-group-addon"></span>
+                                        <select class="form-control" id="phdTutorList">
+                                        </select>
+                                        <br>
+                                        <input type="button" id="insertStudentTutor" class="btn btn-blue" value="Inserisci"> 
+                                        <input type="button" id="updateStudentTutor" class="btn btn-blue" value="Modifica"> 
+                                        <input type="button" id="deleteStudentTutor" class="btn btn-red" value="Elimina">
+                                    </form>
+
+
+                                </div>
+
+                            </div>
+                            
+                            
+                        </div>
+                    </div>
+                    
+                    
                 </div>
 
             </div>

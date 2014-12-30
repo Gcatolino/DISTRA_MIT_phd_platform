@@ -1,6 +1,5 @@
 package it.unisa.dottorato.phdClass;
 
-import it.unisa.dottorato.exception.EntityNotFoundException;
 import it.unisa.dottorato.phdCurriculum.GetPhdCurriculumsNamesByPhdCycleServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -44,7 +43,7 @@ public class GetPhdClassBySSNServlet extends HttpServlet {
                 result.put("FK_PhdCurriculum", aClass.getFK_PhdCurriculum());
                 result.put("FK_PhdCycle", aClass.getFK_PhdCycle());
                 out.write(result.toString());
-            } catch (ClassNotFoundException | SQLException | EntityNotFoundException | JSONException ex) {
+            } catch (ClassNotFoundException | SQLException | JSONException ex) {
                 Logger.getLogger(GetPhdCurriculumsNamesByPhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

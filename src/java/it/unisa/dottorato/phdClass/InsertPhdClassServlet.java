@@ -1,6 +1,5 @@
 package it.unisa.dottorato.phdClass;
 
-import it.unisa.dottorato.exception.EntityNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -51,7 +50,7 @@ public class InsertPhdClassServlet extends HttpServlet {
 
         try {
             PhdClassManager.getInstance().insert(aPhdClass);
-        } catch (ClassNotFoundException | SQLException | EntityNotFoundException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             result.put("result", false);
             Logger.getLogger(InsertPhdClassServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

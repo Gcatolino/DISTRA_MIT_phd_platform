@@ -5,8 +5,6 @@
  */
 package it.unisa.dottorato.phdProfile.missions;
 
-import it.unisa.dottorato.bean.Mission;
-import it.unisa.dottorato.exception.EntityNotFoundException;
 import it.unisa.dottorato.utility.Utility;
 import it.unisa.integrazione.database.DBConnection;
 import it.unisa.integrazione.model.Person;
@@ -85,7 +83,7 @@ public class MissionManager {
         }
     }
           
-    public synchronized void update(int oldMissionID, Mission pMission) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException {
+    public synchronized void update(int oldMissionID, Mission pMission) throws ClassNotFoundException, SQLException, IOException {
         try (Connection connect = DBConnection.getConnection()) {
 
             /*
@@ -113,7 +111,7 @@ public class MissionManager {
         }
     }
     
-    public synchronized void delete(String idMission) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException {
+    public synchronized void delete(String idMission) throws ClassNotFoundException, SQLException, IOException {
         Connection connect = null;
         try {
             // Otteniamo una Connessione al DataBase
@@ -137,7 +135,7 @@ public class MissionManager {
         }
     }
     
-    public synchronized Mission getMissionById(int pMissionID) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException {
+    public synchronized Mission getMissionById(int pMissionID) throws ClassNotFoundException, SQLException, IOException {
         Connection connect = null;
         try {
             Mission mission = new Mission();

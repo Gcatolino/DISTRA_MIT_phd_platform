@@ -8,6 +8,8 @@ $.get("GetPhdCurriculumsNames", function (data) {
         $("#curriculumList").append(curriculumDiv);
     });
 
+
+
     $(".panel-curriculum").click(function () {
         $.getJSON("GetPhdCurriculum?phdCurriculumName=" + $(this).attr('id'), function (data) {
 

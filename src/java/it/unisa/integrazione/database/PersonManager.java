@@ -186,6 +186,7 @@ public class PersonManager {
 
                 person.setDepartment(DepartmentManager.getInstance().getDepartmentByAbbreviation("Department_abbreviation"));
                 person.setCycle(CycleManager.getInstance().getCycleByCycleNumber(rs.getInt("cycle")));
+                person.setAccount(AccountManager.getInstance().getAccoutnByEmail(rs.getString("Account_email")));
 
                 if (rs.getString("degree_matricula") != null) {
                     person.setDegree(DegreeManager.getInstance().readDegree(person.getMatricula()));

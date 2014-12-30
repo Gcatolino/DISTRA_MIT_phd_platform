@@ -5,8 +5,6 @@
  */
 package it.unisa.dottorato.phdProfile.collaborations;
 
-import it.unisa.dottorato.bean.Collaboration;
-import it.unisa.dottorato.exception.EntityNotFoundException;
 import it.unisa.dottorato.utility.Utility;
 import it.unisa.integrazione.database.DBConnection;
 import it.unisa.integrazione.model.Person;
@@ -85,7 +83,7 @@ public class CollaborationManager {
         }
     }
           
-    public synchronized void update(int oldCollaborationID, Collaboration pCollaboration) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException {
+    public synchronized void update(int oldCollaborationID, Collaboration pCollaboration) throws ClassNotFoundException, SQLException, IOException {
         try (Connection connect = DBConnection.getConnection()) {
 
             /*
@@ -113,7 +111,7 @@ public class CollaborationManager {
         }
     }
     
-    public synchronized void delete(String idCollaboration) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException {
+    public synchronized void delete(String idCollaboration) throws ClassNotFoundException, SQLException, IOException {
         Connection connect = null;
         try {
             // Otteniamo una Connessione al DataBase
@@ -137,7 +135,7 @@ public class CollaborationManager {
         }
     }
     
-    public synchronized Collaboration getCollaborationById(int pCollaborationID) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException {
+    public synchronized Collaboration getCollaborationById(int pCollaborationID) throws ClassNotFoundException, SQLException, IOException {
         Connection connect = null;
         try {
             Collaboration collaboration = new Collaboration();

@@ -1,6 +1,5 @@
 package it.unisa.dottorato.phdCycle;
 
-import it.unisa.dottorato.exception.EntityNotFoundException;
 import it.unisa.dottorato.utility.Utility;
 import it.unisa.integrazione.database.DBConnection;
 import java.io.IOException;
@@ -60,7 +59,7 @@ public class PhdCycleManager {
      * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
-    public synchronized void insert(PhdCycle pCycle) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException {
+    public synchronized void insert(PhdCycle pCycle) throws ClassNotFoundException, SQLException, IOException {
         try (Connection connect = DBConnection.getConnection()) {
 
             /*
@@ -81,7 +80,6 @@ public class PhdCycleManager {
                     + ")";
 
             
-            System.out.println("La query: " +tSql);
             //Inviamo la Query al DataBase
             Utility.executeOperation(connect, tSql);
 
@@ -100,7 +98,7 @@ public class PhdCycleManager {
      * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
-    public synchronized void update(String oldIdPhdCycle, PhdCycle pCycle) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException {
+    public synchronized void update(String oldIdPhdCycle, PhdCycle pCycle) throws ClassNotFoundException, SQLException, IOException {
         try (Connection connect = DBConnection.getConnection()) {
 
             /*
@@ -120,7 +118,6 @@ public class PhdCycleManager {
                     + " WHERE idPhdCycle = '"
                     + oldIdPhdCycle + "'";           
 
-            System.out.println(tSql);
             //Inviamo la Query al DataBase
             Utility.executeOperation(connect, tSql);
 
@@ -138,7 +135,7 @@ public class PhdCycleManager {
      * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
-    public synchronized void delete(String idPhdCycle) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException {
+    public synchronized void delete(String idPhdCycle) throws ClassNotFoundException, SQLException, IOException {
         Connection connect = null;
         try {
             // Otteniamo una Connessione al DataBase
@@ -173,7 +170,7 @@ public class PhdCycleManager {
      * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
-    public synchronized PhdCycle getPhdCycleById(int idPhdCycle) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException {
+    public synchronized PhdCycle getPhdCycleById(int idPhdCycle) throws ClassNotFoundException, SQLException, IOException {
         Connection connect = null;
         try {
             PhdCycle cycle = new PhdCycle();
@@ -215,7 +212,7 @@ public class PhdCycleManager {
      * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
-    public synchronized ArrayList<String> getPhdCyclesIds() throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException {
+    public synchronized ArrayList<String> getPhdCyclesIds() throws ClassNotFoundException, SQLException, IOException {
         Connection connect = null;
         try {
             ArrayList<String> cycles = new ArrayList<>();

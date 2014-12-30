@@ -5,7 +5,6 @@
  */
 package it.unisa.dottorato.phdProfile.publications;
 
-import it.unisa.dottorato.exception.EntityNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -52,7 +51,7 @@ public class DeletePublicationServlet extends HttpServlet {
             out.println("</script>");
             try {
                 PublicationManager.getInstance().delete(idPublication);
-            } catch (ClassNotFoundException | SQLException | EntityNotFoundException ex) {
+            } catch (ClassNotFoundException | SQLException ex) {
                 result.put("result", false);
                 Logger.getLogger(DeletePublicationServlet.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -5,7 +5,6 @@
  */
 package it.unisa.dottorato.phdProfile.collaborations;
 
-import it.unisa.dottorato.exception.EntityNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -43,7 +42,7 @@ public class DeleteCollaborationServlet extends HttpServlet {
         String idCollaboration = request.getParameter("id");
         try {
             CollaborationManager.getInstance().delete(idCollaboration);
-        } catch (ClassNotFoundException | SQLException | EntityNotFoundException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DeleteCollaborationServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         out.println("<script type=\"text/javascript\">");

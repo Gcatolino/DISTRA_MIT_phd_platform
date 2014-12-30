@@ -4,7 +4,8 @@
     Author     : gemmacatolino
 --%>
 
-<%@page import="it.unisa.dottorato.bean.Publication"%>
+
+<%@page import="it.unisa.dottorato.phdProfile.publications.Publication"%>
 <%@page import="java.util.List"%>
 <%@page import="it.unisa.dottorato.phdProfile.publications.PublicationManager"%>
 <%@page import="it.unisa.integrazione.model.Person"%>

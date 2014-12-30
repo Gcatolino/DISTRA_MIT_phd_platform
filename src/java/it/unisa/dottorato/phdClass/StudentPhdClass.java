@@ -6,7 +6,7 @@ import java.io.Serializable;
  *
  * @author Elisa D'Eugenio
  */
-public class Student_phdClass implements Serializable{
+public class StudentPhdClass implements Serializable{
     
     private String FK_Student;
     private int FK_PhdClass;

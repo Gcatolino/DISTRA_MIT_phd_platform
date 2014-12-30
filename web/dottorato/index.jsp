@@ -1,3 +1,7 @@
+<%@page import="it.unisa.dottorato.phdCycle.PhdCycleManager"%>
+<%@page import="it.unisa.dottorato.phdClass.PhdClass"%>
+<%@page import="it.unisa.dottorato.phdClass.PhdClassManager"%>
+<%@page import="it.unisa.integrazione.model.Person"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -24,7 +28,7 @@
 
         <script src="../assets/js/jquery-1.11.1.min.js"></script>
         <script type="text/javascript" src="script/index.js" async ></script>
-        
+
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -48,6 +52,24 @@
                 <div class="row">
 
                     <div class="col-sm-8">
+
+                        <% int cycle=0;
+                            Person loggedPerson = ((Person) session.getAttribute("person"));
+                            if (loggedPerson != null) {
+                                PhdClass phdClass = PhdClassManager.getInstance().getPhdClassBySSN(loggedPerson.getSsn());
+
+                                if (phdClass != null) {
+                                    cycle = phdClass.getFK_PhdCycle();
+                                }else{
+                                    cycle = Integer.parseInt(PhdCycleManager.getInstance().getPhdCyclesIds().get(0));
+                                }
+                            }else{
+                                cycle = Integer.parseInt(PhdCycleManager.getInstance().getPhdCyclesIds().get(0));
+                            }
+                        %>
+                        <input type="hidden" id="personCycle" value="<%= cycle%>">
+
+
 
                         <!-- Descrizione del ciclo di dottorato --> 
                         <div class="panel panel-default">
@@ -119,7 +141,7 @@
 
             <!-- JavaScripts initializations and stuff -->
             <script src="../assets/js/xenon-custom.js"></script>
-            
+
         </div>
     </body>
 </html>

@@ -1,4 +1,4 @@
-package it.unisa.dottorato.bean;
+package it.unisa.dottorato.phdProfile.publications;
 
 import java.io.Serializable;
 

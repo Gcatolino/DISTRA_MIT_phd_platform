@@ -1,6 +1,5 @@
 package it.unisa.dottorato.phdClass;
 
-import it.unisa.dottorato.exception.EntityNotFoundException;
 import it.unisa.dottorato.utility.Utility;
 import it.unisa.integrazione.database.DBConnection;
 import java.io.IOException;
@@ -51,13 +50,11 @@ public class PhdClassManager {
      * nella tabella phdCycle del database.
      *
      * @param pClass
-     * @param pCycle
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
-    public synchronized void insert(PhdClass pClass) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException {
+    public synchronized void insert(PhdClass pClass) throws ClassNotFoundException, SQLException, IOException {
         try (Connection connect = DBConnection.getConnection()) {
 
             /*
@@ -73,7 +70,6 @@ public class PhdClassManager {
                     + pClass.getFK_PhdCycle()
                     + "')";
 
-            System.out.println(tSql);
             //Inviamo la Query al DataBase
             Utility.executeOperation(connect, tSql);
 
@@ -85,14 +81,12 @@ public class PhdClassManager {
      * Metodo della classe incaricato dell'inserimento di una nuova entita'
      * nella tabella phdCycle del database.
      *
-     * @param pClass
-     * @param pCycle
+     * @param studentClass
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
-    public synchronized void insertStudentPhdClass(Student_phdClass studentClass) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException {
+    public synchronized void insertStudentPhdClass(StudentPhdClass studentClass) throws ClassNotFoundException, SQLException, IOException {
         try (Connection connect = DBConnection.getConnection()) {
 
             /*
@@ -119,14 +113,12 @@ public class PhdClassManager {
      * Metodo della classe incaricato della modifica di un'entita' nella tabella
      * phdCycle del database.
      *
-     * @param oldIdPhdCycle
-     * @param pCycle
+     * @param studentClass
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
-    public synchronized void updateStudentPhdClass(Student_phdClass studentClass) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException {
+    public synchronized void updateStudentPhdClass(StudentPhdClass studentClass) throws ClassNotFoundException, SQLException, IOException {
         try (Connection connect = DBConnection.getConnection()) {
 
             /*
@@ -153,13 +145,13 @@ public class PhdClassManager {
      * Metodo della classe incaricato della cancellazopme di un'entita' nella
      * tabella phdCurriculum del database.
      *
-     * @param phdCurriculumName
+     * @param idPhdCycle
+     * @param idPhdCurriculum
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
-    public synchronized void delete(String idPhdCycle, String idPhdCurriculum) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException {
+    public synchronized void delete(String idPhdCycle, String idPhdCurriculum) throws ClassNotFoundException, SQLException, IOException {
         Connection connect = null;
         try {
             // Otteniamo una Connessione al DataBase
@@ -189,13 +181,12 @@ public class PhdClassManager {
      * Metodo della classe incaricato della cancellazopme di un'entita' nella
      * tabella phdCycle del database.
      *
-     * @param idPhdCycle
+     * @param pSSN
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
-    public synchronized void deleteStudentPhdClass(String pSSN) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException {
+    public synchronized void deleteStudentPhdClass(String pSSN) throws ClassNotFoundException, SQLException, IOException {
         Connection connect = null;
         try {
             // Otteniamo una Connessione al DataBase
@@ -225,10 +216,9 @@ public class PhdClassManager {
      * @return
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
-    public synchronized ArrayList<PhdClass> getPhdClassList() throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException {
+    public synchronized ArrayList<PhdClass> getPhdClassList() throws ClassNotFoundException, SQLException, IOException {
         Connection connect = null;
         try {
             ArrayList<PhdClass> classList = new ArrayList<>();
@@ -266,13 +256,13 @@ public class PhdClassManager {
     /**
      * Metodo della classe incaricato della ricerca dei cicli esistenti.
      *
+     * @param pSSN
      * @return
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
-    public synchronized PhdClass getPhdClassBySSN(String pSSN) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException {
+    public synchronized PhdClass getPhdClassBySSN(String pSSN) throws ClassNotFoundException, SQLException, IOException {
         Connection connect = null;
         try {
             PhdClass aPhdClass = null;

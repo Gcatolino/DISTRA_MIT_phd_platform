@@ -1,6 +1,5 @@
 package it.unisa.dottorato.phdClass;
 
-import it.unisa.dottorato.exception.EntityNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -42,7 +41,7 @@ public class InsertStudentPhdClassServlet extends HttpServlet {
         String idCycle = request.getParameter("idCycle");
         String SSN = request.getParameter("SSN");
         
-        Student_phdClass studentPhdClass = new Student_phdClass();
+        StudentPhdClass studentPhdClass = new StudentPhdClass();
         studentPhdClass.setFK_Student(SSN);
         studentPhdClass.setFK_PhdClass(Integer.parseInt(idCycle));
         
@@ -50,7 +49,7 @@ public class InsertStudentPhdClassServlet extends HttpServlet {
 
         try {
             PhdClassManager.getInstance().insertStudentPhdClass(studentPhdClass);
-        } catch (ClassNotFoundException | SQLException | EntityNotFoundException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             result.put("result", false);
             Logger.getLogger(InsertStudentPhdClassServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

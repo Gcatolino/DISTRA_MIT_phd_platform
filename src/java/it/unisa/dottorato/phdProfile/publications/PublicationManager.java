@@ -5,8 +5,6 @@
  */
 package it.unisa.dottorato.phdProfile.publications;
 
-import it.unisa.dottorato.bean.Publication;
-import it.unisa.dottorato.exception.EntityNotFoundException;
 import it.unisa.dottorato.utility.Utility;
 import it.unisa.integrazione.database.DBConnection;
 import it.unisa.integrazione.model.Person;
@@ -91,7 +89,7 @@ public class PublicationManager {
         }
     }
           
-    public synchronized void update(int oldPublicationID, Publication pPublication) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException {
+    public synchronized void update(int oldPublicationID, Publication pPublication) throws ClassNotFoundException, SQLException, IOException {
         try (Connection connect = DBConnection.getConnection()) {
 
             /*
@@ -125,7 +123,7 @@ public class PublicationManager {
         }
     }
     
-    public synchronized void delete(String idPublication) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException {
+    public synchronized void delete(String idPublication) throws ClassNotFoundException, SQLException, IOException {
         Connection connect = null;
         try {
             // Otteniamo una Connessione al DataBase
@@ -149,7 +147,7 @@ public class PublicationManager {
         }
     }
     
-    public synchronized Publication getPublicationById(int pPublicationID) throws ClassNotFoundException, SQLException, IOException, EntityNotFoundException {
+    public synchronized Publication getPublicationById(int pPublicationID) throws ClassNotFoundException, SQLException, IOException {
         Connection connect = null;
         try {
             Publication publication = new Publication();

@@ -5,8 +5,6 @@
  */
 package it.unisa.dottorato.phdProfile.publications;
 
-import it.unisa.dottorato.bean.Publication;
-import it.unisa.dottorato.exception.EntityNotFoundException;
 import it.unisa.integrazione.model.Person;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -82,7 +80,7 @@ public class UpdatePublicationServlet extends HttpServlet {
             } catch (SQLException ex) {
                 Logger.getLogger(UpdatePublicationServlet.class.getName()).log(Level.SEVERE, null, ex);
                 result.put("result", false);
-            } catch (ClassNotFoundException | EntityNotFoundException ex) {
+            } catch (ClassNotFoundException ex) {
                 Logger.getLogger(UpdatePublicationServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
             out.write(result.toString());

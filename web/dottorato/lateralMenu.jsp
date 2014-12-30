@@ -26,9 +26,16 @@
             </li>
 
             <li id="funzionalita3Permission_0">
-                <a href="#">
+                <a href="phdProfessors.jsp">
                     <i class="linecons-star"></i>
                     <span class="title">Collegio docenti</span>
+                </a>
+            </li>
+            
+            <li id="funzionalita3Permission_0">
+                <a href="phdStudents.jsp">
+                    <i class="linecons-search"></i>
+                    <span class="title">Dottorandi</span>
                 </a>
             </li>
 

@@ -50,7 +50,7 @@
 
             <!-- Contenuto della pagina -->
 
-<div class="main-content" id="content">
+            <div class="main-content" id="content">
 
                 <div class="row">
 
@@ -115,6 +115,6 @@
 
                 </div>
             </div>
-
-</body>
+        </div>
+    </body>
 </html>

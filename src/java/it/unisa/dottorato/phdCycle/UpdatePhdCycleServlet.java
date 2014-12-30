@@ -1,6 +1,5 @@
 package it.unisa.dottorato.phdCycle;
 
-import it.unisa.dottorato.exception.EntityNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -56,7 +55,7 @@ public class UpdatePhdCycleServlet extends HttpServlet {
             try {
                 PhdCycleManager.getInstance().update(oldIdPhdCycle, aPhdCycle);
 
-            } catch (ClassNotFoundException | SQLException | EntityNotFoundException ex) {
+            } catch (ClassNotFoundException | SQLException ex) {
                 result.put("result", false);
                 Logger.getLogger(UpdatePhdCycleServlet.class.getName()).log(Level.SEVERE, null, ex);
             }

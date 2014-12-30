@@ -3,8 +3,8 @@
     Created on : 26-dic-2014, 17.33.00
     Author     : gemmacatolino
 --%>
+<%@page import="it.unisa.dottorato.phdProfile.missions.Mission"%>
 <%@page import="it.unisa.dottorato.phdProfile.missions.MissionManager"%>
-<%@page import="it.unisa.dottorato.bean.Mission"%>
 <%@page import="java.util.List"%>
 <%@page import="it.unisa.integrazione.model.Person"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

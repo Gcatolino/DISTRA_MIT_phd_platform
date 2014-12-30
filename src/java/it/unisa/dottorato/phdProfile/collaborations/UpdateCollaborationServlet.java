@@ -5,15 +5,10 @@
  */
 package it.unisa.dottorato.phdProfile.collaborations;
 
-import it.unisa.dottorato.bean.Collaboration;
-import it.unisa.dottorato.exception.EntityNotFoundException;
 import it.unisa.integrazione.model.Person;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -82,9 +77,7 @@ public class UpdateCollaborationServlet extends HttpServlet {
                 result.put("result", false);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(UpdateCollaborationServlet.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (EntityNotFoundException ex) {
-                Logger.getLogger(UpdateCollaborationServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            } 
             out.write(result.toString());
 
         } catch (JSONException ex) {

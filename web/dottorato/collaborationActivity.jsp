@@ -4,8 +4,8 @@
     Author     : gemmacatolino
 --%>
 
+<%@page import="it.unisa.dottorato.phdProfile.collaborations.Collaboration"%>
 <%@page import="it.unisa.dottorato.phdProfile.collaborations.CollaborationManager"%>
-<%@page import="it.unisa.dottorato.bean.Collaboration"%>
 <%@page import="java.util.List"%>
 <%@page import="it.unisa.integrazione.model.Person"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

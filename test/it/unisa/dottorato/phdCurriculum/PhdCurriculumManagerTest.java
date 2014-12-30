@@ -5,7 +5,6 @@
  */
 package it.unisa.dottorato.phdCurriculum;
 
-import it.unisa.dottorato.exception.EntityNotFoundException;
 import it.unisa.dottorato.phdCycle.PhdCycleManager;
 import it.unisa.dottorato.phdCycle.PhdCycleManagerTest;
 import java.io.IOException;
@@ -45,7 +44,7 @@ public class PhdCurriculumManagerTest {
         
         try {
             PhdCycleManager.getInstance().delete("11");
-        } catch (ClassNotFoundException | SQLException | IOException | EntityNotFoundException ex) {
+        } catch (ClassNotFoundException | SQLException | IOException ex) {
             Logger.getLogger(PhdCycleManagerTest.class.getName()).log(Level.SEVERE, null, ex);
         } 
     }

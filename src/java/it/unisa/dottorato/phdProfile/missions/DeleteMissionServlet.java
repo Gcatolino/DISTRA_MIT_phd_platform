@@ -5,7 +5,6 @@
  */
 package it.unisa.dottorato.phdProfile.missions;
 
-import it.unisa.dottorato.exception.EntityNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -42,7 +41,7 @@ public class DeleteMissionServlet extends HttpServlet {
         String idMission = request.getParameter("id");
         try {
             MissionManager.getInstance().delete(idMission);
-        } catch (ClassNotFoundException | SQLException | EntityNotFoundException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             
             Logger.getLogger(DeleteMissionServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

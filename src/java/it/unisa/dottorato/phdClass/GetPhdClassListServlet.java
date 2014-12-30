@@ -1,6 +1,5 @@
 package it.unisa.dottorato.phdClass;
 
-import it.unisa.dottorato.exception.EntityNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -42,7 +41,7 @@ public class GetPhdClassListServlet extends HttpServlet {
                 JSONArray resultArray = new JSONArray(phdClassList);
                 result.put("phdClassList", resultArray);
                 out.write(result.toString());
-            } catch (ClassNotFoundException | SQLException | EntityNotFoundException | JSONException ex) {
+            } catch (ClassNotFoundException | SQLException | JSONException ex) {
                 Logger.getLogger(GetPhdClassListServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

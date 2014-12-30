@@ -5,8 +5,6 @@
  */
 package it.unisa.dottorato.phdProfile.collaborations;
 
-import it.unisa.dottorato.bean.Collaboration;
-import it.unisa.dottorato.exception.EntityNotFoundException;
 import it.unisa.integrazione.model.Person;
 import java.io.IOException;
 import java.io.PrintWriter;

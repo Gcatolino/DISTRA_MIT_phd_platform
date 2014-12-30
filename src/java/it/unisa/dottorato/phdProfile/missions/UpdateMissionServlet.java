@@ -5,8 +5,6 @@
  */
 package it.unisa.dottorato.phdProfile.missions;
 
-import it.unisa.dottorato.bean.Mission;
-import it.unisa.dottorato.exception.EntityNotFoundException;
 import it.unisa.integrazione.model.Person;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -70,12 +68,10 @@ public class UpdateMissionServlet extends HttpServlet {
             out.println("alert('La missione è stata modificata.');");
             out.println("location='missionActivity.jsp';");
             out.println("</script>");
-        } catch (SQLException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(UpdateMissionServlet.class.getName()).log(Level.SEVERE, null, ex);
             
-        } catch (ClassNotFoundException | EntityNotFoundException ex) {
-            Logger.getLogger(UpdateMissionServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
