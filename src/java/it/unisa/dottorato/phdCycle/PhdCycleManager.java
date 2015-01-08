@@ -56,7 +56,6 @@ public class PhdCycleManager {
      * @param pCycle
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
     public synchronized void insert(PhdCycle pCycle) throws ClassNotFoundException, SQLException, IOException {
@@ -95,7 +94,6 @@ public class PhdCycleManager {
      * @param pCycle
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
     public synchronized void update(String oldIdPhdCycle, PhdCycle pCycle) throws ClassNotFoundException, SQLException, IOException {
@@ -132,7 +130,6 @@ public class PhdCycleManager {
      * @param idPhdCycle
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
     public synchronized void delete(String idPhdCycle) throws ClassNotFoundException, SQLException, IOException {
@@ -167,7 +164,6 @@ public class PhdCycleManager {
      * @return
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
     public synchronized PhdCycle getPhdCycleById(int idPhdCycle) throws ClassNotFoundException, SQLException, IOException {
@@ -209,7 +205,6 @@ public class PhdCycleManager {
      * @return
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
     public synchronized ArrayList<String> getPhdCyclesIds() throws ClassNotFoundException, SQLException, IOException {
@@ -240,12 +235,5 @@ public class PhdCycleManager {
             DBConnection.releaseConnection(connect);
         }
     }
-    
-    
-    
-    
-    
-    
-
 
 }

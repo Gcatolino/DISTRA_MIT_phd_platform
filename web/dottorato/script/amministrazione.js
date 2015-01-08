@@ -4,6 +4,7 @@ $(document).ready(function () {
     initCycle();
     initCurriculum();
     initPhdStudent();
+
     $("#admin_cycle").click(function () {
         $("#admin_menu_curriculum").slideUp();
         $("#admin_menu_phd_user").slideUp();
@@ -19,6 +20,9 @@ $(document).ready(function () {
         $("#admin_menu_curriculum").slideUp();
         $("#admin_menu_phd_user").slideToggle();
     });
+
+
+
 });
 
 // funzione per la gestione dei cicli
@@ -33,6 +37,7 @@ function initCycle() {
         // azioni da compiere per ogni item del menù di gestione cicli
         $(".admin_phdCycle_submenu").click(function () {
             idCycle = $(this).attr('id');
+            $(".admin_panel").hide();
             // Azioni da compiere se è stato selezionato un ciclo già esistente
             if (idCycle !== "admin_menu_add_cycle") {
 
@@ -103,7 +108,7 @@ function initCycle() {
                                 newIdPhdCycle: $("#phdCycleId").val(),
                                 description: $("#phdCycleDescription").val(),
                                 year: $("#phdCycleYear").val(),
-                                professor: document.getElementsByName($("#phdCycleProfessor").val()).item(0).text},
+                                professor: document.getElementsByName($("#phdCycleProfessor").val()).item(0).getAttribute('id')},
                     function (data) {
                         messageDialog(data.result, "Ciclo modificato correttamente", "Errore nella modifica del ciclo");
                     });
@@ -186,7 +191,7 @@ function initCycle() {
                             {idPhdCycle: $("#phdCycleId").val(),
                                 description: $("#phdCycleDescription").val(),
                                 year: $("#phdCycleYear").val(),
-                                professor: document.getElementsByName($("#phdCycleProfessor").val()).item(0).text},
+                                professor: document.getElementsByName($("#phdCycleProfessor").val()).item(0).getAttribute('id')},
                     function (data) {
                         messageDialog(data.result, "Ciclo inserito correttamente", "Errore inserito correttamente");
                     });
@@ -215,6 +220,7 @@ function initCurriculum() {
         // azioni da compiere per ogni item del menù di gestione curriculum
         $(".admin_phdCurriculum_submenu").click(function () {
             nameCurriculum = $(this).attr('id');
+            $(".admin_panel").hide();
             // Azioni da compiere se è stato selezionato un curriculum già esistente
             if (nameCurriculum !== "admin_menu_add_curriculum") {
 
@@ -279,7 +285,7 @@ function initCurriculum() {
                         messageDialog(data.result, "Curriculum cancellato correttamente", "Errore nella cancellazione del curriculum");
                     });
                 });
-                
+
                 // Azione del pulsante per l'inserimento di una classe che collega un ciclo ad un curriculum
                 $("#submitDifferentProfessorCurriculum").click(function () {
                     // Invio dati alla servlet per l'inserimento della classe
@@ -324,7 +330,7 @@ function initCurriculum() {
                     $.getJSON("InsertPhdCurriculum",
                             {name: $("#phdCurriculumName").val(),
                                 description: $("#phdCurriculumDescription").val(),
-                                professor: document.getElementsByName($("#phdCurriculumProfessor").val()).item(0).text},
+                                professor: document.getElementsByName($("#phdCurriculumProfessor").val()).item(0).getAttribute('id')},
                     function (data) {
                         messageDialog(data.result, "Curriculum inserito correttamente", "Errore nell'inserimento del curriculum");
                     });
@@ -347,6 +353,7 @@ function initPhdStudent() {
     // azioni da compiere per la gestione dei dottorandi
     $("#admin_menu_add_phd_student").click(function () {
 
+        $(".admin_panel").hide();
         // Viene mostrato il titolo di gestione dottorandi
         $("#phdStudentTitle").html("Assegna classe");
         // Popolazione dataset con i dottorandi a cui sono associate le classi
@@ -413,6 +420,7 @@ function initPhdStudent() {
 
     // azioni da compiere per la gestione dei dottorandi
     $("#admin_menu_add_phd_tutor").click(function () {
+        $(".admin_panel").hide();
 
 // Viene mostrato il titolo di gestione dottorandi
         $("#phdTutorTitle").html("Assegna tutor");
@@ -461,14 +469,14 @@ function initPhdStudent() {
                 messageDialog(data.result, "Tutor assegnato con successo", "Errore nell'assegnazione del tutor");
             });
         });
-        
+
         // Azione da compiere per la modifica di uno studente in una classe
         $("#updateStudentTutor").click(function () {
             $.getJSON("UpdateStudentTutor", {idProfessor: $("#phdTutorList").find(":selected").attr("id"), idStudent: ssn}, function (data) {
                 messageDialog(data.result, "Tutor assegnato con successo", "Errore nell'assegnazione del tutor");
             });
         });
-        
+
         // Azione da compiere per la cancellazione di uno studente in una classe
         $("#deleteStudentTutor").click(function () {
             $.getJSON("DeleteStudentTutor", {idStudent: ssn}, function (data) {
@@ -476,7 +484,7 @@ function initPhdStudent() {
                 messageDialog(data.result, "Tutor eliminato con successo", "Errore nella cancellazione del tutor");
             });
         });
-        
+
         // Visualizzazione del pannello per l'inserimento / la visualizzazione di uno studente in una classe
         $("#admin_add_phd_tutor").show();
         // Azione da compiere per la chiusura del pannello
@@ -512,7 +520,7 @@ function getPersonList(type, appendTo) {
             {typeOfAccount: type},
     function (data) {
         $.each(data.person, function (index, value) {
-            person = "<option label='" + value.ssn + "' name='" + value.name + " " + value.surname + "' value='" + value.name + " " + value.surname + "'>  ";
+            person = "<option id='" + value.ssn + "' name='" + value.name + " " + value.surname + "' value='" + value.name + " " + value.surname + "'>  ";
             $(appendTo).append(person);
         });
     });

@@ -79,7 +79,7 @@
                             <div class="panel-body">
                                 <table data-toggle="table" class="table table-hover" align="center" data-pagination="true" data-search="true">
                                     <thead> 
-                                        <tr>
+                                        <tr id="null">
                                             <th data-field="surname" data-sortable="true">Cognome</th>
                                             <th data-field="name" data-sortable="true">Nome</th>		
                                             <th data-field="cycle" data-sortable="true">Ciclo</th>

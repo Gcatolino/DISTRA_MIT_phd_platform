@@ -8,6 +8,29 @@ $.get("GetPhdCurriculumsNames", function (data) {
         $("#curriculumList").append(curriculumDiv);
     });
 
+    if ($("#curriculumParameter").val() !== "null") {
+
+            $.getJSON("GetPhdCurriculum?phdCurriculumName=" + $("#curriculumParameter").val(), function (data) {
+
+                // questi campi necessitano di essere cancellati prima della visualizzazione di un nuovo ciclo
+                $("#phdCurriculumName").html("");
+                $("#phdCurriculumProfessor").html("");
+                $("#phdCurriculumDescription").html("");
+
+                $("#phdCurriculumName").html(data.phdCurriculumName);
+
+                $.getJSON("GetPerson?pSSN=" + data.FK_Professor, function (dataProfessor) {
+                    $("#phdCurriculumProfessor").html("Coordinatore: " + dataProfessor.name + " " + dataProfessor.surname);
+                });
+
+                $("#phdCurriculumDescription").html(data.phdCurriculumDescription);
+            });
+
+            $("#curriculumPanel").slideDown();
+
+
+    }
+
 
 
     $(".panel-curriculum").click(function () {
