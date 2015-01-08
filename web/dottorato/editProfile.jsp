@@ -73,28 +73,28 @@
                                                     <p>Nome:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <input class="form-control" name="name" type="text" value="<%= loggedPerson.getName()%>">
+                                                        <input class="form-control" name="name" type="text" value="<%= loggedPerson.getName()%>" required>
                                                     </div>
                                                     <br>
                                                     <br>
                                                     <p>Cognome:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <input class="form-control" name="surname" type="text" value="<%= loggedPerson.getSurname()%>" >
+                                                        <input class="form-control" name="surname" type="text" value="<%= loggedPerson.getSurname()%>" required>
                                                     </div>
                                                     <br>
                                                     <br>
                                                     <p >Telefono:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <input class="form-control" name="phone" type="text" value="<%= loggedPerson.getPhone()%>" >
+                                                        <input class="form-control" name="phone" type="text" value="<%= loggedPerson.getPhone()%>" required>
                                                     </div>
                                                     <br>
                                                     <br>
                                                     <p>Email:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <input class="form-control" name="email" type="text" value="<%= loggedPerson.getAccount().getEmail()%>" >
+                                                        <input class="form-control" name="email" type="text" value="<%= loggedPerson.getAccount().getEmail()%>" required>
                                                     </div>
                                                     <br>
                                                     <br>

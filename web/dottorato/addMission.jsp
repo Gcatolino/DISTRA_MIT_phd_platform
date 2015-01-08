@@ -37,6 +37,17 @@
                 <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
                 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <script type="text/javascript">
+            function checkDate() {
+                var start = new Date($("#start-date").val());
+                var end = new Date($("#end-date").val());
+                
+                if(start > end) {
+                    alert('La data di fine della missione è precedente alla data di inizio!');
+                }
+            };
+        </script>
+
     </head>
     <body class="page-body">
 
@@ -68,28 +79,28 @@
                                                     <p>Luogo:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <input class="form-control" name="place" type="text">
+                                                        <input class="form-control" name="place" type="text" required>
                                                     </div>
                                                     <br>
                                                     <br>
                                                     <p>Descrizione:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <textarea class="form-control" name="description" rows="5" cols="40"> </textarea>
+                                                        <textarea class="form-control" name="description" rows="5" cols="40" required> </textarea>
                                                     </div>
                                                     <br>
                                                     <br>
                                                     <p>Data di Inizio:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <input class="form-control" name="startDate" type="text" placeholder="aaaa-mm-gg">
+                                                        <input class="form-control" id="start-date" name="startDate" type="date" placeholder="aaaa-mm-gg" required>
                                                     </div>
                                                     <br>
                                                     <br>
                                                     <p>Data di Fine:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <input class="form-control" name="endDate" type="text" placeholder="aaaa-mm-gg">
+                                                        <input class="form-control" id="end-date" name="endDate" onblur="checkDate()" type="date" placeholder="aaaa-mm-gg" required>
                                                     </div>
                                                     <br>
                                                     <br>

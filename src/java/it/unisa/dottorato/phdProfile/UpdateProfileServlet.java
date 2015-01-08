@@ -24,6 +24,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -65,6 +66,9 @@ public class UpdateProfileServlet extends HttpServlet {
             person.setCoverLetter(coverLetter);
 
             PersonManager.getInstance().update(person);
+            HttpSession session = request.getSession();
+            session.setAttribute("person", person);
+            
             out.println("<script type=\"text/javascript\">");
             out.println("alert('La modifica è andata a buon fine');");
             out.println("location='profile.jsp';");
