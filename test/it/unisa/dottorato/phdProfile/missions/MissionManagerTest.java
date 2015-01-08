@@ -5,9 +5,6 @@
  */
 package it.unisa.dottorato.phdProfile.missions;
 
-import it.unisa.dottorato.phdProfile.publications.Publication;
-import it.unisa.dottorato.phdProfile.publications.PublicationManager;
-import it.unisa.integrazione.database.PersonManager;
 import it.unisa.integrazione.database.exception.ConnectionException;
 import it.unisa.integrazione.database.exception.MissingDataException;
 import it.unisa.integrazione.model.Account;
@@ -16,7 +13,6 @@ import it.unisa.integrazione.model.Department;
 import it.unisa.integrazione.model.Person;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
