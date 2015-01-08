@@ -97,7 +97,7 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-8 hidden_menu" id="admin_add_cycle">
+                    <div class="col-sm-8 hidden_menu admin_panel" id="admin_add_cycle">
 
                         <!-- Pannello per creazione di un nuovo ciclo o la modifica di un ciclo selezionato --> 
                         <div class="panel panel-default">
@@ -186,7 +186,7 @@
 
                                 <div id="addCycleProfessorDiv">
                                     <div class="panel-heading">
-                                        <h2>Docenti connessi al ciclo</h2>
+                                        <h2>Collegio docenti del ciclo</h2>
                                     </div>
                                     <div class="form-group">
                                         <h4 id="PhdCycleProfessor">  </h4>
@@ -210,7 +210,7 @@
                     </div>
 
 
-                    <div class="col-sm-8 hidden_menu" id="admin_add_curriculum">
+                    <div class="col-sm-8 hidden_menu admin_panel" id="admin_add_curriculum">
 
                         <!-- Pannello per creazione di un nuovo curriculum o la modifica di un curriculum selezionato --> 
                         <div class="panel panel-default">
@@ -266,7 +266,7 @@
 
                                 <div id="addCurriculumProfessorDiv">
                                     <div class="panel-heading">
-                                        <h2>Docenti connessi al curriculum</h2>
+                                        <h2>Collegio docenti del curriculum</h2>
                                     </div>
                                     <div class="form-group">
                                         <h4 id="PhdCurriculumProfessor">  </h4>
@@ -289,7 +289,7 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-8 hidden_menu" id="admin_add_phd_student">
+                    <div class="col-sm-8 hidden_menu admin_panel" id="admin_add_phd_student">
 
                         <!-- Pannello per creazione di un nuovo phdStudent o la modifica di un phdStudent selezionato --> 
                         <div class="panel panel-default">
@@ -346,7 +346,7 @@
                         </div>
                     </div>
                     
-                    <div class="col-sm-8 hidden_menu" id="admin_add_phd_tutor">
+                    <div class="col-sm-8 hidden_menu admin_panel" id="admin_add_phd_tutor">
 
                         <!-- Pannello per creazione di un nuovo phdStudent o la modifica di un phdStudent selezionato --> 
                         <div class="panel panel-default">

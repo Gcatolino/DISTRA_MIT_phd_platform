@@ -53,14 +53,11 @@ public class PhdPeopleManager {
     }
 
     /**
-     * Metodo della classe incaricato della ricerca delle informazioni di un
-     * curriculum relativo ad un ciclo.
+     * Metodo della classe incaricato della ricerca degli studenti di dottorato.
      *
-     * @param idPhdCycle
      * @return
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
     public synchronized ArrayList<Person> getPhdStudents() throws ClassNotFoundException, SQLException, IOException {
@@ -72,8 +69,8 @@ public class PhdPeopleManager {
         connect = DBConnection.getConnection();
 
         /*
-         * Prepariamo la stringa SQL per modificare un record 
-         * nella tabella phdCycle
+         * Prepariamo la stringa SQL per la ricerca dei record 
+         * nella tabella Persone
          */
         String tSql = "SELECT * FROM "
                 + PhdPeopleManager.TABLE_PERSON
@@ -105,13 +102,12 @@ public class PhdPeopleManager {
 
     /**
      * Metodo della classe incaricato della ricerca delle informazioni di un
-     * curriculum relativo ad un ciclo.
+     * professore relativo ad un ciclo.
      *
      * @param idPhdCycle
      * @return
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
     public synchronized ArrayList<Person> getProfessorByCycle(int idPhdCycle) throws ClassNotFoundException, SQLException, IOException {
@@ -124,7 +120,7 @@ public class PhdPeopleManager {
 
             /*
              * Prepariamo la stringa SQL per modificare un record 
-             * nella tabella phdCycle
+             * nella tabella Person
              */
             String tSql = "SELECT * FROM "
                     + PhdPeopleManager.TABLE_PERSON
@@ -159,13 +155,12 @@ public class PhdPeopleManager {
 
     /**
      * Metodo della classe incaricato della ricerca delle informazioni di un
-     * curriculum relativo ad un ciclo.
+     * professore relativo ad un curriculum.
      *
-     * @param idPhdCycle
+     * @param idPhdCurriculum
      * @return
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
     public synchronized ArrayList<Person> getProfessorByCurriculum(String idPhdCurriculum) throws ClassNotFoundException, SQLException, IOException {
@@ -178,7 +173,7 @@ public class PhdPeopleManager {
 
             /*
              * Prepariamo la stringa SQL per modificare un record 
-             * nella tabella phdCycle
+             * nella tabella person
              */
             String tSql = "SELECT * FROM "
                     + PhdPeopleManager.TABLE_PERSON
@@ -213,12 +208,12 @@ public class PhdPeopleManager {
 
     /**
      * Metodo della classe incaricato della cancellazopme di un'entita' nella
-     * tabella phdCycle del database.
+     * tabella professor_phdCycle del database.
      *
      * @param idPhdCycle
+     * @param idProfessor
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
     public synchronized void DeletProfessorFromCycle(String idPhdCycle, String idProfessor) throws ClassNotFoundException, SQLException, IOException {
@@ -228,8 +223,8 @@ public class PhdPeopleManager {
             connect = DBConnection.getConnection();
 
             /*
-             * Prepariamo la stringa SQL per modificare un record 
-             * nella tabella phdCycle
+             * Prepariamo la stringa SQL per la cancellazione un record 
+             * nella tabella professor_phdCycle
              */
             String tSql = "DELETE FROM "
                     + PhdPeopleManager.TABLE_PROFESSOR_PHDCYCLE
@@ -248,12 +243,12 @@ public class PhdPeopleManager {
 
     /**
      * Metodo della classe incaricato della cancellazopme di un'entita' nella
-     * tabella phdCycle del database.
+     * tabella professor_phdCurriculum del database.
      *
-     * @param idPhdCycle
+     * @param idPhdCurriculum
+     * @param idProfessor
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
     public synchronized void DeletProfessorFromCurriculum(String idPhdCurriculum, String idProfessor) throws ClassNotFoundException, SQLException, IOException {
@@ -264,7 +259,7 @@ public class PhdPeopleManager {
 
             /*
              * Prepariamo la stringa SQL per modificare un record 
-             * nella tabella phdCycle
+             * nella tabella professor_phdCurriculum
              */
             String tSql = "DELETE FROM "
                     + PhdPeopleManager.TABLE_PROFESSOR_PHDCURRICULUM
@@ -282,14 +277,12 @@ public class PhdPeopleManager {
     }
 
     /**
-     * Metodo della classe incaricato della ricerca delle informazioni di un
-     * curriculum relativo ad un ciclo.
+     * Metodo della classe incaricato della ricerca dei professori non relativi ad un ciclo.
      *
      * @param idPhdCycle
      * @return
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
     public synchronized ArrayList<Person> getPhdProfessorByDifferentCycle(int idPhdCycle) throws ClassNotFoundException, SQLException, IOException {
@@ -301,8 +294,8 @@ public class PhdPeopleManager {
             connect = DBConnection.getConnection();
 
             /*
-             * Prepariamo la stringa SQL per modificare un record 
-             * nella tabella phdCycle
+             * Prepariamo la stringa SQL per la ricerca un record 
+             * nella tabella professor_phdCycle
              */
             String tSql = "SELECT "
                     + PhdPeopleManager.TABLE_PERSON
@@ -360,14 +353,11 @@ public class PhdPeopleManager {
     }
 
     /**
-     * Metodo della classe incaricato della ricerca delle informazioni di un
-     * curriculum relativo ad un ciclo.
+     * Metodo della classe incaricato della ricerca dei professori non relativi ad un ciclo.
      *
-     * @param idPhdCycle
      * @return
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
     public synchronized ArrayList<Person> getPhdProfessorByDifferentCurriculum(String idPhdCurriculum) throws ClassNotFoundException, SQLException, IOException {
@@ -379,8 +369,8 @@ public class PhdPeopleManager {
             connect = DBConnection.getConnection();
 
             /*
-             * Prepariamo la stringa SQL per modificare un record 
-             * nella tabella phdCycle
+             * Prepariamo la stringa SQL per la ricerca di un record 
+             * nella tabella professor_phdCurriculum
              */
             String tSql = "SELECT "
                     + PhdPeopleManager.TABLE_PERSON
@@ -438,12 +428,12 @@ public class PhdPeopleManager {
 
     /**
      * Metodo della classe incaricato dell'inserimento di una nuova entita'
-     * nella tabella phdCurriculum del database.
+     * nella tabella professor_phdClycle del database.
      *
-     * @param pCurriculum
+     * @param aProfessor
+     * @param aCycle
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
     public synchronized void insertProfessorPhdClass(String aProfessor, String aCycle) throws ClassNotFoundException, SQLException, IOException {
@@ -454,7 +444,7 @@ public class PhdPeopleManager {
 
             /*
              * Prepariamo la stringa SQL per inserire un nuovo record 
-             * nella tabella phdCurriculum
+             * nella tabella professor_phdClycle
              */
             String tSql = "INSERT INTO "
                     + PhdPeopleManager.TABLE_PROFESSOR_PHDCYCLE
@@ -476,12 +466,11 @@ public class PhdPeopleManager {
 
     /**
      * Metodo della classe incaricato dell'inserimento di una nuova entita'
-     * nella tabella phdCurriculum del database.
+     * nella tabella professor_phdCurriculum del database.
      *
-     * @param pCurriculum
+     * @param aProfCurriculum
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
     public synchronized void insertProfessorPhdCurriculum(Professor_phdCurriculum aProfCurriculum) throws ClassNotFoundException, SQLException, IOException {
@@ -492,7 +481,7 @@ public class PhdPeopleManager {
 
             /*
              * Prepariamo la stringa SQL per inserire un nuovo record 
-             * nella tabella phdCurriculum
+             * nella tabella professor_phdCurriculum
              */
             String tSql = "INSERT INTO "
                     + PhdPeopleManager.TABLE_PROFESSOR_PHDCURRICULUM
@@ -514,12 +503,11 @@ public class PhdPeopleManager {
 
     /**
      * Metodo della classe incaricato dell'inserimento di una nuova entita'
-     * nella tabella phdCurriculum del database.
+     * nella tabella professor_student del database.
      *
-     * @param pCurriculum
+     * @param tutor
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
     public synchronized void insertStudentTutor(Professor_student tutor) throws ClassNotFoundException, SQLException, IOException {
@@ -530,7 +518,7 @@ public class PhdPeopleManager {
 
             /*
              * Prepariamo la stringa SQL per inserire un nuovo record 
-             * nella tabella phdCurriculum
+             * nella tabella professor_student
              */
             String tSql = "INSERT INTO "
                     + PhdPeopleManager.TABLE_PROFESSOR_STUDENT
@@ -551,14 +539,13 @@ public class PhdPeopleManager {
     }
 
     /**
-     * Metodo della classe incaricato della ricerca delle informazioni di un
-     * curriculum relativo ad un ciclo.
+     * Metodo della classe incaricato della ricerca delle informazioni del tutor
+     * relativo a uno studente.
      *
-     * @param idPhdCycle
+     * @param idStudent
      * @return
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
     public synchronized Person getTutor(String idStudent) throws ClassNotFoundException, SQLException, IOException {
@@ -569,8 +556,8 @@ public class PhdPeopleManager {
             connect = DBConnection.getConnection();
 
             /*
-             * Prepariamo la stringa SQL per modificare un record 
-             * nella tabella phdCycle
+             * Prepariamo la stringa SQL per la ricerca di un record 
+             * nella tabella professor_Student
              */
             String tSql = "SELECT * FROM "
                     + PhdPeopleManager.TABLE_PERSON
@@ -604,13 +591,11 @@ public class PhdPeopleManager {
 
     /**
      * Metodo della classe incaricato della modifica di un'entita' nella tabella
-     * phdCycle del database.
+     * professor_student del database.
      *
-     * @param oldIdPhdCycle
-     * @param pCycle
+     * @param tutor
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
     public synchronized void updateStudentTutor(Professor_student tutor) throws ClassNotFoundException, SQLException, IOException {
@@ -618,7 +603,7 @@ public class PhdPeopleManager {
 
             /*
              * Prepariamo la stringa SQL per modificare un record 
-             * nella tabella phdCycle
+             * nella tabella professor_student
              */
             String tSql = "UPDATE "
                     + PhdPeopleManager.TABLE_PROFESSOR_STUDENT
@@ -636,12 +621,11 @@ public class PhdPeopleManager {
 
     /**
      * Metodo della classe incaricato della cancellazopme di un'entita' nella
-     * tabella phdCurriculum del database.
+     * tabella professor_student del database.
      *
-     * @param phdCurriculumName
+     * @param idStudent
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
     public synchronized void deleteStudentTutor(String idStudent) throws ClassNotFoundException, SQLException, IOException {
@@ -651,8 +635,8 @@ public class PhdPeopleManager {
             connect = DBConnection.getConnection();
 
             /*
-             * Prepariamo la stringa SQL per modificare un record 
-             * nella tabella phdCycle
+             * Prepariamo la stringa SQL per la cancellazione di un record 
+             * nella tabella professor_student
              */
             String tSql = "DELETE FROM "
                     + PhdPeopleManager.TABLE_PROFESSOR_STUDENT
@@ -669,14 +653,11 @@ public class PhdPeopleManager {
     }
 
     /**
-     * Metodo della classe incaricato della ricerca delle informazioni di un
-     * curriculum relativo ad un ciclo.
+     * Metodo della classe incaricato della ricerca della lista docenti.
      *
-     * @param idPhdCycle
      * @return
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
     public synchronized ArrayList<Person> getPhdProfessors() throws ClassNotFoundException, SQLException, IOException {
@@ -688,8 +669,8 @@ public class PhdPeopleManager {
         connect = DBConnection.getConnection();
 
         /*
-         * Prepariamo la stringa SQL per modificare un record 
-         * nella tabella phdCycle
+         * Prepariamo la stringa SQL per la ricerca dei record 
+         * nella tabella person
          */
         String tSql = "(SELECT "
                 + TABLE_PERSON
@@ -735,13 +716,12 @@ public class PhdPeopleManager {
 
     /**
      * Metodo della classe incaricato della ricerca delle informazioni di un
-     * curriculum relativo ad un ciclo.
+     * professore relativo ad un ciclo.
      *
-     * @param idPhdCycle
+     * @param aProfessor
      * @return
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
     public synchronized ArrayList<String> getPhdProfessorCycle(String aProfessor) throws ClassNotFoundException, SQLException, IOException {
@@ -753,7 +733,7 @@ public class PhdPeopleManager {
 
         /*
          * Prepariamo la stringa SQL per modificare un record 
-         * nella tabella phdCycle
+         * nella tabella professor_phdCycle
          */
         String tSql = "SELECT * FROM "
                 + PhdPeopleManager.TABLE_PROFESSOR_PHDCYCLE
@@ -773,13 +753,11 @@ public class PhdPeopleManager {
     
     /**
      * Metodo della classe incaricato della ricerca delle informazioni di un
-     * curriculum relativo ad un ciclo.
+     * professor relativo ad un curriculum.
      *
-     * @param idPhdCycle
      * @return
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
     public synchronized ArrayList<String> getPhdProfessorCurriculum(String aProfessor) throws ClassNotFoundException, SQLException, IOException {
@@ -790,8 +768,8 @@ public class PhdPeopleManager {
         connect = DBConnection.getConnection();
 
         /*
-         * Prepariamo la stringa SQL per modificare un record 
-         * nella tabella phdCycle
+         * Prepariamo la stringa SQL per la ricerca di un record 
+         * nella tabella professor_phdCurriculum
          */
         String tSql = "SELECT * FROM "
                 + PhdPeopleManager.TABLE_PROFESSOR_PHDCURRICULUM

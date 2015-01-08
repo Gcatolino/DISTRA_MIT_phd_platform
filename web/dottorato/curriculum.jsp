@@ -49,6 +49,8 @@
 
                     <div class="col-sm-1"></div>
                     <div class="col-sm-10">
+                        
+                        <input type="hidden" id="curriculumParameter" value="<%= request.getParameter("curriculumName") %>">
 
                         <!-- Elenco dei curriculum attivi nel ciclo --> 
                         <div class="panel panel-default">
