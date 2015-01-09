@@ -76,6 +76,10 @@ public class LoginServlet extends HttpServlet {
                     session.removeAttribute("loginError");
                     session.setAttribute("person", person);
                     response.sendRedirect("indexLog.jsp"); 
+                } else if (person.getAccount().getTypeOfAccount().equals("phdadmin")) {
+                    session.removeAttribute("loginError");
+                    session.setAttribute("person", person);
+                    response.sendRedirect("dottorato/index.jsp"); 
                 }else {
                     session.setAttribute("loginError", "error");
                     response.sendRedirect("login.jsp");
