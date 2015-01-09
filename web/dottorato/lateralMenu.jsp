@@ -38,6 +38,13 @@
                     <span class="title">Dottorandi</span>
                 </a>
             </li>
+            
+            <li id="funzionalita3Permission_0">
+                <a href="gestionepresenze.jsp">
+                    <i class="linecons-search"></i>
+                    <span class="title">Gestione Presenze</span>
+                </a>
+            </li>
 
 
             <c:choose>
