@@ -107,7 +107,7 @@
                                             </p>
 
                                             <p class="text-justify"> 
-                                            <h3>Registo attività: <span class="glyphicon glyphicon-eye-open pointer" aria-hidden="true" onclick="location.href = 'publicationActivity.jsp'"></span></h3>
+                                            <h3>Registro attività: <span class="glyphicon glyphicon-eye-open pointer" aria-hidden="true" onclick="location.href = 'publicationActivity.jsp'"></span></h3>
                                             </p>
                                         </td>
                                     </tr>

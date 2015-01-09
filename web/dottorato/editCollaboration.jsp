@@ -5,7 +5,7 @@
 --%>
 
 <%@page import="it.unisa.dottorato.phdProfile.collaborations.CollaborationManager"%>
-<%@page import="it.unisa.dottorato.bean.Collaboration"%>
+<%@page import="it.unisa.dottorato.phdProfile.collaborations.Collaboration"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -40,6 +40,17 @@
                 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
 
+        <script type="text/javascript">
+            function checkDate() {
+                var start = new Date($("#start-date").val());
+                var end = new Date($("#end-date").val());
+                
+                if(start > end) {
+                    alert('La data di fine della collaborazione è precedente alla data di inizio!');
+                }
+            };
+        </script>
+        
     </head>
     <body class="page-body">
 
@@ -75,28 +86,28 @@
                                                     <p>Istituzione:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <input class="form-control" name="istitution" type="text" value="<%= collaboration.getIstitution()%>">
+                                                        <input class="form-control" name="istitution" type="text" value="<%= collaboration.getIstitution()%>" required>
                                                     </div>
                                                     <br>
                                                     <br>
                                                     <p>Descrizione:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <textarea class="form-control" name="description" rows="5" cols="40"><%= collaboration.getDescription()%></textarea>
+                                                        <textarea class="form-control" name="description" rows="5" cols="40" required><%= collaboration.getDescription()%> </textarea>
                                                     </div>
                                                     <br>
                                                     <br>
                                                     <p>Data Di Inizio:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <input class="form-control" name="startDate" type="text" value="<%= collaboration.getStartDate()%>">
+                                                        <input class="form-control" id="start-date" name="startDate" type="date" value="<%= collaboration.getStartDate()%>" required>
                                                     </div>
                                                     <br>
                                                     <br>
                                                     <p>Data Di Fine:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <input class="form-control" name="endDate" type="text" value="<%= collaboration.getEndDate()%>" >
+                                                        <input class="form-control" id="end-date" name="endDate" type="date" onblur="checkDate()" value="<%= collaboration.getEndDate()%>" required>
                                                     </div>
                                                     <br>
                                                     <br>

@@ -11,7 +11,7 @@
             <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
 
 
-            <li class="opened active">
+            <li>
                 <a href="index.jsp">
                     <i class="linecons-desktop"></i>
                     <span class="title">Home</span>
@@ -69,7 +69,7 @@
                     </li>
 
 
-                    <%} // if (loggedPerson.getAccount().getTypeOfAccount().equals("phdadmin") || loggedPerson.getAccount().getTypeOfAccount().equals("professoradmin")) { %>
+                    <%}  if (loggedPerson.getAccount().getTypeOfAccount().equals("phdadmin") || loggedPerson.getAccount().getTypeOfAccount().equals("professoradmin")) { %>
 
 
                     <li id="funzionalita3Permission_0">
@@ -78,7 +78,7 @@
                             <span class="title">Pannello <br> amministratore</span>
                         </a>
                     </li>
-                    <%//}%>
+                    <%}%>
                 </c:when>
             </c:choose>
         </ul>

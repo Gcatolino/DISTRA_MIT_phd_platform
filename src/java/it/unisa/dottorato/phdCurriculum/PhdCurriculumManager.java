@@ -54,7 +54,6 @@ public class PhdCurriculumManager {
      * @param pCurriculum
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
     public synchronized void insert(PhdCurriculum pCurriculum) throws ClassNotFoundException, SQLException, IOException {
@@ -95,7 +94,6 @@ public class PhdCurriculumManager {
      * @param pCurriculum
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
     public synchronized void update(String oldNamePhdCurriculum, PhdCurriculum pCurriculum) throws ClassNotFoundException, SQLException, IOException {
@@ -135,7 +133,6 @@ public class PhdCurriculumManager {
      * @param phdCurriculumName
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
     public synchronized void delete(String phdCurriculumName) throws ClassNotFoundException, SQLException, IOException {
@@ -170,7 +167,6 @@ public class PhdCurriculumManager {
      * @return
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
     public synchronized ArrayList<String> getPhdCurriculumNameByCycle(int idPhdCycle) throws ClassNotFoundException, SQLException, IOException {
@@ -195,9 +191,6 @@ public class PhdCurriculumManager {
                     + ".FK_PhdCurriculum "
                     + " WHERE FK_PhdCycle = '"
                     + idPhdCycle + "'";
-            
-
-    
 
             //Inviamo la Query al DataBase
             ResultSet result = Utility.queryOperation(connect, tSql);
@@ -216,13 +209,12 @@ public class PhdCurriculumManager {
     
     /**
      * Metodo della classe incaricato della ricerca delle informazioni di un
-     * curriculum relativo ad un ciclo.
+     * curriculum non relativo ad un ciclo.
      *
      * @param idPhdCycle
      * @return
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
     public synchronized ArrayList<String> getPhdCurriculumNameByDifferentCycle(int idPhdCycle) throws ClassNotFoundException, SQLException, IOException {
@@ -231,8 +223,6 @@ public class PhdCurriculumManager {
             ArrayList<String> curriculum = new ArrayList<>();
             // Otteniamo una Connessione al DataBase
             connect = DBConnection.getConnection();
-
-            
 
             /*
              * Prepariamo la stringa SQL per modificare un record 
@@ -256,9 +246,6 @@ public class PhdCurriculumManager {
                     + tSql
                     + " )";
 
-            
-
-
             //Inviamo la Query al DataBase
             ResultSet result = Utility.queryOperation(connect, tSql2);
 
@@ -274,12 +261,11 @@ public class PhdCurriculumManager {
     }
 
     /**
-     * Metodo della classe incaricato della ricerca dei curriculum esistenti.
+     * Metodo della classe incaricato della ricerca di un curriculum esistente.
      *
      * @return
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
     public synchronized ArrayList<String> getPhdCurriculumNames() throws ClassNotFoundException, SQLException, IOException {
@@ -291,7 +277,7 @@ public class PhdCurriculumManager {
 
             /*
              * Prepariamo la stringa SQL per modificare un record 
-             * nella tabella phdCycle
+             * nella tabella phdCurriculum
              */
             String tSql = "SELECT name FROM "
                     + PhdCurriculumManager.TABLE_PHDCURRICULUM
@@ -319,7 +305,6 @@ public class PhdCurriculumManager {
      * @return
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
-     * @throws it.unisa.dottorato.exception.EntityNotFoundException
      * @throws java.io.IOException
      */
     public synchronized PhdCurriculum getPhdCurriculumById(String phdCurriculumName) throws ClassNotFoundException, SQLException, IOException {
@@ -331,7 +316,7 @@ public class PhdCurriculumManager {
 
             /*
              * Prepariamo la stringa SQL per modificare un record 
-             * nella tabella phdCycle
+             * nella tabella phdCurriculum
              */
             String tSql = "SELECT * FROM "
                     + PhdCurriculumManager.TABLE_PHDCURRICULUM

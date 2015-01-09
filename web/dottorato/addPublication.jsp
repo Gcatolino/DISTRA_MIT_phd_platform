@@ -70,42 +70,42 @@
                                                     <p>Titolo:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <input class="form-control" name="title" type="text">
+                                                        <input class="form-control" name="title" type="text" required>
                                                     </div>
                                                     <br>
                                                     <br>
                                                     <p>Autori:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <input class="form-control" name="authors" type="text">
+                                                        <input class="form-control" name="authors" type="text" required>
                                                     </div>
                                                     <br>
                                                     <br>
                                                     <p>Anno:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <input class="form-control" name="year" type="text">
+                                                        <input class="form-control" name="year" type="text" required>
                                                     </div>
                                                     <br>
                                                     <br>
                                                     <p>Type:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <input class="form-control" name="type" type="text">
+                                                        <input class="form-control" name="type" type="text" required>
                                                     </div>
                                                     <br>
                                                     <br>
                                                     <p>Pubblication Issue:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <input class="form-control" name="issue" type="text">
+                                                        <input class="form-control" name="issue" type="text" required>
                                                     </div>
                                                     <br>
                                                     <br>
                                                     <p>Numero pagine:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <input class="form-control" name="numberPages" type="text">
+                                                        <input class="form-control" name="numberPages" type="text" required>
                                                     </div>
                                                     <br>
                                                     <br>

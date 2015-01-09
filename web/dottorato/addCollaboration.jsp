@@ -38,6 +38,17 @@
                 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
 
+        <script type="text/javascript">
+            function checkDate() {
+                var start = new Date($("#start-date").val());
+                var end = new Date($("#end-date").val());
+                
+                if(start > end) {
+                    alert('La data di fine della collaborazione è precedente alla data di inizio!');
+                }
+            };
+        </script>
+        
     </head>
     <body class="page-body">
 
@@ -70,28 +81,28 @@
                                                     <p>Istituzione:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <input class="form-control" name="istitution" type="text">
+                                                        <input class="form-control" name="istitution" type="text" required>
                                                     </div>
                                                     <br>
                                                     <br>
-                                                    <p>Descrizzione</p>
+                                                    <p>Descrizione</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <textarea class="form-control" name="description" rows="5" cols="40"> </textarea>
+                                                        <textarea class="form-control" name="description" rows="5" cols="40" required> </textarea>
                                                     </div>
                                                     <br>
                                                     <br>
                                                     <p>Data di inizio:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <input class="form-control" name="startDate" type="text" placeholder="aaaa-mm-gg">
+                                                        <input class="form-control" id="start-date" name="startDate" type="date" placeholder="aaaa-mm-gg" required>
                                                     </div>
                                                     <br>
                                                     <br>
                                                     <p>Data di fine:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <input class="form-control" name="endDate" type="text" placeholder="aaaa-mm-gg">
+                                                        <input class="form-control" id="end-date" name="endDate" onblur="checkDate()" type="date" onsubmit="checkDate()" placeholder="aaaa-mm-gg" required>
                                                     </div>
                                                     <br>
                                                     <br>

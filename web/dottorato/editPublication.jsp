@@ -4,7 +4,7 @@
     Author     : gemmacatolino
 --%>
 
-<%@page import="it.unisa.dottorato.bean.Publication"%>
+<%@page import="it.unisa.dottorato.phdProfile.publications.Publication"%>
 <%@page import="it.unisa.dottorato.phdProfile.publications.PublicationManager"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -76,42 +76,42 @@
                                                     <p>Titolo:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <input class="form-control" name="title" type="text" value="<%= publication.getTitle()%>">
+                                                        <input class="form-control" name="title" type="text" value="<%= publication.getTitle()%>" required>
                                                     </div>
                                                     <br>
                                                     <br>
                                                     <p>Autori:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <input class="form-control" name="authors" type="text" value="<%= publication.getAuthors()%>">
+                                                        <input class="form-control" name="authors" type="text" value="<%= publication.getAuthors()%>" required>
                                                     </div>
                                                     <br>
                                                     <br>
                                                     <p>Anno:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <input class="form-control" name="year" type="text" value="<%= publication.getYear()%>">
+                                                        <input class="form-control" name="year" type="text" value="<%= publication.getYear()%>" required>
                                                     </div>
                                                     <br>
                                                     <br>
                                                     <p>Type:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <input class="form-control" name="type" type="text" value="<%= publication.getType()%>">
+                                                        <input class="form-control" name="type" type="text" value="<%= publication.getType()%>" required>
                                                     </div>
                                                     <br>
                                                     <br>
                                                     <p>Pubblication Issue:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <input class="form-control" name="issue" type="text" value="<%= publication.getPublicationIssue()%>">
+                                                        <input class="form-control" name="issue" type="text" value="<%= publication.getPublicationIssue()%>" required>
                                                     </div>
                                                     <br>
                                                     <br>
                                                     <p>Numero pagine:</p>
                                                     <div class="input-group">
                                                         <span class="input-group-addon"></span>
-                                                        <input class="form-control" name="numberPages" type="text" value="<%= publication.getNumberPages()%>">
+                                                        <input class="form-control" name="numberPages" type="text" value="<%= publication.getNumberPages()%>" required>
                                                     </div>
                                                     <br>
                                                     <br>

@@ -47,7 +47,7 @@ public class PhdClassManager {
 
     /**
      * Metodo della classe incaricato dell'inserimento di una nuova entita'
-     * nella tabella phdCycle del database.
+     * nella tabella phdlass del database.
      *
      * @param pClass
      * @throws java.lang.ClassNotFoundException
@@ -59,7 +59,7 @@ public class PhdClassManager {
 
             /*
              * Prepariamo la stringa SQL per inserire un nuovo record 
-             * nella tabella phdCycle
+             * nella tabella phdClass
              */
             String tSql = "INSERT INTO "
                     + PhdClassManager.TABLE_PHDCLASS
@@ -79,7 +79,7 @@ public class PhdClassManager {
 
     /**
      * Metodo della classe incaricato dell'inserimento di una nuova entita'
-     * nella tabella phdCycle del database.
+     * nella tabella phdStudent_phdClass del database.
      *
      * @param studentClass
      * @throws java.lang.ClassNotFoundException
@@ -91,7 +91,7 @@ public class PhdClassManager {
 
             /*
              * Prepariamo la stringa SQL per inserire un nuovo record 
-             * nella tabella phdCycle
+             * nella tabella phdStudent_phdClass
              */
             String tSql = "INSERT INTO "
                     + PhdClassManager.TABLE_PHDSTUDENT_PHDCLASS
@@ -111,7 +111,7 @@ public class PhdClassManager {
 
     /**
      * Metodo della classe incaricato della modifica di un'entita' nella tabella
-     * phdCycle del database.
+     * phdStudent_phdClass del database.
      *
      * @param studentClass
      * @throws java.lang.ClassNotFoundException
@@ -143,7 +143,7 @@ public class PhdClassManager {
 
     /**
      * Metodo della classe incaricato della cancellazopme di un'entita' nella
-     * tabella phdCurriculum del database.
+     * tabella phdClass del database.
      *
      * @param idPhdCycle
      * @param idPhdCurriculum
@@ -159,7 +159,7 @@ public class PhdClassManager {
 
             /*
              * Prepariamo la stringa SQL per modificare un record 
-             * nella tabella phdCycle
+             * nella tabella phdClass
              */
             String tSql = "DELETE FROM "
                     + PhdClassManager.TABLE_PHDCLASS
@@ -179,7 +179,7 @@ public class PhdClassManager {
 
     /**
      * Metodo della classe incaricato della cancellazopme di un'entita' nella
-     * tabella phdCycle del database.
+     * tabella phdStudent_phdClass del database.
      *
      * @param pSSN
      * @throws java.lang.ClassNotFoundException
@@ -194,7 +194,7 @@ public class PhdClassManager {
 
             /*
              * Prepariamo la stringa SQL per modificare un record 
-             * nella tabella phdCycle
+             * nella tabella phdStudent_phdClass
              */
             String tSql = "DELETE FROM "
                     + PhdClassManager.TABLE_PHDSTUDENT_PHDCLASS
@@ -211,7 +211,7 @@ public class PhdClassManager {
     }
 
     /**
-     * Metodo della classe incaricato della ricerca dei cicli esistenti.
+     * Metodo della classe incaricato della ricerca delle classi esistenti.
      *
      * @return
      * @throws java.lang.ClassNotFoundException
@@ -227,8 +227,8 @@ public class PhdClassManager {
             connect = DBConnection.getConnection();
 
             /*
-             * Prepariamo la stringa SQL per modificare un record 
-             * nella tabella phdCycle
+             * Prepariamo la stringa SQL per la ricerca dei record 
+             * nella tabella phdClass
              */
             String tSql = "SELECT * FROM "
                     + PhdClassManager.TABLE_PHDCLASS
@@ -254,7 +254,7 @@ public class PhdClassManager {
     }
 
     /**
-     * Metodo della classe incaricato della ricerca dei cicli esistenti.
+     * Metodo della classe incaricato della ricerca di una classe tramine codice fiscale di un utente.
      *
      * @param pSSN
      * @return
@@ -271,7 +271,7 @@ public class PhdClassManager {
 
             /*
              * Prepariamo la stringa SQL per modificare un record 
-             * nella tabella phdCycle
+             * nella tabella phdClass
              */
             String tSql = "SELECT "
                     + PhdClassManager.TABLE_PHDCLASS

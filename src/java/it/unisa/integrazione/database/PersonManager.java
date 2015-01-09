@@ -48,7 +48,7 @@ public class PersonManager {
         if (pPerson.getDegree() != null) {
             sql += ",  degree_matricula, cover_letter) VALUES (";
         } else {
-            sql += " cover_letter) VALUES ( ";
+            sql += ", cover_letter) VALUES ( ";
         }
 
         sql += "\"" + pPerson.getSsn() + "\",\""
@@ -184,7 +184,7 @@ public class PersonManager {
                 person.setPosition(rs.getString("position"));
                 person.setCoverLetter(rs.getString("cover_letter"));
 
-                person.setDepartment(DepartmentManager.getInstance().getDepartmentByAbbreviation("Department_abbreviation"));
+                person.setDepartment(DepartmentManager.getInstance().getDepartmentByAbbreviation(rs.getString("Department_abbreviation")));
                 person.setCycle(CycleManager.getInstance().getCycleByCycleNumber(rs.getInt("cycle")));
                 person.setAccount(AccountManager.getInstance().getAccoutnByEmail(rs.getString("Account_email")));
 
