@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dic 31, 2014 alle 00:10
+-- Generation Time: Gen 09, 2015 alle 09:22
 -- Versione del server: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -399,7 +399,7 @@ CREATE TABLE IF NOT EXISTS `person` (
 --
 
 INSERT INTO `person` (`SSN`, `name`, `surname`, `phone`, `city`, `address`, `zip_code`, `gender`, `citizenship`, `Account_email`, `Department_abbreviation`, `web_page`, `university`, `matricula`, `position`, `cycle`, `degree_matricula`, `cover_letter`) VALUES
-('CTLGMM91A71B519A', 'Gemma', 'Catolino', '3272844649', 'Baranello', 'Contrada Gaudo n. 27', '86011', 'F', 'Italiana', 'gemma.catolino91@gmail.com', 'distra', 'http://www.unisa.it/docenti/filomenaferrucci/index', 'UniversitÃ  degli Studi di Salerno', '142524', 'null', 1, '02255', '   Nel mio percorso di studente di dottorato del curriculum EDAP, intendo occuparmi del management delle Pubbliche Amministrazioni, in ottica sistemico-relazionale. Lo studio della gestione delle PA sarÃ??Ã?Â  sviluppato attraverso lÃ?Â¢??analisi di nuovi e piÃ??Ã?Â¹ recenti studi che propongono per il management pubblico nuovi approcci come ad esempio il Ã?Â¢??Public Service-DominantÃ?Â¢??, ovvero un approccio basato sui servizi pubblici e che enfatizza i processi di trasformazione della conoscenza. I miei interessi dunque, includono lo studio di quelle prospettive teoriche che tendono a fornire una lettura relazionale de   '),
+('CTLGMM91A71B519A', 'Gemma', 'Catolino', '3272844649', 'Baranello', 'Contrada Gaudo n. 27', '86011', 'F', 'Italiana', 'gemma.catolino91@gmail.com', 'distra', 'http://www.unisa.it/docenti/filomenaferrucci/index', 'UniversitÃ  degli Studi di Salerno', '142524', 'null', 1, '02255', '    Nel mio percorso di studente di dottorato del curriculum EDAP, intendo occuparmi del management delle Pubbliche Amministrazioni, in ottica sistemico-relazionale. Lo studio della gestione delle PA sarÃ???Ã??Ã?Â  sviluppato attraverso lÃ??Ã?Â¢??analisi di nuovi e piÃ???Ã??Ã?Â¹ recenti studi che propongono per il management pubblico nuovi approcci come ad esempio il Ã??Ã?Â¢??Public Service-DominantÃ??Ã?Â¢??, ovvero un approccio basato sui servizi pubblici e che enfatizza i processi di trasformazione della conoscenza. I miei interessi dunque, includono lo studio di quelle prospettive teoriche che tendono a fornire una lettura relazionale de    '),
 ('dfgt678ujgyt56yg', 'Mario', 'Rossi', NULL, NULL, NULL, NULL, NULL, NULL, 'test@test.it', 'distra', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 ('frtghtty678uyhtg', 'Andrea', 'De Lucia', NULL, NULL, NULL, NULL, NULL, NULL, 'adl@unisa.it', 'distra', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 ('kfurhdjtirjehdfg', 'Elisa', 'DEugenio', '3334350369', 'Silvi', 'Via abruzzo 48', '64028', 'F', NULL, 'elyx24@hotmail.it', 'distra', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -415,16 +415,7 @@ CREATE TABLE IF NOT EXISTS `phdclass` (
 `idClass` int(20) NOT NULL,
   `FK_PhdCycle` int(11) NOT NULL,
   `FK_PhdCurriculum` varchar(100) NOT NULL DEFAULT ''
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-
---
--- Dump dei dati per la tabella `phdclass`
---
-
-INSERT INTO `phdclass` (`idClass`, `FK_PhdCycle`, `FK_PhdCurriculum`) VALUES
-(4, 15, 'Economia e Direzione delle Aziende Pubbliche'),
-(1, 15, 'Informatica, Sistemi Informativi e Tecnologie del Software'),
-(3, 15, 'Marketing e Comunicazione');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -437,15 +428,6 @@ CREATE TABLE IF NOT EXISTS `phdcurriculum` (
   `description` text,
   `FK_Professor` varchar(16) DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dump dei dati per la tabella `phdcurriculum`
---
-
-INSERT INTO `phdcurriculum` (`name`, `description`, `FK_Professor`) VALUES
-('Economia e Direzione delle Aziende Pubbliche', 'Il curriculum “Economia e Direzione delle Aziende Pubbliche” ha l’obiettivo di trasferire conoscenze relative a principi, teorie e modelli di gestione, elaborati con riferimento all''economia e alla gestione delle aziende pubbliche, fornire gli strumenti e le metodologie di analisi più innovative, nonché, sviluppare competenze professionali specializzate per il management di enti, istituzioni ed aziende afferenti al settore pubblico. Settore che negli ultimi decenni la Pubblica Amministrazione (P.A.) ha sperimentato un profondo processo di riforma che si è concretizzato, da un lato, in un riposizionamento dei confini tra stato, mercato e società civile e, dall''altro, nell''affermarsi di nuovi modelli di funzionamento che vanno sotto il nome di New Public Management. Recependo tali mutamenti la PA, pur conservando la propria missione, si è trovata nella necessità di innovare le proprie logiche di funzionamento ed i correlati strumenti di analisi e valutazione.\r\n\r\nCambiando le logiche organizzative ed i fabbisogni professionali, diviene strategica l''acquisizione, da parte dei livelli dirigenziali, di competenze specifiche e di capacità di problem solving attraverso il costante confronto con casi ed esperienze concrete anche di origine internazionale.\r\n\r\nIl curriculum in Economia e Direzione delle Aziende Pubbliche rappresenta, quindi, un percorso elettivamente individuato dal mondo universitario per la preparazione di giovani studiosi e potenziali dirigenti attenti all''esigenza di una moderna ed efficiente pubblica amministrazione. Esso ha lo scopo di presentare le più affermate e consolidate teorie e impostazioni dottrinarie elaborate in riferimento all''economia e al governo dell''azienda pubblica (anche nella sua espressione più allargata di pubblici servizi).\r\n\r\nIl curriculum, pertanto, offre una specifica formazione sui principali temi del public management e della governance pubblica:\r\n\r\nDottrine economico-aziendali;\r\nEconomia e contabilità dell''azienda pubblica;\r\nGestione e management delle amministrazioni pubbliche;\r\nOrganizzazione e gestione delle risorse umane;\r\nGovernance degli enti locali;\r\nI controlli interni nella P.A.;\r\nStrategie e politiche innovative nella P.A.;\r\nValutazione e controllo dei dirigenti;\r\nMarketing territoriale;\r\nRelazioni con il cittadino e CRM.\r\nIn definitiva, il Dottore di Ricerca con curriculum in Economia e Direzione delle Aziende Pubbliche si può inquadrare in almeno 3 figure professionali (di dirigente pubblico) emerse nel corso di una recente indagine svolta dal Dipartimento della Funzione Pubblica ovvero la figura di ''in-and-outer'', l''altrettanto recente ''high flier'' e il ''libero professionista riconvertito''.\r\n\r\nIl dottorato, inoltre, rappresenta una valida premessa per la formazione di figure professionali destinate a ricoprire il ruolo di city-manager (figura del direttore generale negli Enti locali voluta dalla legge 127/1997) e di consulente per gli Enti locali.', 'quejdorp506jtugh'),
-('Informatica, Sistemi Informativi e Tecnologie del Software', '\nIl curriculum, Informatica, Sistemi Informativi e Tecnologie del Software, ha l’obiettivo di formare figure professionali dotate di una preparazione scientifica teorica e pratica idonea ad operare con piena professionalità e competenza, sia in ambito accademico che industriale, nelle varie fasi che caratterizzano la ricerca, lo sviluppo, il controllo di qualità e la produzione nel settore dei sistemi informativi e delle tecnologie del software. In particolare, il corso di dottorato di ricerca mira alla formazione di ricercatori con elevata conoscenza degli aspetti teorici, metodologici, sperimentali e applicativi di settore quali quelli dei sistemi informativi e delle basi di dati, dell’ingegneria del software, dell''ingegneria della conoscenza, del web engineering e dell''interazione uomo-macchina, con una elevata capacità di trasferire i risultati della ricerca in ambito industriale e di applicarli ai settori dell’economia e del management aziendale, del marketing e della comunicazione.\n\n  Le tematiche scientifiche del curriculum includono:\n\nProject management\nSoftware quality assurance\nMetodi per la stima dei costi\nSistemi a supporto delle decisioni e business intelligence\nData warehousing\nBig data\nOpen data\nDocument and content management\nWorkflow and process management\nModellazione e analisi delle prestazioni dei processi\nBusiness process reengineering\nWeb engineering\nSistemi cloud-based\nIngegneria dei requisiti e progettazione di sistemi software\nManutenzione ed evoluzione di sistemi software\nAnalisi e testing del software\nIngegneria del software empirica\nMetodi e strumenti per il lavoro collaborativo\nLinguaggi visuali e interazione uomo-macchina\nComputer graphics e realtà virtuale\nInterfacce web avanzate, immersive, 3D e aptiche\nDomotica e sistemi di videosorveglianza intelligenti.\nInterfacce per sistemi domotici\nRiconoscimento di immagini e sistemi biometrici\nComputational intelligence\nInformation retrieval\nTecniche di clustering e data mining, machine learning e classificazione\nSistemi informativi geografici e territoriali\nE-learning e tecnologie per la didattica a distanza\nModelli matematici e ottimizzazione\nModellazione ed analisi di prestazioni e affidabilità dei sistemi\nIl Dottore di Ricerca con curriculum in Informatica, Sistemi Informativi e Tecnologie del Software potrà avere diversi sbocchi professionali, che non si fermano a quello di ricercatore accademico o nei centri di ricerca di organizzazioni ed aziende. Infatti, grazie anche alle competenze acquisite con la formazione di tipo manageriale acquisita durante il corso di dottorato, il Dottore di Ricerca potrà ricoprire ruoli di consulente ed esperto di innovazione e trasferimento tecnologico per le aziende del comparto ICT, nonché ruoli di direzione di progetti di ricerca e funzioni direzionali in aziende del comparto ICT.', 'frtghtty678uyhtg'),
-('Marketing e Comunicazione', 'Il curriculum “Marketing e Comunicazione” mira a trasferire conoscenze e approcci metodologici relativi a principi, teorie e modelli di ideazione e governo delle strategie e delle politiche di marketing e della comunicazione. Il principale obiettivo è formare figure professionali dotate di una solida preparazione scientifica, teorica e pratica idonea ad operare nelle università, nei centri di ricerca, negli enti pubblici e nelle imprese private e pubbliche svolgendo attività di ricerca qualificata nelle seguenti aree disciplinari e professionali: marketing strategico e operativo, analisi di mercato e del consumo, comunicazione istituzionale e d''impresa.\n\nIl programma formativo si riferisce all’ambito disciplinare dell''Economia d''Impresa e prevede che i frequentanti, al termine del percorso di apprendimento, acquisiscano un uso agevole delle più avanzate ed affidabili metodologie di ricerca scientifica in campo economico-sociale, oltre ad un’approfondita conoscenza delle teorie e delle più recenti ed innovative impostazioni riguardo al marketing ed alla comunicazione.\n\nParticolare attenzione di studio viene rivolta all’area dei social media e della rete per supportare le scelte strategiche di marketing e di comunicazione delle organizzazioni imprenditoriali e delle istituzioni.\n\nLe tematiche scientifiche del curriculum includono:\n\nMarketing Strategy;\nCompetition dynamics;\nChannel management;\nSalesforce management;\nMarketing e performance aziendali;\nBehavioral Constructs;\nDecision making;\nConsumer judgment;\nCorporate Communication;\nCorporate identity;\nOrganizational culture;\nReputation management;\nIntegrated Marketing Communication;\nDigital communication;\nValue creation and innovation;\nOn-line reputation;\nWeb customer experience.\nIn definitiva, il Dottore di Ricerca con curriculum in Marketing e Comunicazione si potrà orientare professionalmente verso le seguenti figure: studioso ed esperto di marketing e comunicazione per lo sviluppo della ricerca scientifica, sia nel mondo accademico che più in generale nelle organizzazioni di ricerca; consulente professionale per le imprese pubbliche, private e per le istituzioni nel supportare i processi di marketing e di comunicazione; ricoprire funzioni direzionali all’interno delle organizzazioni imprenditoriali e delle istituzioni nel ruolo di sviluppo delle strategie di marketing e della comunicazione.', 'frtghtty678uyhtg');
 
 -- --------------------------------------------------------
 
@@ -465,8 +447,8 @@ CREATE TABLE IF NOT EXISTS `phdcycle` (
 --
 
 INSERT INTO `phdcycle` (`idPhdCycle`, `description`, `year`, `FK_Professor`) VALUES
-(15, 'Il corso di Dottorato di Ricerca in Management & Information Technology ha come obiettivo la formazione di specialisti della ricerca in ambito economico-aziendale ed informatico. Il corso è strutturato in tre curricula, denominati (i) Economia e Direzione delle Aziende Pubbliche, (i) Marketing e Comunicazione e (iii) Informatica, Sistemi Informativi e Tecnologie del Software. Attraverso i tre curricula, il corso di Dottorato intende formare figure professionali diverse, ma che riescano ad interagire per la soluzione di problemi complessi in ambito economico-aziendale, grazie all''utilizzo di tecnologie dell''informazione innovative e ad un approccio inter-disciplinare che favorisca la reciproca condivisione di idee e competenze. Il primo curriculum mira a formare specialisti nel settore del management di enti, istituzioni ed aziende afferenti al settore pubblico, con conoscenze relative a principi, teorie e modelli di gestione dei processi di innovazione nella Pubblica Amministrazione. Il secondo curriculum mira a formare specialisti in grado di utilizzare le più avanzate, innovative ed affidabili metodologie di ricerca scientifica in campo economico-sociale, con particolare riferimento al marketing ed alla comunicazione. Infine, il terzo curriculum mira a formare specialisti nel settore dell''Informatica, con conoscenza degli aspetti teorici, metodologici e sperimentali dei sistemi informativi, dell''ingegneria del software, dei dati e della conoscenza, dell''elaborazione di immagini e dell''interazione uomo-macchina, con applicazioni in particolare alla economia e alla gestione aziendale.\n\nIl completamento del Corso di Dottorato ed il superamento dell''esame finale consente per tutti e tre i curricula lo svolgimento di attività di ricerca in ambito accademico, nei settori dell''economia aziendale e dell''informatica, costituendo un titolo legalmente riconosciuto nei concorsi universitari, nonché in enti di ricerca e nelle divisioni ricerca e sviluppo di aziende. Inoltre, la qualità del percorso formativo e le competenze specialistiche acquisite consentono l''inserimento dei dottori di ricerca anche nel mondo del lavoro e delle professioni, nella Pubblica Amministrazione e nelle aziende.', 2014, 'frtghtty678uyhtg'),
-(16, 'dddd', 2014, 'frtghtty678uyhtg');
+(15, 'Il corso di Dottorato di Ricerca in Management & Information Technology ha come obiettivo la formazione di specialisti della ricerca in ambito economico-aziendale ed informatico. Il corso è strutturato in tre curricula, denominati (i) Economia e Direzione delle Aziende Pubbliche, (i) Marketing e Comunicazione e (iii) Informatica, Sistemi Informativi e Tecnologie del Software. Attraverso i tre curricula, il corso di Dottorato intende formare figure professionali diverse, ma che riescano ad interagire per la soluzione di problemi complessi in ambito economico-aziendale, grazie all''utilizzo di tecnologie dell''informazione innovative e ad un approccio inter-disciplinare che favorisca la reciproca condivisione di idee e competenze. Il primo curriculum mira a formare specialisti nel settore del management di enti, istituzioni ed aziende afferenti al settore pubblico, con conoscenze relative a principi, teorie e modelli di gestione dei processi di innovazione nella Pubblica Amministrazione. Il secondo curriculum mira a formare specialisti in grado di utilizzare le più avanzate, innovative ed affidabili metodologie di ricerca scientifica in campo economico-sociale, con particolare riferimento al marketing ed alla comunicazione. Infine, il terzo curriculum mira a formare specialisti nel settore dell''Informatica, con conoscenza degli aspetti teorici, metodologici e sperimentali dei sistemi informativi, dell''ingegneria del software, dei dati e della conoscenza, dell''elaborazione di immagini e dell''interazione uomo-macchina, con applicazioni in particolare alla economia e alla gestione aziendale.\r\n\r\nIl completamento del Corso di Dottorato ed il superamento dell''esame finale consente per tutti e tre i curricula lo svolgimento di attività di ricerca in ambito accademico, nei settori dell''economia aziendale e dell''informatica, costituendo un titolo legalmente riconosciuto nei concorsi universitari, nonché in enti di ricerca e nelle divisioni ricerca e sviluppo di aziende. Inoltre, la qualità del percorso formativo e le competenze specialistiche acquisite consentono l''inserimento dei dottori di ricerca anche nel mondo del lavoro e delle professioni, nella Pubblica Amministrazione e nelle aziende.', 2014, 'frtghtty678uyhtg'),
+(16, 'Il corso di Dottorato di Ricerca in Management & Information Technology ha come obiettivo la formazione di specialisti della ricerca in ambito economico-aziendale ed informatico. Il corso è strutturato in tre curricula, denominati (i) Economia e Direzione delle Aziende Pubbliche, (i) Marketing e Comunicazione e (iii) Informatica, Sistemi Informativi e Tecnologie del Software. Attraverso i tre curricula, il corso di Dottorato intende formare figure professionali diverse, ma che riescano ad interagire per la soluzione di problemi complessi in ambito economico-aziendale, grazie all''utilizzo di tecnologie dell''informazione innovative e ad un approccio inter-disciplinare che favorisca la reciproca condivisione di idee e competenze. Il primo curriculum mira a formare specialisti nel settore del management di enti, istituzioni ed aziende afferenti al settore pubblico, con conoscenze relative a principi, teorie e modelli di gestione dei processi di innovazione nella Pubblica Amministrazione. Il secondo curriculum mira a formare specialisti in grado di utilizzare le più avanzate, innovative ed affidabili metodologie di ricerca scientifica in campo economico-sociale, con particolare riferimento al marketing ed alla comunicazione. Infine, il terzo curriculum mira a formare specialisti nel settore dell''Informatica, con conoscenza degli aspetti teorici, metodologici e sperimentali dei sistemi informativi, dell''ingegneria del software, dei dati e della conoscenza, dell''elaborazione di immagini e dell''interazione uomo-macchina, con applicazioni in particolare alla economia e alla gestione aziendale.\n\nIl completamento del Corso di Dottorato ed il superamento dell''esame finale consente per tutti e tre i curricula lo svolgimento di attività di ricerca in ambito accademico, nei settori dell''economia aziendale e dell''informatica, costituendo un titolo legalmente riconosciuto nei concorsi universitari, nonché in enti di ricerca e nelle divisioni ricerca e sviluppo di aziende. Inoltre, la qualità del percorso formativo e le competenze specialistiche acquisite consentono l''inserimento dei dottori di ricerca anche nel mondo del lavoro e delle professioni, nella Pubblica Amministrazione e nelle aziende.', 2014, 'frtghtty678uyhtg');
 
 -- --------------------------------------------------------
 
@@ -479,13 +461,6 @@ CREATE TABLE IF NOT EXISTS `professor_phdcurriculum` (
   `FK_PhdCurriculum` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dump dei dati per la tabella `professor_phdcurriculum`
---
-
-INSERT INTO `professor_phdcurriculum` (`FK_Professor`, `FK_PhdCurriculum`) VALUES
-('quejdorp506jtugh', 'Marketing e Comunicazione');
-
 -- --------------------------------------------------------
 
 --
@@ -497,15 +472,6 @@ CREATE TABLE IF NOT EXISTS `professor_phdcycle` (
   `FK_PhdCycle` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dump dei dati per la tabella `professor_phdcycle`
---
-
-INSERT INTO `professor_phdcycle` (`FK_Professor`, `FK_PhdCycle`) VALUES
-('frtghtty678uyhtg', 15),
-('quejdorp506jtugh', 15),
-('frtghtty678uyhtg', 16);
-
 -- --------------------------------------------------------
 
 --
@@ -516,14 +482,6 @@ CREATE TABLE IF NOT EXISTS `professor_student` (
   `FK_Professor` varchar(16) NOT NULL,
   `FK_Student` varchar(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dump dei dati per la tabella `professor_student`
---
-
-INSERT INTO `professor_student` (`FK_Professor`, `FK_Student`) VALUES
-('quejdorp506jtugh', 'dfgt678ujgyt56yg'),
-('quejdorp506jtugh', 'kfurhdjtirjehdfg');
 
 -- --------------------------------------------------------
 
@@ -556,16 +514,7 @@ CREATE TABLE IF NOT EXISTS `publication` (
   `publicationIssue` varchar(45) NOT NULL,
   `numberPages` int(11) NOT NULL,
   `FK_Student` varchar(16) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
-
---
--- Dump dei dati per la tabella `publication`
---
-
-INSERT INTO `publication` (`idPublication`, `title`, `authors`, `abstract`, `file`, `year`, `type`, `publicationIssue`, `numberPages`, `FK_Student`) VALUES
-(3, 'a', 'a', 'a', NULL, '2014', 'a', 'a', 3, 'CTLGMM91A71B519A'),
-(4, 'b', 'b', 'g', NULL, '2015', 'g', 'g', 2, 'CTLGMM91A71B519A'),
-(5, 'a', 'a', ' w ', NULL, 'null', 'w', 'w', 2, 'CTLGMM91A71B519A');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -613,15 +562,6 @@ CREATE TABLE IF NOT EXISTS `student_phdclass` (
   `FK_Student` varchar(16) CHARACTER SET utf8 NOT NULL,
   `FK_PhdClass` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dump dei dati per la tabella `student_phdclass`
---
-
-INSERT INTO `student_phdclass` (`FK_Student`, `FK_PhdClass`) VALUES
-('dfgt678ujgyt56yg', 3),
-('CTLGMM91A71B519A', 4),
-('kfurhdjtirjehdfg', 4);
 
 -- --------------------------------------------------------
 
@@ -1028,7 +968,7 @@ MODIFY `id_pending_acceptance` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `phdclass`
 --
 ALTER TABLE `phdclass`
-MODIFY `idClass` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `idClass` int(20) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `prof_module_class`
 --
@@ -1038,7 +978,7 @@ MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `publication`
 --
 ALTER TABLE `publication`
-MODIFY `idPublication` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+MODIFY `idPublication` int(20) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `rejected_training_message`
 --
